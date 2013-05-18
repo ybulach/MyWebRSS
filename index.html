@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MyWebRSS</title>
+		<meta charset="utf-8"> 
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	
+	<body role="application">
+		<nav>
+			<!-- Header -->
+			<header>
+				<menu type="toolbar">
+					<a href="#addfeed"><span class="icon icon-add"></span></a>
+				</menu>
+				<h1>Menu</h1>
+			</header>
+			
+			<!-- Links -->
+			<div class="inner">
+				<ul>
+					<li><a href="#">Home (Unread articles)</a></li>
+					<li><a href="#settings">Settings</a></li>
+					<li><a href="#logout">Logout</a></li>
+				</ul>
+				
+				<h2>Feeds</h2>
+				<ul id="menu-feeds">
+					<li>Loading</li>
+				</ul>
+			</div>
+			
+			<!-- Footer -->
+			<div role="toolbar">
+				<ul class="end">
+					<li><button class="update" id="menu-refresh">update</button></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<section role="region" data-state="none">
+			<!-- Header -->
+			<header>
+				<button id="button-menu"><span class="icon icon-menu">menu</span></button>
+				<button id="button-back"><span class="icon icon-back">back</span></button>
+				<menu type="toolbar">
+					<button id="button-delete"><span class="icon icon-delete">delete</span></button>
+				</menu>
+				<h1 id="page-title">Loading</h1>
+			</header>
+			
+			<!-- Content -->
+			<div role="main">
+				<section id="page">Loading</section>
+				<p></p>
+			</div>
+			
+			<!-- Footer -->
+			<div role="toolbar">
+				<button class="previous" id="button-previous">previous</button>
+				<button class="next" id="button-next">next</button>
+				<ul class="end">
+					<li><button class="update" id="button-refresh">update</button></li>
+				</ul>
+			</div>
+		</section>
+		
+		<script data-main="js/app" src="js/lib/require.js"></script>
+	</body>
+</html>

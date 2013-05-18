@@ -1,0 +1,105 @@
+@import url(gaia/fonts.css);
+@import url(gaia/headers.css);
+@import url(gaia/toolbars.css);
+@import url(gaia/buttons.css);
+@import url(gaia/inputs.css);
+@import url(gaia/drawer.css);
+@import url(gaia/lists.css);
+
+html, body {
+	width: 100%;
+	height: 100%;
+	
+	margin: 0px;
+	padding: 0px;
+	
+	font-size: 10px;
+	background-color: white;
+	overflow-x: hidden;
+	
+	font-family: 'MozTTLight', Verdana, sans-serif;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+a {
+	color: #ff4e00;
+	font-weight: bold;
+}
+
+p {
+	padding: 1em;
+	font-size: 1.5em;
+}
+
+.list-item-large {
+	font-size: 1.5em;
+	padding: 1em;
+}
+
+section[role="region"] {
+	height: 100%;
+	font: 2.2rem/1em;
+	overflow: hidden;
+}
+
+div[role="main"] {
+	background: white no-repeat left top;
+	height: -moz-calc(100% - 5rem);
+	height: -webkit-calc(100% - 5rem);
+	
+	overflow-y: auto;
+}
+div[role="main"] > p {
+	margin: 2rem 2.5rem;
+}
+div[role="main"] h1 {
+	padding: 2rem 2.5rem 0 2.5rem;
+	font-size: 2.5rem;
+}
+
+#page-image {
+	text-align: center;
+}
+
+/* FIX toolbar button bug on click */
+[role="toolbar"] button:active {
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+/* FIX: drawer li */
+[role="application"] nav .inner ul li {
+	border: 0;
+}
+
+/* ADD new icons */
+section[role="region"] > header:first-child .icon.icon-delete {
+	background-image: url(images/icons/delete.png);
+}
+
+[role="toolbar"] .previous {
+	background-image: url(images/icons/previous.png);
+}
+[role="toolbar"] .previous:disabled {
+	background-image: url(images/icons/previous-disabled.png);
+}
+[role="toolbar"] .next {
+	background-image: url(images/icons/next.png);
+}
+[role="toolbar"] .next:disabled {
+	background-image: url(images/icons/next-disabled.png);
+}
+
+/* ADD new list style */
+body[role="application"] li[data-state="new"] .aside, body[role="application"] li[data-state="new"] a {
+	color: #52b6cc !important;
+}
+
+body[role="application"] li .aside {
+  width: 10rem;
+  text-align: left;
+}

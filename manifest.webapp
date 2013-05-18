@@ -1,0 +1,14 @@
+{
+  "name": "MyWebRSS",
+  "description": "Free web RSS reader",
+  "launch_path": "/index.html",
+  "icons": {
+    "32": "/images/icon-32.png",
+    "128": "/images/icon-128.png"
+  },
+  "developer": {
+    "name": "Yamine B.",
+    "url": "http://www.yamine-bulach.eu"
+  },
+  "default_locale": "en"
+}
