@@ -3,8 +3,8 @@
   "description": "Free web RSS reader",
   "launch_path": "/index.html",
   "icons": {
-    "32": "/images/icon-32.png",
-    "128": "/images/icon-128.png"
+    "32": "/css/images/icon-32.png",
+    "128": "/css/images/icon-128.png"
   },
   "developer": {
     "name": "Yamine B.",

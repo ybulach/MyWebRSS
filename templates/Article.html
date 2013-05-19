@@ -1,5 +1,13 @@
 <h1><%= title %></h1>
-<p><b>Article date</b>: <%= date %></p>
-<p><img src="<%= image %>" alt=""/></p>
-<p><%= description %></p>
-<p><a href="<%= url %>">Link</a></p>
+<% if(date.length > 0) { %>
+	<p><b>Article date</b>: <time><%= date %></time></p>
+<% } %>
+<% if(image.length > 0) { %>
+	<p><img src="<%= image %>" alt=""/></p>
+<% } %>
+<% if(description.length > 0) { %>
+	<p><%= description %></p>
+<% } %>
+<% if(url.length > 0) { %>
+	<p><a href="<%= url %>">Link</a></p>
+<% } %>

@@ -48,8 +48,9 @@ section[role="region"] {
 
 div[role="main"] {
 	background: white no-repeat left top;
-	height: -moz-calc(100% - 5rem);
-	height: -webkit-calc(100% - 5rem);
+	/*height: -moz-calc(100% - 5rem);
+	height: -webkit-calc(100% - 5rem);*/
+	height: 100%;
 	
 	overflow-y: auto;
 }

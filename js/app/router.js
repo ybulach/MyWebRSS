@@ -3,8 +3,8 @@
 
 define([
 	'backbone',
-	'views/Home', 'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Signin', 'views/Article', 'views/Menu'
-], function(Backbone, HomeView, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, SigninView, ArticleView, MenuView) {
+	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Signin', 'views/Article', 'views/Menu'
+], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, SigninView, ArticleView, MenuView) {
 	// Create a new view
 	function createView(View) {
 		// Hide buttons and delete all events
@@ -12,10 +12,12 @@ define([
 		$("[role=region] button:not(#button-menu)").unbind('click');
 		
 		$("#page-title").html("Loading");
-		$("#page").html("Loading");
+		$("#page").empty();
+		$("#page").html("<h1>Loading</h1>");
 		
 		var view = new View();
 		view.render();
+		return view;
 	}
 	
 	var AppRouter = Backbone.Router.extend({
@@ -59,15 +61,18 @@ define([
 		},
 		
 		showFeed: function(id) {
-			createView(FeedView);
+			var view = createView(FeedView);
+			view.loadFeed(id);
 		},
 		
 		showArticle: function(id) {
-			createView(ArticleView);
+			var view = createView(ArticleView);
+			view.loadArticle(id);
 		},
 		
-		showHome: function(actions) {
-			createView(HomeView);
+		showHome: function() {
+			var view = createView(FeedView);
+			view.loadFeed(0);
 		}
 	});
 	

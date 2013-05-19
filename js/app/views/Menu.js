@@ -23,14 +23,6 @@ define([
 				flush_menu();
 			});
 			
-			$("nav > div.inner > ul > li > a").click(function() {
-				$("[role=region]").attr("data-state", "none");
-			});
-			
-			$("nav > header > menu > a").click(function() {
-				$("[role=region]").attr("data-state", "none");
-			});
-			
 			// Refresh the list of feeds
 			var view = this;
 			$("#menu-refresh").click(function() {
@@ -39,7 +31,6 @@ define([
 			
 			// Get the content of the menu (list of the feeds) and display it
 			this.refresh_feeds();
-			this.render();
 		},
 		
 		render: function() {
@@ -47,8 +38,17 @@ define([
 			
 			// Display the feeds list
 			if(this.collection)
-				content = _.template(MenuTemplate, {feeds: this.collection.toJSON()});
+				content = _.template(this.template, {feeds: this.collection.toJSON()});
 			this.$el.html(content);
+			
+			// Hide the menu
+			$("nav > div.inner > ul > li > a").click(function() {
+				$("[role=region]").attr("data-state", "none");
+			});
+			
+			$("nav > header > menu > a").click(function() {
+				$("[role=region]").attr("data-state", "none");
+			});
 		},
 		
 		setCollection: function(feeds) {
@@ -87,7 +87,7 @@ define([
 				// Create a new FeedsCollection
 				var collection = new FeedsCollection();
 				
-				$.each(data, function(id, feed) {
+				$(data.result).each(function(id, feed) {
 					collection.add(new FeedModel(feed));
 				});
 				
