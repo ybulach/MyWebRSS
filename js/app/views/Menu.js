@@ -23,6 +23,13 @@ define([
 				flush_menu();
 			});
 			
+			$("[role='main']").click(function(event) {
+				if($("[role=region]").attr("data-state") == "drawer") {
+					event.preventDefault();
+					$("[role=region]").attr("data-state", "none");
+				}
+			});
+			
 			// Refresh the list of feeds
 			var view = this;
 			$("#menu-refresh").click(function() {

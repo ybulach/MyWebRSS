@@ -83,6 +83,9 @@ define([
 					$("#button-next").removeAttr("disabled", "");
 				}
 			}
+			
+			// Open the links in the browser
+			$("#page a").attr("target", "_blank");
 		},
 		
 		loadArticle: function(id) {
