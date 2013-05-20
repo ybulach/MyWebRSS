@@ -1,7 +1,7 @@
 // Filename: AddFeedView.js
 
 define([
-	'backbone', 'text!templates/AddFeed'
+	'backbone', 'text!templates/AddFeed.html'
 ], function(Backbone, AddFeedTemplate) {
 	var AddFeedView = Backbone.View.extend({
 		el: $("#page"),
