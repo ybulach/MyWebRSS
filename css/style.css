@@ -100,6 +100,15 @@ body[role="application"] li[data-state="new"] .aside, body[role="application"] l
 	color: #52b6cc !important;
 }
 
+/* FIX the lists */
+body[role="application"] ul, body[role="application"] ol {
+	margin-bottom: 2.5em;
+}
+
+body[role="application"] li {
+	font-size: 1.5rem;
+}
+
 body[role="application"] li .aside {
   width: 10rem;
   text-align: left;

@@ -1,6 +1,35 @@
 /* ----------------------------------
  * HEADERS: default
  * ---------------------------------- */
+
+body[role="application"] section[role="region"] > header {
+  margin-left: -1.6rem;
+}
+
+body[role="application"] section[role="region"] > header > button,
+body[role="application"] section[role="region"] > header > a {
+  width: 6rem;
+}
+
+body[role="application"] section[role="region"] > header > a .icon.icon-menu,
+body[role="application"] section[role="region"] > header > button .icon.icon-menu {
+  background-position: center center;
+}
+
+body[role="application"] section[role="region"] > header > button .icon:after,
+body[role="application"] section[role="region"] > header > a .icon:after {
+  width: 4rem;
+}
+
+body[role="application"] section[role="region"] > header > button,
+body[role="application"] section[role="region"] > header > a {
+  background-position: 4rem center;
+}
+
+body[role="application"] section[role="region"] > header h1 {
+  margin-left: 5rem;
+}
+
 section[role="region"] > header:first-child {
   position: relative;
   z-index: 10;
