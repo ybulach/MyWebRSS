@@ -47,7 +47,7 @@ define([
 					$("#menu-refresh").click();
 					
 					// Redirect to Home
-					window.location = "./";
+					window.location = "index.html";
 				});
 			});
 		}

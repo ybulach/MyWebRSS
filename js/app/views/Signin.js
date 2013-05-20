@@ -10,7 +10,7 @@ define([
 			// Redirect to home page if we are already connected
 			if($.localStorage("token")) {
 				alert("You are already connected. Redirecting to Home page.");
-				window.location = "./";
+				window.location = "index.html";
 			}
 			
 			// Hide the menu
@@ -51,7 +51,7 @@ define([
 					
 					// Add the token and redirect to Home
 					$.localStorage('token', data.token);
-					window.location = "./";
+					window.location = "index.html";
 				});
 			});
 		},

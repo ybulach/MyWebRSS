@@ -43,7 +43,7 @@ define([
 					
 					// Delete the token and redirect to Home
 					$.localStorage('token', null);
-					window.location = "./";
+					window.location = "index.html";
 				});
 			});
 		},
