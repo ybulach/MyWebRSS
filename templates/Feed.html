@@ -6,6 +6,10 @@
 					<dt><%= article.title %></dt>
 					<dd>
 						<time><%= article.date %></time>
+						
+						<% if(article.feed) { %>
+							- <%= article.feed %>
+						<% } %>
 					</dd>
 				</dl>
 			</a>

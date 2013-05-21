@@ -1,19 +1,18 @@
 <h1><%= title %></h1>
 <p>
 	<% if(feed) { %>
-		<%= feed %><br/>
+		<b>Feed</b>: <%= feed %> - 
 	<% } %>
 	
-	<% if(date.length > 0) { %>
-		<b>Article date</b>: <time><%= date %></time>
-	<% } %>
+	<b>Article date</b>: <time><%= date %></time>
 </p>
-<% if(image.length > 0) { %>
+
+<% if(image) { %>
 	<p><img src="<%= image %>" alt=""/></p>
 <% } %>
-<% if(description.length > 0) { %>
-	<p><%= description %></p>
-<% } %>
-<% if(url.length > 0) { %>
+
+<p><%= description %></p>
+
+<% if(url) { %>
 	<p><a href="<%= url %>" target="_blank">Link</a></p>
 <% } %>

@@ -28,6 +28,11 @@ define([
 			if(typeof(articles) != "object")
 				return;
 			
+			articles.each(function(article) {
+				if(article.attributes.feed)
+					article.attributes.feed = $("a[href='#feed/" + article.attributes.feed + "']").html();
+			});
+			
 			delete this.collection;
 			this.collection = articles;
 			this.render();
