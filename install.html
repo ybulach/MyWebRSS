@@ -1,0 +1,15 @@
+<html>
+	<body>
+		<p>MyWebRSS installation page</p>
+		<script>
+			var manifestUrl = 'http://html5.mywebrss.net/manifest.webapp';
+			var req = navigator.mozApps.install(manifestUrl);
+			req.onsuccess = function() {
+				alert("Success: " + this.result.origin);
+			};
+			req.onerror = function() {
+				alert("Error: " + this.error.name);
+			};
+		</script>
+	</body>
+</html>
