@@ -48,6 +48,8 @@ define([
 				content = _.template(this.template, {feeds: this.collection.toJSON()});
 			this.$el.html(content);
 			
+			$("#menu-refresh").show();
+			
 			// Hide the menu
 			$("nav > div.inner > ul > li > a").click(function() {
 				$("[role=region]").attr("data-state", "none");
@@ -70,6 +72,9 @@ define([
 		refresh_feeds: function() {
 			if(!$.localStorage("token"))
 				return;
+			
+			this.$el.html("<li>Loading</li>");
+			$("#menu-refresh").hide();
 			
 			// Get the list of feeds
 			var view = this;

@@ -5,7 +5,7 @@ define([
 	'backbone', 'app/router'
 ], function(Backbone, Router) {
 	var initialize = function() {
-		window.mywebrss = "http://localhost/mywebrss/api";
+		window.mywebrss = "https://api.mywebrss.net";
 		
 		// Create the Router
 		Router.initialize();

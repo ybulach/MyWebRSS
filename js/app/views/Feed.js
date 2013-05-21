@@ -41,11 +41,14 @@ define([
 		render: function() {
 			// Change the content
 			if(this.feed)
-				$("#page-title").html($("a[href='#feed/"+this.feed+"']").html());
+				$("#page-title").html($("a[href='#feed/" + this.feed + "']").html());
 			else if(this.feed === 0)
 				$("#page-title").html($("a[href='#']").html());
-			else
+			
+			if(!$("#page-title").html())
 				$("#page-title").html("Loading");
+			
+			$("#button-refresh").show();
 			
 			var content = "<ul><li><dl><dt>Loading</dt></dl></li></ul>";
 			if(this.collection)
@@ -80,6 +83,9 @@ define([
 		refresh_articles: function() {
 			if(!$.localStorage("token"))
 				return;
+			
+			$("#page-title").html("Loading");
+			$("#button-refresh").hide();
 			
 			// Get the list of articles
 			var view = this;

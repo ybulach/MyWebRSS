@@ -53,8 +53,13 @@ define([
 			// Change the content
 			if($.localStorage("feed"))
 				$("#page-title").html($("a[href='#feed/" + $.localStorage("feed") + "']").html());
-			else
+			else if($.localStorage("feed") === 0)
 				$("#page-title").html($("a[href='#']").html());
+			
+			if(!$("#page-title").html())
+				$("#page-title").html("Loading");
+			
+			$("#button-refresh").show();
 			
 			var content = "<h1>Loading</h1>";
 			if(this.model)
@@ -99,6 +104,9 @@ define([
 		refresh_article: function() {
 			if(!$.localStorage("token"))
 				return;
+			
+			$("#page-title").html("Loading");
+			$("#button-refresh").hide();
 			
 			// Get the article
 			var view = this;
