@@ -38,6 +38,9 @@ define([
 			if(typeof(article) != "object")
 				return;
 			
+			if(article.attributes.feed)
+				article.attributes.feed = $("a[href='#feed/" + article.attributes.feed + "']").html();
+			
 			delete this.model;
 			this.model = article;
 			this.render();

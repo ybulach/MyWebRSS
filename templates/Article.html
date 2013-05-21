@@ -1,7 +1,13 @@
 <h1><%= title %></h1>
-<% if(date.length > 0) { %>
-	<p><b>Article date</b>: <time><%= date %></time></p>
-<% } %>
+<p>
+	<% if(feed) { %>
+		<%= feed %><br/>
+	<% } %>
+	
+	<% if(date.length > 0) { %>
+		<b>Article date</b>: <time><%= date %></time>
+	<% } %>
+</p>
 <% if(image.length > 0) { %>
 	<p><img src="<%= image %>" alt=""/></p>
 <% } %>

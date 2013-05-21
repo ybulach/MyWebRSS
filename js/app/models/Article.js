@@ -6,6 +6,7 @@ define([
 	var ArticleModel = Backbone.Model.extend({
 		defaults: {
 			id: 0,
+			feed: 0,
 			title: "Default",
 			description: "Default Article",
 			url: "http://",
