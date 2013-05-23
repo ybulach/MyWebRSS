@@ -53,7 +53,7 @@ define([
 					},
 					error: function() {
 						alert("Can't contact the server");
-						$("#button-mark").show();
+						view.render();
 					}
 				});
 			});
@@ -157,7 +157,7 @@ define([
 				},
 				error: function() {
 					alert("Can't contact the server");
-					$("#button-refresh").show();
+					view.render();
 				}
 			});
 		}

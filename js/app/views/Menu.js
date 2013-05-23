@@ -111,7 +111,7 @@ define([
 				},
 				error: function() {
 					alert("Can't contact the server");
-					$("#menu-refresh").show();
+					view.render();
 				}
 			});
 		}
