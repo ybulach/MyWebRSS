@@ -16,11 +16,46 @@ define([
 			// Show the buttons
 			$("#button-menu").show();
 			$("#button-refresh").show();
+			$("#button-mark").show();
 			
 			// Refresh the list of articles
 			var view = this;
 			$("#button-refresh").click(function() {
 				view.refresh_articles();
+			});
+			
+			// Mark as read
+			$("#button-mark").click(function() {
+				$("#page-title").html("Loading");
+				$("#button-mark").hide();
+				
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/feed/unread",
+					data: {token: $.localStorage("token"), feed: view.feed},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							// Wrong token
+							if(data.error == "token") {
+								$.localStorage("token", null);
+								window.location = "#login";
+							}
+							// Unknown error
+							else
+								alert(data.error);
+							
+							return;
+						}
+						
+						// Refresh
+						view.refresh_articles();
+					},
+					error: function() {
+						alert("Can't contact the server");
+						$("#button-mark").show();
+					}
+				});
 			});
 		},
 		
@@ -49,6 +84,7 @@ define([
 				$("#page-title").html("Loading");
 			
 			$("#button-refresh").show();
+			$("#button-mark").show();
 			
 			var content = "<ul><li><dl><dt>Loading</dt></dl></li></ul>";
 			if(this.collection)
@@ -89,31 +125,40 @@ define([
 			
 			// Get the list of articles
 			var view = this;
-			$.getJSON(window.mywebrss + "/feed/show", {token: $.localStorage("token"), feed: view.feed}, function(data) {
-				// Check error
-				if(!data.success) {
-					// Wrong token
-					if(data.error == "token") {
-						$.localStorage("token", null);
-						window.location = "#login";
+			$.ajax({
+				dataType: "json",
+				url: window.mywebrss + "/feed/show",
+				data: {token: $.localStorage("token"), feed: view.feed},
+				success: function(data) {
+					// Check error
+					if(!data.success) {
+						// Wrong token
+						if(data.error == "token") {
+							$.localStorage("token", null);
+							window.location = "#login";
+						}
+						// Unknown error
+						else
+							alert(data.error);
+						
+						return;
 					}
-					// Unknown error
-					else
-						alert(data.error);
 					
-					return;
+					// Delete datas we don't need
+					delete data.success, delete data.error;
+					
+					// Create a new ArticlesCollection
+					var collection = new ArticlesCollection();
+					$(data.result).each(function(id, article) {
+						collection.add(new ArticleModel(article));
+					});
+					
+					view.setCollection(collection);
+				},
+				error: function() {
+					alert("Can't contact the server");
+					$("#button-refresh").show();
 				}
-				
-				// Delete datas we don't need
-				delete data.success, delete data.error;
-				
-				// Create a new ArticlesCollection
-				var collection = new ArticlesCollection();
-				$(data.result).each(function(id, article) {
-					collection.add(new ArticleModel(article));
-				});
-				
-				view.setCollection(collection);
 			});
 		}
 	});

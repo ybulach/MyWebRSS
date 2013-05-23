@@ -23,31 +23,39 @@ define([
 			
 			$("#addfeed-submit").click(function() {
 				var view = this;
-				$.getJSON(window.mywebrss + "/feed/add", {token: $.localStorage("token"), feed: $("#addfeed-url").val()}, function(data) {
-					// Check error
-					if(!data.success) {
-						// Wrong token
-						if(data.error == "token") {
-							$.localStorage("token", null);
-							window.location = "#login";
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/feed/add",
+					data: {token: $.localStorage("token"), feed: $("#addfeed-url").val()},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							// Wrong token
+							if(data.error == "token") {
+								$.localStorage("token", null);
+								window.location = "#login";
+							}
+							else if(data.error == "feed")
+								alert("Wrong feed URL");
+							// Unknown error
+							else
+								alert(data.error);
+							
+							return;
 						}
-						else if(data.error == "feed")
-							alert("Wrong feed URL");
-						// Unknown error
-						else
-							alert(data.error);
 						
-						return;
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+						
+						// Force feeds list reload
+						$("#menu-refresh").click();
+						
+						// Redirect to Home
+						window.location = "index.html";
+					},
+					error: function() {
+						alert("Can't contact the server");
 					}
-					
-					// Delete datas we don't need
-					delete data.success, delete data.error;
-					
-					// Force feeds list reload
-					$("#menu-refresh").click();
-					
-					// Redirect to Home
-					window.location = "index.html";
 				});
 			});
 		}

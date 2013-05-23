@@ -23,31 +23,39 @@ define([
 			
 			$("#login-submit").click(function() {
 				var view = this;
-				$.getJSON(window.mywebrss + "/user/login", {email: $("#login-email").val(), password: $("#login-password").val()}, function(data) {
-					// Check error
-					if(!data.success) {
-						// Wrong email
-						if(data.error == "email") {
-							alert("Bad email address");
-							$("#login-email").focus();
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/user/login",
+					data: {email: $("#login-email").val(), password: $("#login-password").val()},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							// Wrong email
+							if(data.error == "email") {
+								alert("Bad email address");
+								$("#login-email").focus();
+							}
+							else if(data.error == "password") {
+								alert("Bad password");
+								$("#login-password").focus();
+							}
+							// Unknown error
+							else
+								alert(data.error);
+							
+							return;
 						}
-						else if(data.error == "password") {
-							alert("Bad password");
-							$("#login-password").focus();
-						}
-						// Unknown error
-						else
-							alert(data.error);
 						
-						return;
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+						
+						// Add the token and redirect to Home
+						$.localStorage('token', data.token);
+						window.location = "index.html";
+					},
+					error: function() {
+						alert("Can't contact the server");
 					}
-					
-					// Delete datas we don't need
-					delete data.success, delete data.error;
-					
-					// Add the token and redirect to Home
-					$.localStorage('token', data.token);
-					window.location = "index.html";
 				});
 			});
 		},

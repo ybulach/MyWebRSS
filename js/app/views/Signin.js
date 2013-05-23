@@ -23,35 +23,43 @@ define([
 			
 			$("#signin-submit").click(function() {
 				var view = this;
-				$.getJSON(window.mywebrss + "/user/signin", {email: $("#signin-email").val(), password: $("#signin-password").val(), confirm_password: $("#signin-password-confirm").val()}, function(data) {
-					// Check error
-					if(!data.success) {
-						// Wrong email
-						if(data.error == "email") {
-							alert("Bad email address");
-							$("#signin-email").focus();
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/user/signin",
+					data: {email: $("#signin-email").val(), password: $("#signin-password").val(), confirm_password: $("#signin-password-confirm").val()},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							// Wrong email
+							if(data.error == "email") {
+								alert("Bad email address");
+								$("#signin-email").focus();
+							}
+							else if(data.error == "password") {
+								alert("Bad password");
+								$("#signin-password").focus();
+							}
+							else if(data.error == "confirm_password") {
+								alert("Password are differents");
+								$("#signin-password-confirm").focus();
+							}
+							// Unknown error
+							else
+								alert(data.error);
+							
+							return;
 						}
-						else if(data.error == "password") {
-							alert("Bad password");
-							$("#signin-password").focus();
-						}
-						else if(data.error == "confirm_password") {
-							alert("Password are differents");
-							$("#signin-password-confirm").focus();
-						}
-						// Unknown error
-						else
-							alert(data.error);
 						
-						return;
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+						
+						// Add the token and redirect to Home
+						$.localStorage('token', data.token);
+						window.location = "index.html";
+					},
+					error: function() {
+						alert("Can't contact the server");
 					}
-					
-					// Delete datas we don't need
-					delete data.success, delete data.error;
-					
-					// Add the token and redirect to Home
-					$.localStorage('token', data.token);
-					window.location = "index.html";
 				});
 			});
 		},

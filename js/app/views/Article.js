@@ -110,29 +110,38 @@ define([
 			
 			// Get the article
 			var view = this;
-			$.getJSON(window.mywebrss + "/article/show", {token: $.localStorage("token"), article: view.article}, function(data) {
-				// Check error
-				if(!data.success) {
-					// Wrong token
-					if(data.error == "token") {
-						$.localStorage("token", null);
-						window.location = "#login";
+			$.ajax({
+				dataType: "json",
+				url: window.mywebrss + "/article/show",
+				data: {token: $.localStorage("token"), article: view.article},
+				success: function(data) {
+					// Check error
+					if(!data.success) {
+						// Wrong token
+						if(data.error == "token") {
+							$.localStorage("token", null);
+							window.location = "#login";
+						}
+						// Unknown error
+						else
+							alert(data.error);
+						
+						return;
 					}
-					// Unknown error
-					else
-						alert(data.error);
 					
-					return;
+					// Delete datas we don't need
+					delete data.success, delete data.error;
+					
+					// Create a new ArticleModel
+					if(data.result)
+						view.setModel(new ArticleModel(data.result));
+					else
+						alert("Can't get the article content. Try again later");
+				},
+				error: function() {
+					alert("Can't contact the server");
+					$("#button-refresh").show();
 				}
-				
-				// Delete datas we don't need
-				delete data.success, delete data.error;
-				
-				// Create a new ArticleModel
-				if(data.result)
-					view.setModel(new ArticleModel(data.result));
-				else
-					alert("Can't get the article content. Try again later");
 			});
 		}
 	});
