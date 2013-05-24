@@ -6,6 +6,7 @@ define([
 ], function(Backbone, Router) {
 	var initialize = function() {
 		window.mywebrss = "https://api.mywebrss.net";
+		$.localStorage("autorefresh_cnt", 0);
 		
 		// Create the Router
 		Router.initialize();

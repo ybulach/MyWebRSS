@@ -71,6 +71,22 @@ define([
 			delete this.collection;
 			this.collection = articles;
 			this.render();
+			
+			// Auto-refresh
+			if(!$.localStorage("autorefresh_cnt") && (this.feed || (this.feed === 0)))
+				this.autorefresh();
+		},
+		
+		autorefresh: function() {
+			if((this.feed || (this.feed === 0)) && $.localStorage("autorefresh")) {
+				var view = this;
+				var refresh = setTimeout(function() {
+					view.refresh_articles();
+					view.autorefresh();
+				}, 60*1000);
+				
+				$.localStorage("autorefresh_cnt", refresh);
+			}
 		},
 		
 		render: function() {
@@ -99,6 +115,7 @@ define([
 			
 			this.$el.html(content);
 			
+			// Save feed infos for later
 			var view = this;
 			$("#page a").click(function(event) {
 				//event.preventDefault();
@@ -106,6 +123,10 @@ define([
 				// Save datas
 				$.localStorage("feed", view.feed);
 				$.localStorage("collection", view.collection);
+				
+				// Auto-refresh
+				if($.localStorage("autorefresh_cnt"))
+					clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
 			});
 		},
 		

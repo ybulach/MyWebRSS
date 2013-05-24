@@ -5,6 +5,7 @@
 @import url(gaia/inputs.css);
 @import url(gaia/drawer.css);
 @import url(gaia/lists.css);
+@import url(gaia/switches.css);
 
 html, body {
 	width: 100%;

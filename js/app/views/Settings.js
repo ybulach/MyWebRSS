@@ -16,6 +16,18 @@ define([
 		render: function(){
 			$("#page-title").html("Settings");
 			$("#page").html(_.template(this.template));
+			
+			// Auto-refresh
+			$("#check-autorefresh").prop("checked", $.localStorage("autorefresh"));
+			
+			$("#check-autorefresh").click(function() {
+				$.localStorage("autorefresh", $("#check-autorefresh").is(":checked"));
+			});
+			
+			// Change password
+			$("#settings-password").click(function() {
+				alert("Not yet implemented");
+			});
 		}
 	});
 	
