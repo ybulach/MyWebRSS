@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1.0 - 26-05-2013 15:07
+# v1.0 - 02-06-2013 22:27
 
 # HTML Cache
 index.html
@@ -28,6 +28,8 @@ css/gaia/fonts.css
 css/gaia/headers.css
 css/gaia/inputs.css
 css/gaia/lists.css
+css/gaia/responsive.css
+css/gaia/switches.css
 css/gaia/toolbars.css
 
 # Images Cache
@@ -67,6 +69,8 @@ css/images/ui/buttons/danger-press.png
 css/images/ui/buttons/default.png
 css/images/ui/buttons/disabled.png
 css/images/ui/buttons/recommend.png
+css/images/ui/check/default.png
+css/images/ui/check/negative.png
 css/images/ui/drawer/header.png
 css/images/ui/drawer/pattern.png
 css/images/ui/drawer/pattern-subheader.png
@@ -97,6 +101,11 @@ css/images/ui/inputs/separator.png
 css/images/ui/inputs/shadow.png
 css/images/ui/inputs/shadow-invert.png
 css/images/ui/inputs/shadow-search.png
+css/images/ui/radio/default.png
+css/images/ui/radio/negative.png
+css/images/ui/switch/background.png
+css/images/ui/switch/handler.png
+css/images/ui/switch/icon.png
 
 # JS Cache
 js/app.js
