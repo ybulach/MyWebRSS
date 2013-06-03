@@ -16,28 +16,32 @@ define([
 		el: $("#menu-feeds"),
 		
 		initialize: function() {
-			this.template = MenuTemplate;
-			
-			// Show or hide the menu
-			$("#button-menu").click(function() {
-				flush_menu();
-			});
-			
-			$("[role='main']").click(function(event) {
-				if($("[role=region]").attr("data-state") == "drawer") {
-					event.preventDefault();
-					$("[role=region]").attr("data-state", "none");
-				}
-			});
-			
-			// Refresh the list of feeds
-			var view = this;
-			$("#menu-refresh").click(function() {
-				view.refresh_feeds();
-			});
-			
-			// Get the content of the menu (list of the feeds) and display it
-			this.refresh_feeds();
+			if($.localStorage("token")) {
+				this.template = MenuTemplate;
+				
+				// Show or hide the menu
+				$("#button-menu").click(function() {
+					flush_menu();
+				});
+				
+				$("[role='main']").click(function(event) {
+					if($("[role=region]").attr("data-state") == "drawer") {
+						event.preventDefault();
+						$("[role=region]").attr("data-state", "none");
+					}
+				});
+				
+				// Refresh the list of feeds
+				var view = this;
+				$("#menu-refresh").click(function() {
+					view.refresh_feeds();
+				});
+				
+				// Get the content of the menu (list of the feeds) and display it
+				this.refresh_feeds();
+			}
+			else
+				$("nav").html("");
 		},
 		
 		render: function() {
