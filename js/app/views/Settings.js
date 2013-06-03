@@ -57,12 +57,8 @@ define([
 							return;
 						}
 						
-						// Delete datas we don't need
-						delete data.success, delete data.error;
-						
-						// Add the token and redirect to Home
-						$.localStorage('token', data.token);
-						window.location = "index.html";
+						alert("Password changed with success");
+						window.location = "#settings";
 					},
 					error: function() {
 						alert("Can't contact the server");
