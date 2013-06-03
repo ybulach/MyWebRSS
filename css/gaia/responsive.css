@@ -3,19 +3,15 @@
   --
   Supported devices:
     * 480x800
-  --
-  UA default font size 16px.
-  62.5% = 10px (base device)
-  62.5% * 1.5 (dppx) = ~94% (93.75%)
 */
-/*Portrait*/
+/* Portrait */
 @media all and (min-device-width: 480px) and (max-device-width: 540px) and (max-device-aspect-ratio: 1/1) {
-  html { font-size: 94%!important; }
+	html { font-size: 94%!important; }
 }
 
-/*Landscape*/
+/* Landscape */
 @media all and (min-device-width: 800px) and (max-device-width: 960px) and (min-device-aspect-ratio: 1/1) {
-  html { font-size: 94%!important; }
+	html { font-size: 94%!important; }
 }
 
 /*
@@ -23,18 +19,67 @@
   --
   Supported devices:
     * Geeksphone Peak: 540x960
-  --
-  UA default font size 16px.
-  100% = 16px
-  62.5% = 10px (base device)
-  62.5% * 1.6875 (dppx) = ~105% (105,46875%)
 */
-/*Portrait*/
-@media all and (min-device-width: 541px) and (max-device-width: 720px) and (max-device-aspect-ratio: 1/1) {
-  html { font-size: 105%!important; }
+/* Portrait */
+@media all and (min-device-width: 540px) and (max-device-width: 720px) and (max-device-aspect-ratio: 1/1) {
+	html { font-size: 100%!important; }
 }
 
-/*Landscape*/
-@media all and (min-device-width: 961px) and (max-device-width: 1280px) and (min-device-aspect-ratio: 1/1) {
-  html { font-size: 105%!important; }
+/* Landscape */
+@media all and (min-device-width: 960px) and (max-device-width: 1280px) and (min-device-aspect-ratio: 1/1) {
+	html { font-size: 100%!important; }
+}
+
+/*
+  Responsive design, for Desktop
+  --
+  Landscape
+*/
+@media all and (min-width: 720px) and (min-device-aspect-ratio: 1/1) {
+	body[role="application"] section[role="region"][data-state="drawer"] {
+		transform: none;
+		-webkit-transform: none;
+	}
+	
+	body[role="application"] > nav {
+		width: 20%;
+	}
+	
+	body[role="application"] > section[role="region"] {
+		width: -moz-calc(80%);
+		width: -webkit-calc(80%);
+		
+		margin-left: 20%;
+	}
+	
+	body[role="application"] > section[role="region"] [role="toolbar"] {
+		width: 80%;
+		margin-left: 20%;
+	}
+}
+
+/*
+  Responsive design, for Mobile
+*/
+@media all and (max-width: 720px) {
+	body[role="application"] section[role="region"][data-state="drawer"] {
+		transform: translateX(80%);
+		-webkit-transform: translateX(80%);	/* Chrome and Safari */
+	}
+	
+	body[role="application"] > nav {
+		width: 80%;
+	}
+	
+	body[role="application"] > section[role="region"] {
+		width: -moz-calc(100%);
+		width: -webkit-calc(100%);
+		
+		margin-left: 0;
+	}
+	
+	body[role="application"] > section[role="region"] [role="toolbar"] {
+		width: 100%;
+		margin-left: 0;
+	}
 }

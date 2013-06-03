@@ -2,10 +2,6 @@
  * HEADERS: default
  * ---------------------------------- */
 
-body[role="application"] section[role="region"] > header {
-  margin-left: -1.6rem;
-}
-
 body[role="application"] section[role="region"] > header > button,
 body[role="application"] section[role="region"] > header > a {
   width: 6rem;

@@ -2,15 +2,9 @@
 * DRAWERS
 * ---------------------------------- */
 
-body[role="application"] section[role="region"][data-state="drawer"] {
-  transform: translateX(80%);
-  -webkit-transform: translateX(80%);	/* Chrome and Safari */
-}
-
 body[role="application"] > nav { 
   position: absolute;
-  width: 80%;
-  background: url(../images/ui/drawer/pattern.png) repeat;
+   background: url(../images/ui/drawer/pattern.png) repeat;
   height: 100%;
   top: 0;
   left: 0;
@@ -201,9 +195,6 @@ body[role="application"] > nav .inner > ul > li > a {
 
 /* Section */
 body[role="application"] > section[role="region"] {
-  width: -moz-calc(100%);
-  width: -webkit-calc(100%);
-  
   transition: all 0.25s ease;
   position: relative;
   left: 0;
