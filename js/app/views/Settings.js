@@ -26,7 +26,48 @@ define([
 			
 			// Change password
 			$("#settings-password").click(function() {
-				alert("Not yet implemented");
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/user/password",
+					data: {old_password: $("#settings-password-old").val(), password: $("#settings-password-new").val(), confirm_password: $("#settings-password-confirm").val()},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							// Wrong token
+							if(data.error == "token") {
+								$.localStorage("token", null);
+								window.location = "#login";
+							}
+							else if(data.error == "old_password") {
+								alert("Bad password");
+								$("#settings-password-old").focus();
+							}
+							else if(data.error == "password") {
+								alert("Bad new password");
+								$("#settings-password-new").focus();
+							}
+							else if(data.error == "confirm_password") {
+								alert("New passwords are different");
+								$("#settings-password-confirm").focus();
+							}
+							// Unknown error
+							else
+								alert(data.error);
+							
+							return;
+						}
+						
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+						
+						// Add the token and redirect to Home
+						$.localStorage('token', data.token);
+						window.location = "index.html";
+					},
+					error: function() {
+						alert("Can't contact the server");
+					}
+				});
 			});
 		}
 	});

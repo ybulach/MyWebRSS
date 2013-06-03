@@ -40,7 +40,7 @@ define([
 								$("#signin-password").focus();
 							}
 							else if(data.error == "confirm_password") {
-								alert("Password are differents");
+								alert("Passwords are different");
 								$("#signin-password-confirm").focus();
 							}
 							// Unknown error
