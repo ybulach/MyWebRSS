@@ -9,6 +9,10 @@ define([
 		initialize: function() {
 			this.template = SettingsTemplate;
 			
+			// Redirect to the login page if necessary
+			if(!$.localStorage("token"))
+				window.location = "#login";
+			
 			// Show the buttons
 			$("#button-menu").show();
 		},
@@ -29,7 +33,7 @@ define([
 				$.ajax({
 					dataType: "json",
 					url: window.mywebrss + "/user/password",
-					data: {old_password: $("#settings-password-old").val(), password: $("#settings-password-new").val(), confirm_password: $("#settings-password-confirm").val()},
+					data: {token: $.localStorage("token"), old_password: $("#settings-password-old").val(), password: $("#settings-password-new").val(), confirm_password: $("#settings-password-confirm").val()},
 					success: function(data) {
 						// Check error
 						if(!data.success) {
