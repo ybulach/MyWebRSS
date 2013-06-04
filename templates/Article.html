@@ -1,4 +1,8 @@
-<h1><%= title %></h1>
+<% if(url) { %>
+	<a href="<%= url %>" target="_blank"><h1><%= title %></h1></a>
+<% } else { %>
+	<h1><%= title %></h1>
+<% } %>
 <p>
 	<% if(feed) { %>
 		<%= feed %> - 
