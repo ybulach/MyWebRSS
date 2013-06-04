@@ -15,7 +15,9 @@
 	<p><img src="<%= image %>" alt=""/></p>
 <% } %>
 
-<p><%= description %></p>
+<% if(description) { %>
+	<p><%= description %></p>
+<% } %>
 
 <% if(url) { %>
 	<p><a href="<%= url %>" target="_blank">Link</a></p>
