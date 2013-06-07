@@ -1,8 +1,8 @@
 // Filename: LoginView.js
 
 define([
-	'backbone', 'text!templates/Login.html'
-], function(Backbone, LoginTemplate) {
+	'backbone', 'views/Status', 'text!templates/Login.html'
+], function(Backbone, StatusView, LoginTemplate) {
 	var LoginView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -30,18 +30,20 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong email
 							if(data.error == "email") {
-								alert("Bad email address");
+								status.setMessage("Bad email address");
 								$("#login-email").focus();
 							}
 							else if(data.error == "password") {
-								alert("Bad password");
+								status.setMessage("Bad password");
 								$("#login-password").focus();
 							}
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
@@ -54,7 +56,8 @@ define([
 						window.location = "index.html";
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 					}
 				});
 			});

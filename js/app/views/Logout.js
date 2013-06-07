@@ -1,8 +1,8 @@
 // Filename: LogoutView.js
 
 define([
-	'backbone', 'text!templates/Logout.html'
-], function(Backbone, LogoutTemplate) {
+	'backbone', 'views/Status', 'text!templates/Logout.html'
+], function(Backbone, StatusView, LogoutTemplate) {
 	var LogoutView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -30,6 +30,8 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong token
 							if(data.error == "token") {
 								$.localStorage("token", null);
@@ -37,7 +39,7 @@ define([
 							}
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
@@ -50,7 +52,8 @@ define([
 						window.location = "index.html";
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 					}
 				});
 			});

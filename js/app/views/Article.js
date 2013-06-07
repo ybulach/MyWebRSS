@@ -1,8 +1,8 @@
 // Filename: ArticleView.js
 
 define([
-	'backbone', 'text!templates/Article.html', 'models/Article'
-], function(Backbone, ArticleTemplate, ArticleModel) {
+	'backbone', 'views/Status', 'text!templates/Article.html', 'models/Article'
+], function(Backbone, StatusView, ArticleTemplate, ArticleModel) {
 	var ArticleView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -114,6 +114,8 @@ define([
 				success: function(data) {
 					// Check error
 					if(!data.success) {
+						var status = new StatusView();
+						
 						// Wrong token
 						if(data.error == "token") {
 							$.localStorage("token", null);
@@ -121,7 +123,7 @@ define([
 						}
 						// Unknown error
 						else
-							alert(data.error);
+							status.setMessage(data.error);
 						
 						return;
 					}
@@ -136,7 +138,8 @@ define([
 						alert("Can't get the article content. Try again later");
 				},
 				error: function() {
-					alert("Can't contact the server");
+					var status = new StatusView();
+					status.setMessage("Can't contact the server");
 					view.render();
 				}
 			});

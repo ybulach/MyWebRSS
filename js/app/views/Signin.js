@@ -1,8 +1,8 @@
 // Filename: SigninView.js
 
 define([
-	'backbone', 'text!templates/Signin.html'
-], function(Backbone, SigninTemplate) {
+	'backbone', 'views/Status', 'text!templates/Signin.html'
+], function(Backbone, StatusView, SigninTemplate) {
 	var SigninView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -12,9 +12,6 @@ define([
 				alert("You are already connected. Redirecting to Home page.");
 				window.location = "index.html";
 			}
-			
-			// Hide the menu
-			//$("#region").attr("data-state", "none");
 		},
 		
 		render: function(){
@@ -30,22 +27,24 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong email
 							if(data.error == "email") {
-								alert("Bad email address");
+								status.setMessage("Bad email address");
 								$("#signin-email").focus();
 							}
 							else if(data.error == "password") {
-								alert("Bad password");
+								status.setMessage("Bad password");
 								$("#signin-password").focus();
 							}
 							else if(data.error == "confirm_password") {
-								alert("Passwords are different");
+								status.setMessage("Passwords are different");
 								$("#signin-password-confirm").focus();
 							}
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
@@ -58,7 +57,8 @@ define([
 						window.location = "index.html";
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 					}
 				});
 			});

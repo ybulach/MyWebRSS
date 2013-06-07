@@ -1,8 +1,8 @@
 // Filename: FeedView.js
 
 define([
-	'backbone', 'text!templates/Feed.html', 'collections/Articles', 'models/Article', 'views/Article'
-], function(Backbone, FeedTemplate, ArticlesCollection, ArticleModel, ArticleView) {
+	'backbone', 'views/Status', 'text!templates/Feed.html', 'collections/Articles', 'models/Article', 'views/Article'
+], function(Backbone, StatusView, FeedTemplate, ArticlesCollection, ArticleModel, ArticleView) {
 	var FeedView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -45,6 +45,8 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong token
 							if(data.error == "token") {
 								$.localStorage("token", null);
@@ -55,16 +57,18 @@ define([
 								window.location = "index.html";
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
 						
 						// Refresh
+						view.page = 0;
 						view.refresh_articles();
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 						view.render();
 					}
 				});
@@ -83,6 +87,8 @@ define([
 						success: function(data) {
 							// Check error
 							if(!data.success) {
+								var status = new StatusView();
+								
 								// Wrong token
 								if(data.error == "token") {
 									$.localStorage("token", null);
@@ -93,7 +99,7 @@ define([
 									window.location = "index.html";
 								// Unknown error
 								else
-									alert(data.error);
+									status.setMessage(data.error);
 								
 								return;
 							}
@@ -102,7 +108,8 @@ define([
 							window.location = "index.html";
 						},
 						error: function() {
-							alert("Can't contact the server");
+							var status = new StatusView();
+							status.setMessage("Can't contact the server");
 							view.render();
 						}
 					});
@@ -186,6 +193,7 @@ define([
 			this.feed = id;
 			if(id)
 				$("#button-delete").show();
+			this.page = 0;
 			this.refresh_articles();
 		},
 		
@@ -205,6 +213,8 @@ define([
 				success: function(data) {
 					// Check error
 					if(!data.success) {
+						var status = new StatusView();
+						
 						// Wrong token
 						if(data.error == "token") {
 							$.localStorage("token", null);
@@ -215,7 +225,7 @@ define([
 							window.location = "index.html";
 						// Unknown error
 						else
-							alert(data.error);
+							status.setMessage(data.error);
 						
 						return;
 					}
@@ -238,7 +248,8 @@ define([
 						$("#button-more").hide();
 				},
 				error: function() {
-					alert("Can't contact the server");
+					var status = new StatusView();
+					status.setMessage("Can't contact the server");
 					view.render();
 				}
 			});

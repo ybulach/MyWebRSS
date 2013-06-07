@@ -1,8 +1,8 @@
 // Filename: SettingsView.js
 
 define([
-	'backbone', 'text!templates/Settings.html'
-], function(Backbone, SettingsTemplate) {
+	'backbone', 'views/Status', 'text!templates/Settings.html'
+], function(Backbone, StatusView, SettingsTemplate) {
 	var SettingsView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -43,26 +43,28 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong token
 							if(data.error == "token") {
 								$.localStorage("token", null);
 								window.location = "#login";
 							}
 							else if(data.error == "old_password") {
-								alert("Bad password");
+								status.setMessage("Bad password");
 								$("#settings-password-old").focus();
 							}
 							else if(data.error == "password") {
-								alert("Bad new password");
+								status.setMessage("Bad new password");
 								$("#settings-password-new").focus();
 							}
 							else if(data.error == "confirm_password") {
-								alert("New passwords are different");
+								status.setMessage("New passwords are different");
 								$("#settings-password-confirm").focus();
 							}
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
@@ -71,7 +73,8 @@ define([
 						window.location = "#settings";
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 					}
 				});
 			});

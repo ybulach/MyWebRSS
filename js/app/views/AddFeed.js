@@ -1,8 +1,8 @@
 // Filename: AddFeedView.js
 
 define([
-	'backbone', 'text!templates/AddFeed.html'
-], function(Backbone, AddFeedTemplate) {
+	'backbone', 'views/Status', 'text!templates/AddFeed.html'
+], function(Backbone, StatusView, AddFeedTemplate) {
 	var AddFeedView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -30,16 +30,18 @@ define([
 					success: function(data) {
 						// Check error
 						if(!data.success) {
+							var status = new StatusView();
+							
 							// Wrong token
 							if(data.error == "token") {
 								$.localStorage("token", null);
 								window.location = "#login";
 							}
 							else if(data.error == "feed")
-								alert("Wrong feed URL");
+								status.setMessage("Wrong feed URL");
 							// Unknown error
 							else
-								alert(data.error);
+								status.setMessage(data.error);
 							
 							return;
 						}
@@ -54,7 +56,8 @@ define([
 						window.location = "index.html";
 					},
 					error: function() {
-						alert("Can't contact the server");
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
 					}
 				});
 			});

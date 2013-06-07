@@ -1,8 +1,8 @@
 // Filename: MenuView.js
 
 define([
-	'backbone', 'models/Feed', 'collections/Feeds', 'text!templates/Menu.html'
-], function(Backbone, FeedModel, FeedsCollection, MenuTemplate) {
+	'backbone', 'views/Status', 'models/Feed', 'collections/Feeds', 'text!templates/Menu.html'
+], function(Backbone, StatusView, FeedModel, FeedsCollection, MenuTemplate) {
 	// Handle the menu animation
 	function flush_menu() {
 		if ($("[role=region]").attr("data-state") == "drawer" ) {
@@ -86,6 +86,8 @@ define([
 				success: function(data) {
 					// Check error
 					if(!data.success) {
+						var status = new StatusView();
+						
 						// Wrong token
 						if(data.error == "token") {
 							$.localStorage("token", null);
@@ -93,7 +95,7 @@ define([
 						}
 						// Unknown error
 						else
-							alert(data.error);
+							status.setMessage(data.error);
 						
 						return;
 					}
@@ -111,7 +113,8 @@ define([
 					view.setCollection(collection);
 				},
 				error: function() {
-					alert("Can't contact the server");
+					var status = new StatusView();
+					status.setMessage("Can't contact the server");
 					view.render();
 				}
 			});
