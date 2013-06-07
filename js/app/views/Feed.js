@@ -41,6 +41,9 @@ define([
 								$.localStorage("token", null);
 								window.location = "#login";
 							}
+							// Wrong feed
+							else if(data.error == "feed")
+								window.location = "index.html";
 							// Unknown error
 							else
 								alert(data.error);
@@ -56,6 +59,45 @@ define([
 						view.render();
 					}
 				});
+			});
+			
+			// Delete the feed
+			$("#button-delete").click(function() {
+				if(confirm("Are you sure you want to delete this feed ?")) {
+					$("#page-title").html("Deleting");
+					$("#button-delete").hide();
+					
+					$.ajax({
+						dataType: "json",
+						url: window.mywebrss + "/feed/delete",
+						data: {token: $.localStorage("token"), feed: view.feed},
+						success: function(data) {
+							// Check error
+							if(!data.success) {
+								// Wrong token
+								if(data.error == "token") {
+									$.localStorage("token", null);
+									window.location = "#login";
+								}
+								// Wrong feed
+								else if(data.error == "feed")
+									window.location = "index.html";
+								// Unknown error
+								else
+									alert(data.error);
+								
+								return;
+							}
+							
+							// Go to home
+							window.location = "index.html";
+						},
+						error: function() {
+							alert("Can't contact the server");
+							view.render();
+						}
+					});
+				}
 			});
 		},
 		
