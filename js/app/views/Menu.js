@@ -73,7 +73,7 @@ define([
 			this.render();
 			
 			// Auto-refresh
-			if(!$.localStorage("autorefresh_menu_cnt") && (this.feed || (this.feed === 0)))
+			if(!$.localStorage("autorefresh_menu_cnt"))
 				this.autorefresh();
 		},
 		
