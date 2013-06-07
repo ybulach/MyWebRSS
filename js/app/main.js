@@ -11,7 +11,6 @@ define([
 		
 		// Default values
 		$.localStorage("autorefresh_cnt", 0);
-		$.localStorage("autorefresh_menu_cnt", 0);
 		
 		// Create the Router
 		Router.initialize();

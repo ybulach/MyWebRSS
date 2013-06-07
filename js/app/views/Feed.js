@@ -226,6 +226,9 @@ define([
 					view.render();
 				}
 			});
+			
+			// Refresh menu
+			$("#menu-refresh").click();
 		}
 	});
 	

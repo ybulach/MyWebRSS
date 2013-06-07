@@ -71,22 +71,6 @@ define([
 			delete this.collection;
 			this.collection = feeds;
 			this.render();
-			
-			// Auto-refresh
-			if(!$.localStorage("autorefresh_menu_cnt"))
-				this.autorefresh();
-		},
-		
-		autorefresh: function() {
-			if($.localStorage("autorefresh")) {
-				var view = this;
-				var refresh = setTimeout(function() {
-					view.refresh_feeds();
-					view.autorefresh();
-				}, window.refresh_interval*1000);
-				
-				$.localStorage("autorefresh_menu_cnt", refresh);
-			}
 		},
 		
 		refresh_feeds: function() {
