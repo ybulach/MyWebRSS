@@ -1,7 +1,14 @@
 <% _.each(feeds, function(feed) { %>
-	<li>
+	<% if(feed.unread > 0) { %>
+		<li data-state="new">
+	<% } else { %>
+		<li>
+	<% } %>
 		<a href="#feed/<%= feed.id %>">
-			<span id="feed-<%= feed.id %>"><%= feed.title %></span>(<%= feed.unread %>)
+			<span id="feed-<%= feed.id %>"><%= feed.title %></span>
+			<% if(feed.unread > 0) { %>
+				(<%= feed.unread %>)
+			<% } %>
 		</a>
 	</li>
 <% }); %>
