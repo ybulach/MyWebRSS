@@ -8,6 +8,7 @@ define([
 		
 		initialize: function() {
 			this.template = FeedTemplate;
+			this.page = 0;
 			
 			// Redirect to the login page if necessary
 			if(!$.localStorage("token"))
@@ -21,7 +22,15 @@ define([
 			// Refresh the list of articles
 			var view = this;
 			$("#button-refresh").click(function() {
+				view.page = 0;
 				view.refresh_articles();
+			});
+			
+			$("#button-more").click(function() {
+				view.page++;
+				$("#button-more").attr("disabled", "disabled");
+				view.refresh_articles();
+				$("#button-more").removeAttr("disabled");
 			});
 			
 			// Mark as read
@@ -118,6 +127,7 @@ define([
 			if((this.feed || (this.feed === 0)) && $.localStorage("autorefresh")) {
 				var view = this;
 				var refresh = setTimeout(function() {
+					view.page = 0;
 					view.refresh_articles();
 					view.autorefresh();
 				}, window.refresh_interval*1000);
@@ -150,7 +160,12 @@ define([
 					content = "<ul><li><dl><dt>No article in this feed</dt></dl></li></ul>";
 			}
 			
-			this.$el.html(content);
+			if(this.page > 0) {
+				if(this.collection && this.collection.length)
+					this.$el.html(this.$el.html() + content);
+			}
+			else
+				this.$el.html(content);
 			
 			// Save feed infos for later
 			var view = this;
@@ -186,7 +201,7 @@ define([
 			$.ajax({
 				dataType: "json",
 				url: window.mywebrss + "/feed/show",
-				data: {token: $.localStorage("token"), feed: view.feed},
+				data: {token: $.localStorage("token"), feed: view.feed, page: view.page},
 				success: function(data) {
 					// Check error
 					if(!data.success) {
@@ -215,6 +230,12 @@ define([
 					});
 					
 					view.setCollection(collection);
+					
+					// Show the More button if we have loaded new articles
+					if(data.result.length > 0)
+						$("#button-more").show();
+					else
+						$("#button-more").hide();
 				},
 				error: function() {
 					alert("Can't contact the server");

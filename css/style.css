@@ -104,7 +104,7 @@ body[role="application"] li[data-state="new"] .aside, body[role="application"] l
 
 /* FIX the lists */
 body[role="application"] ul, body[role="application"] ol {
-	margin-bottom: 2.5em;
+	/*margin-bottom: 2.5em;*/
 }
 
 body[role="application"] li {

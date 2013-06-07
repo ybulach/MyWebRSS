@@ -36,9 +36,6 @@ define([
 				$("#menu-refresh").click(function() {
 					view.refresh_feeds();
 				});
-				
-				// Get the content of the menu (list of the feeds) and display it
-				this.refresh_feeds();
 			}
 			else
 				$("nav").html("");
