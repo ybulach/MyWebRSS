@@ -107,7 +107,7 @@ define([
 			
 			articles.each(function(article) {
 				if(article.attributes.feed)
-					article.attributes.feed = $("a[href='#feed/" + article.attributes.feed + "']").html();
+					article.attributes.feed = $("#feed-" + article.attributes.feed).html();
 			});
 			
 			delete this.collection;
@@ -134,7 +134,7 @@ define([
 		render: function() {
 			// Change the content
 			if(this.feed)
-				$("#page-title").html($("a[href='#feed/" + this.feed + "']").html());
+				$("#page-title").html($("#feed-" + this.feed).html());
 			else if(this.feed === 0)
 				$("#page-title").html($("a[href='#']").html());
 			

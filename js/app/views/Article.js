@@ -39,7 +39,7 @@ define([
 				return;
 			
 			if(article.attributes.feed)
-				article.attributes.feed = $("a[href='#feed/" + article.attributes.feed + "']").html();
+				article.attributes.feed = $("#feed-" + article.attributes.feed).html();
 			
 			delete this.model;
 			this.model = article;
@@ -52,7 +52,7 @@ define([
 			
 			// Change the content
 			if($.localStorage("feed"))
-				$("#page-title").html($("a[href='#feed/" + $.localStorage("feed") + "']").html());
+				$("#page-title").html($("#feed-" + $.localStorage("feed")).html());
 			else if($.localStorage("feed") === 0)
 				$("#page-title").html($("a[href='#']").html());
 			
