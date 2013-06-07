@@ -31,11 +31,7 @@ define([
 				if(!$.localStorage("autorefresh")) {
 					if($.localStorage("autorefresh_cnt"))
 						clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
-					if($.localStorage("autorefresh_menu_cnt"))
-						clearTimeout($.localStorage("autorefresh_menu_cnt")), $.localStorage("autorefresh_menu_cnt", 0);
 				}
-				else
-					$("#menu-refresh").click();
 			});
 			
 			// Change password
