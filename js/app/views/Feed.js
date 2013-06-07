@@ -125,7 +125,7 @@ define([
 				var refresh = setTimeout(function() {
 					view.refresh_articles();
 					view.autorefresh();
-				}, 60*1000);
+				}, window.refresh_interval*1000);
 				
 				$.localStorage("autorefresh_cnt", refresh);
 			}
@@ -200,6 +200,9 @@ define([
 							$.localStorage("token", null);
 							window.location = "#login";
 						}
+						// Wrong feed
+						else if(data.error == "feed")
+							window.location = "index.html";
 						// Unknown error
 						else
 							alert(data.error);

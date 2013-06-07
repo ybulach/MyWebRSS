@@ -7,7 +7,8 @@ define([
 		defaults: {
 			id: 0,
 			title: "Default",
-			description: "Default Feed"
+			description: "Default Feed",
+			unread: 0
 		}
 	});
 	
