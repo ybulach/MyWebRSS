@@ -9,6 +9,7 @@ define([
 		initialize: function() {
 			this.template = FeedTemplate;
 			this.page = 0;
+			this.collection = new ArticlesCollection();
 			
 			// Redirect to the login page if necessary
 			if(!$.localStorage("token"))
@@ -121,8 +122,11 @@ define([
 			if(typeof(articles) != "object")
 				return;
 			
-			delete this.collection;
-			this.collection = articles;
+			if(this.collection && (articles.length > 0))
+				this.collection.add(articles.toJSON());
+			else
+				this.collection = articles;
+			
 			this.render();
 			
 			// Auto-refresh
@@ -167,18 +171,11 @@ define([
 					content = "<ul><li><dl><dt>No article in this feed</dt></dl></li></ul>";
 			}
 			
-			if(this.page > 0) {
-				if(this.collection && this.collection.length)
-					this.$el.html(this.$el.html() + content);
-			}
-			else
-				this.$el.html(content);
+			this.$el.html(content);
 			
 			// Save feed infos for later
 			var view = this;
 			$("#page a").click(function(event) {
-				//event.preventDefault();
-				
 				// Save datas
 				$.localStorage("feed", view.feed);
 				$.localStorage("collection", view.collection);
