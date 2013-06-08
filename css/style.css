@@ -44,8 +44,7 @@ p {
 }
 
 section[role="region"] {
-	height: -moz-calc(100% - 4rem);
-	height: -webkit-calc(100% - 4rem);
+	height: 100%;
 	
 	font: 2.2rem/1em;
 	overflow: hidden;
@@ -53,9 +52,10 @@ section[role="region"] {
 
 div[role="main"] {
 	background: white no-repeat left top;
-	/*height: -moz-calc(100% - 5rem);
-	height: -webkit-calc(100% - 5rem);*/
+	
 	height: 100%;
+	height: -moz-calc(100% - 5rem);
+	height: -webkit-calc(100% - 5rem);
 	
 	overflow-y: auto;
 }
