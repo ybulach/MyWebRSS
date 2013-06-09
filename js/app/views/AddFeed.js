@@ -49,11 +49,8 @@ define([
 						// Delete datas we don't need
 						delete data.success, delete data.error;
 						
-						// Force feeds list reload
-						$("#menu-refresh").click();
-						
 						// Redirect to Home
-						window.location = "index.html";
+						window.location = "#";
 					},
 					error: function() {
 						var status = new StatusView();
