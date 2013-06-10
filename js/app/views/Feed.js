@@ -122,7 +122,7 @@ define([
 			if(typeof(articles) != "object")
 				return;
 			
-			if(this.collection)
+			if(this.collection && (this.page > 0)
 				this.collection.add(articles.toJSON());
 			else
 				this.collection = articles;
