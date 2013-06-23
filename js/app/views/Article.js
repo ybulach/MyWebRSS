@@ -47,19 +47,20 @@ define([
 			$("#button-previous").attr("disabled", "disabled");
 			$("#button-next").attr("disabled", "disabled");
 			
-			$("#page-title").html("Loading");
+			// Change the content
+			if($.localStorage("feed"))
+				$("#page-title").html($("#feed-" + $.localStorage("feed")).html());
+			else if($.localStorage("feed") === 0)
+				$("#page-title").html($("a[href='#']").html());
+			
+			if(!$("#page-title").html())
+				$("#page-title").html("Loading");
+			
 			$("#button-refresh").show();
 			
-			// Change the content
 			var content = "<h1>Loading</h1>";
-			if(this.model) {
-				if($.localStorage("feed") === 0)
-					$("#page-title").html($("a[href='#']").html());
-				else
-					$("#page-title").html(this.model.attributes.feed);
-				
+			if(this.model)
 				content = _.template(this.template, this.model.toJSON());
-			}
 			
 			this.$el.html(content);
 			
@@ -98,21 +99,50 @@ define([
 		},
 		
 		refresh_article: function() {
-			if(!$.localStorage("collection") || !this.article)
-				$("#button-back").click();
+			if(!$.localStorage("token"))
+				return;
 			
-			// Get the current ID in the array
-			var collection = _.toArray($.localStorage("collection"));
-			for(var i = 0; i < collection.length; i++) {
-				if(collection[i].id == this.article)
-					break;
-			}
+			$("#page-title").html("Loading");
+			$("#button-refresh").hide();
 			
-			// Set the article
-			if((i >= 0) && (i < collection.length))
-				this.setModel(new ArticleModel(collection[i]));
-			else
-				$("#button-back").click();
+			// Get the article
+			var view = this;
+			$.ajax({
+				dataType: "json",
+				url: window.mywebrss + "/article/show",
+				data: {token: $.localStorage("token"), article: view.article},
+				success: function(data) {
+					// Check error
+					if(!data.success) {
+						var status = new StatusView();
+						
+						// Wrong token
+						if(data.error == "token") {
+							$.localStorage("token", null);
+							window.location = "#login";
+						}
+						// Unknown error
+						else
+							status.setMessage(data.error);
+						
+						return;
+					}
+					
+					// Delete datas we don't need
+					delete data.success, delete data.error;
+					
+					// Create a new ArticleModel
+					if(data.result)
+						view.setModel(new ArticleModel(data.result));
+					else
+						alert("Can't get the article content. Try again later");
+				},
+				error: function() {
+					var status = new StatusView();
+					status.setMessage("Can't contact the server");
+					view.render();
+				}
+			});
 		}
 	});
 	
