@@ -8,6 +8,7 @@ define([
 		// Configuration
 		window.mywebrss = "https://api.mywebrss.net";
 		window.refresh_interval = 60;
+		$.localStorage("articles_per_page", 20);
 		
 		// Default values
 		$.localStorage("autorefresh_cnt", 0);

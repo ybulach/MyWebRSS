@@ -130,7 +130,7 @@ define([
 			this.render();
 			
 			// Auto-refresh
-			if(!$.localStorage("autorefresh_cnt") && (this.feed || (this.feed === 0)))
+			if(!$.localStorage("autorefresh_cnt"))
 				this.autorefresh();
 		},
 		
@@ -149,17 +149,21 @@ define([
 		
 		render: function() {
 			// Change the content
-			if(this.feed)
-				$("#page-title").html($("#feed-" + this.feed).html());
+			if(this.feed_name)
+				$("#page-title").html(this.feed_name);
 			else if(this.feed === 0)
 				$("#page-title").html($("a[href='#']").html());
+			else if(this.feed)
+				$("#page-title").html($("#feed-" + this.feed).html());
 			
 			if(!$("#page-title").html())
 				$("#page-title").html("Loading");
 			
+			// Show the buttons
 			$("#button-refresh").show();
 			$("#button-mark").show();
 			
+			// Show the content
 			var content = "<ul><li><dl><dt>Loading</dt></dl></li></ul>";
 			if(this.collection)
 				content = _.template(this.template, {articles: this.collection.toJSON()});
@@ -206,7 +210,7 @@ define([
 			$.ajax({
 				dataType: "json",
 				url: window.mywebrss + "/feed/show",
-				data: {token: $.localStorage("token"), feed: view.feed, page: view.page},
+				data: {token: $.localStorage("token"), feed: view.feed, articles_count: $.localStorage("articles_per_page"), page: view.page},
 				success: function(data) {
 					// Check error
 					if(!data.success) {
@@ -230,6 +234,10 @@ define([
 					// Delete datas we don't need
 					delete data.success, delete data.error;
 					
+					// Get the feed name if given
+					if(data.feed)
+						view.feed_name = data.feed;
+					
 					// Create a new ArticlesCollection
 					var collection = new ArticlesCollection();
 					$(data.result).each(function(id, article) {
@@ -239,7 +247,7 @@ define([
 					view.setCollection(collection);
 					
 					// Show the More button if we have loaded new articles
-					if(data.result.length > 0)
+					if(data.result.length == $.localStorage("articles_per_page"))
 						$("#button-more").show();
 					else
 						$("#button-more").hide();
