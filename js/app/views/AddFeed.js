@@ -53,7 +53,7 @@ define([
 						delete data.success, delete data.error;
 						
 						// Redirect to Home
-						window.location = "#";
+						window.location = "#feed/" + data.id;
 					},
 					error: function() {
 						var status = new StatusView();
@@ -66,46 +66,71 @@ define([
 			
 			// Import an OPML file
 			$("#import-submit").click(function() {
-				$("#import-submit").attr("disabled", "disabled");
+				var file = document.getElementById("import-file").files[0];
+				if(!file) {
+					var status = new StatusView();
+					status.setMessage("No file selected");
+					
+					return;
+				}
 				
-				$.ajax({
-					dataType: "json",
-					type: "post",
-					url: window.mywebrss + "/feed/import",
-					data: {token: $.localStorage("token"), file: $("#import-file").val()},
-					success: function(data) {
-						// Check error
-						if(!data.success) {
+				var reader = new FileReader();
+				reader.readAsText(file, 'UTF-8');
+				reader.onload = function(event) {
+					if(!event.target.result) {
+						var status = new StatusView();
+						status.setMessage("The selected file is empty");
+						
+						return;
+					}
+					
+					$("#import-submit").attr("disabled", "disabled");
+					
+					$.ajax({
+						dataType: "json",
+						type: "post",
+						url: window.mywebrss + "/feed/import",
+						data: {token: $.localStorage("token"), file: event.target.result},
+						success: function(data) {
 							var status = new StatusView();
 							
-							// Wrong token
-							if(data.error == "token") {
-								$.localStorage("token", null);
-								window.location = "#login";
+							// Check error
+							if(!data.success) {
+								// Wrong token
+								if(data.error == "token") {
+									$.localStorage("token", null);
+									window.location = "#login";
+								}
+								else if(data.error == "file")
+									status.setMessage("The file uploaded is not an OPML file");
+								// Unknown error
+								else
+									status.setMessage(data.error);
+								
+								$("#import-submit").removeAttr("disabled");
+								return;
 							}
-							else if(data.error == "file")
-								status.setMessage("The file uploaded is not an OPML file");
-							// Unknown error
-							else
-								status.setMessage(data.error);
+							
+							// Delete datas we don't need
+							delete data.success, delete data.error;
+							
+							status.setMessage(data.percentage + "% of feeds loaded from OPML file");
+							
+							// Redirect to Home
+							window.location = "#";
+						},
+						error: function() {
+							var status = new StatusView();
+							status.setMessage("Can't contact the server");
 							
 							$("#import-submit").removeAttr("disabled");
-							return;
 						}
-						
-						// Delete datas we don't need
-						delete data.success, delete data.error;
-						
-						// Redirect to Home
-						window.location = "#";
-					},
-					error: function() {
-						var status = new StatusView();
-						status.setMessage("Can't contact the server");
-						
-						$("#import-submit").removeAttr("disabled");
-					}
-				});
+					});
+				};
+				reader.onerror = function() {
+					var status = new StatusView();
+					status.setMessage("Can't read the file");
+				};
 			});
 		}
 	});
