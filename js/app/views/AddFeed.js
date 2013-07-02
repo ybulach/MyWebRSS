@@ -21,8 +21,10 @@ define([
 			$("#page-title").html("Add Feed");
 			this.$el.html(AddFeedTemplate);
 			
+			// Add a feed with an URL
 			$("#addfeed-submit").click(function() {
-				var view = this;
+				$("#addfeed-submit").attr("disabled", "disabled");
+				
 				$.ajax({
 					dataType: "json",
 					url: window.mywebrss + "/feed/add",
@@ -43,6 +45,7 @@ define([
 							else
 								status.setMessage(data.error);
 							
+							$("#addfeed-submit").removeAttr("disabled");
 							return;
 						}
 						
@@ -55,6 +58,52 @@ define([
 					error: function() {
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
+						
+						$("#addfeed-submit").removeAttr("disabled");
+					}
+				});
+			});
+			
+			// Import an OPML file
+			$("#import-submit").click(function() {
+				$("#import-submit").attr("disabled", "disabled");
+				
+				$.ajax({
+					dataType: "json",
+					type: "post",
+					url: window.mywebrss + "/feed/import",
+					data: {token: $.localStorage("token"), file: $("#import-file").val()},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							var status = new StatusView();
+							
+							// Wrong token
+							if(data.error == "token") {
+								$.localStorage("token", null);
+								window.location = "#login";
+							}
+							else if(data.error == "file")
+								status.setMessage("The file uploaded is not an OPML file");
+							// Unknown error
+							else
+								status.setMessage(data.error);
+							
+							$("#import-submit").removeAttr("disabled");
+							return;
+						}
+						
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+						
+						// Redirect to Home
+						window.location = "#";
+					},
+					error: function() {
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
+						
+						$("#import-submit").removeAttr("disabled");
 					}
 				});
 			});

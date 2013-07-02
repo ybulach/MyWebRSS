@@ -36,6 +36,8 @@ define([
 			
 			// Change password
 			$("#settings-password").click(function() {
+				$("#settings-password").attr("disabled", "disabled");
+				
 				$.ajax({
 					dataType: "json",
 					url: window.mywebrss + "/user/password",
@@ -66,6 +68,7 @@ define([
 							else
 								status.setMessage(data.error);
 							
+							$("#settings-password").removeAttr("disabled");
 							return;
 						}
 						
@@ -75,6 +78,8 @@ define([
 					error: function() {
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
+						
+						$("#settings-password").removeAttr("disabled");
 					}
 				});
 			});

@@ -19,6 +19,8 @@ define([
 			this.$el.html(SigninTemplate);
 			
 			$("#signin-submit").click(function() {
+				$("#signin-submit").attr("disabled", "disabled");
+				
 				var view = this;
 				$.ajax({
 					dataType: "json",
@@ -46,6 +48,7 @@ define([
 							else
 								status.setMessage(data.error);
 							
+							$("#signin-submit").removeAttr("disabled");
 							return;
 						}
 						
@@ -59,6 +62,8 @@ define([
 					error: function() {
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
+						
+						$("#signin-submit").removeAttr("disabled");
 					}
 				});
 			});

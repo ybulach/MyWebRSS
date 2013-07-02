@@ -1,6 +1,19 @@
-<p>
-	RSS URL:
-	<input type="text" id="addfeed-url" value=""/>
-</p>
+<h1>Add a feed from an URL</h1>
+<form>
+	<p>
+		RSS URL:
+		<input type="text" id="addfeed-url" value="http://"/>
+	</p>
+	
+	<p><button id="addfeed-submit">Add Feed</button></p>
+</form>
 
-<p><button id="addfeed-submit">Add Feed</button></p>
+<h1>Import feeds from an OPML file</h1>
+<form>
+	<p>
+		OPML file:<br/>
+		<input type="file" id="import-file" value=""/>
+	</p>
+
+	<p><button id="import-submit">Import feeds</button></p>
+</form>
