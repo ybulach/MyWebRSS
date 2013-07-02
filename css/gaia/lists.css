@@ -87,7 +87,7 @@ body[role="application"] li .aside time {
 body[role="application"] li img {
   float: right;
   display: inline;
-  width: 6rem;
+  /*width: 6rem;*/
   height: 6rem;
   background: transparent center center;
   background-size: 100% auto;

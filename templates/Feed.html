@@ -2,6 +2,11 @@
 	<% _.each(articles, function(article) { %>
 		<li data-state="<%= article.status %>">
 			<a href="#article/<%= article.id %>">
+				<% if(article.feed) { %>
+					<em class="aside">
+						<img src="<%= article.image %>" alt=""/>
+					</em>
+				<% } %>
 				<dl>
 					<dt><%= article.title %></dt>
 					<dd>
