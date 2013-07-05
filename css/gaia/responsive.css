@@ -35,7 +35,7 @@
   --
   Landscape
 */
-@media all and (min-width: 720px) and (min-device-aspect-ratio: 1/1) {
+@media all and (min-device-width: 720px) and (min-device-aspect-ratio: 1/1) {
 	body[role="application"] section[role="region"][data-state="drawer"] {
 		transform: none;
 		-webkit-transform: none;
@@ -46,9 +46,7 @@
 	}
 	
 	body[role="application"] > section[role="region"] {
-		width: -moz-calc(80%);
-		width: -webkit-calc(80%);
-		
+		width: 80%;
 		margin-left: 20%;
 	}
 	
@@ -72,9 +70,7 @@
 	}
 	
 	body[role="application"] > section[role="region"] {
-		width: -moz-calc(100%);
-		width: -webkit-calc(100%);
-		
+		width: 100%;
 		margin-left: 0;
 	}
 	
