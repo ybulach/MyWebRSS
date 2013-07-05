@@ -4,13 +4,8 @@
   Supported devices:
     * 480x800
 */
-/* Portrait */
-@media all and (min-device-width: 480px) and (max-device-width: 540px) and (max-device-aspect-ratio: 1/1) {
-	html { font-size: 94%!important; }
-}
-
-/* Landscape */
-@media all and (min-device-width: 800px) and (max-device-width: 960px) and (min-device-aspect-ratio: 1/1) {
+@media all and (min-width: 481px) and (max-width: 540px) and (orientation: portrait),
+all and (min-width: 801px) and (max-width: 960px) and (orientation: landscape) {
 	html { font-size: 94%!important; }
 }
 
@@ -20,22 +15,15 @@
   Supported devices:
     * Geeksphone Peak: 540x960
 */
-/* Portrait */
-@media all and (min-device-width: 540px) and (max-device-width: 720px) and (max-device-aspect-ratio: 1/1) {
-	html { font-size: 100%!important; }
-}
-
-/* Landscape */
-@media all and (min-device-width: 960px) and (max-device-width: 1280px) and (min-device-aspect-ratio: 1/1) {
+@media all and (min-width: 541px) and (max-width: 720px) and (orientation: portrait),
+all and (min-width: 961px) and (max-width: 1280px) and (orientation: landscape) {
 	html { font-size: 100%!important; }
 }
 
 /*
   Responsive design, for Desktop
-  --
-  Landscape
 */
-@media all and (min-device-width: 720px) and (min-device-aspect-ratio: 1/1) {
+@media all and (min-width: 961px) {
 	body[role="application"] section[role="region"][data-state="drawer"] {
 		transform: none;
 		-webkit-transform: none;
@@ -59,7 +47,7 @@
 /*
   Responsive design, for Mobile
 */
-@media all and (max-width: 720px) {
+@media all and (max-width: 960px) {
 	body[role="application"] section[role="region"][data-state="drawer"] {
 		transform: translateX(80%);
 		-webkit-transform: translateX(80%);	/* Chrome and Safari */
