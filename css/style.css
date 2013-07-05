@@ -34,19 +34,19 @@ a {
 }
 
 p {
-	padding: 1em;
-	font-size: 1.5em;
+	padding: 1rem;
+	font-size: 1.5rem;
 }
 
 .list-item-large {
-	font-size: 1.5em;
-	padding: 1em;
+	font-size: 1.5rem;
+	padding: 1rem;
 }
 
 section[role="region"] {
 	height: 100%;
 	
-	font: 2.2rem/1em;
+	font: 2.2rem/1rem;
 	overflow: hidden;
 }
 
