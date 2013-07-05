@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# v1.0 - 08-06-2013 12:14
+# v1.0 - 05-07-2013 14:39
 
 # HTML Cache
 index.html
+templates/About.html
 templates/AddFeed.html
 templates/Article.html
 templates/Feed.html
@@ -117,6 +118,7 @@ js/app/collections/Articles.js
 js/app/collections/Feeds.js
 js/app/models/Article.js
 js/app/models/Feed.js
+js/app/views/About.js
 js/app/views/AddFeed.js
 js/app/views/Article.js
 js/app/views/Feed.js

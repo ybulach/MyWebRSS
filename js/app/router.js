@@ -3,8 +3,8 @@
 
 define([
 	'backbone',
-	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Signin', 'views/Article', 'views/Menu'
-], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, SigninView, ArticleView, MenuView) {
+	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Signin', 'views/Article', 'views/Menu', 'views/About'
+], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, SigninView, ArticleView, MenuView, AboutView) {
 	// Create a new view
 	function createView(View) {
 		// Hide buttons and delete all events
@@ -28,6 +28,7 @@ define([
 			// Define some URL routes
 			'login': 'showLogin',
 			'logout': 'showLogout',
+			'about': 'showAbout',
 			'signin': 'showSignin',
 			'settings': 'showSettings',
 			'addfeed': 'showAddFeed',
@@ -49,6 +50,10 @@ define([
 		
 		showLogout: function() {
 			createView(LogoutView);
+		},
+		
+		showAbout: function() {
+			createView(AboutView);
 		},
 		
 		showSignin: function() {
