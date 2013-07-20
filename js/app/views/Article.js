@@ -15,15 +15,15 @@ define([
 			
 			// Show the buttons
 			$("#button-back").show();
-			$("#button-refresh").show();
+			//$("#button-refresh").show();
 			$("#button-previous").show();
 			$("#button-next").show();
 			
 			// Refresh the article
 			var view = this;
-			$("#button-refresh").click(function() {
+			/*$("#button-refresh").click(function() {
 				view.refresh_article();
-			});
+			});*/
 			
 			// Back to the feed
 			$("#button-back").click(function() {
@@ -47,20 +47,19 @@ define([
 			$("#button-previous").attr("disabled", "disabled");
 			$("#button-next").attr("disabled", "disabled");
 			
+			$("#page-title").html("Loading");
+			//$("#button-refresh").show();
+			
 			// Change the content
-			if($.localStorage("feed"))
-				$("#page-title").html($("#feed-" + $.localStorage("feed")).html());
-			else if($.localStorage("feed") === 0)
-				$("#page-title").html($("a[href='#']").html());
-			
-			if(!$("#page-title").html())
-				$("#page-title").html("Loading");
-			
-			$("#button-refresh").show();
-			
 			var content = "<h1>Loading</h1>";
-			if(this.model)
+			if(this.model) {
+				if($.localStorage("feed") === 0)
+					$("#page-title").html($("a[href='#']").html());
+				else
+					$("#page-title").html(this.model.attributes.feed);
+				
 				content = _.template(this.template, this.model.toJSON());
+			}
 			
 			this.$el.html(content);
 			
@@ -99,50 +98,56 @@ define([
 		},
 		
 		refresh_article: function() {
-			if(!$.localStorage("token"))
-				return;
+			if(!$.localStorage("collection") || !this.article)
+				$("#button-back").click();
 			
-			$("#page-title").html("Loading");
-			$("#button-refresh").hide();
+			// Get the current ID in the array
+			var collection = _.toArray($.localStorage("collection"));
+			for(var i = 0; i < collection.length; i++) {
+				if(collection[i].id == this.article)
+					break;
+			}
 			
-			// Get the article
-			var view = this;
-			$.ajax({
-				dataType: "json",
-				url: window.mywebrss + "/article/show",
-				data: {token: $.localStorage("token"), article: view.article},
-				success: function(data) {
-					// Check error
-					if(!data.success) {
-						var status = new StatusView();
-						
-						// Wrong token
-						if(data.error == "token") {
-							$.localStorage("token", null);
-							window.location = "#login";
+			// Set the article
+			if((i >= 0) && (i < collection.length))
+				this.setModel(new ArticleModel(collection[i]));
+			else
+				$("#button-back").click();
+			
+			// Mark the article as unread
+			if(this.model && (this.model.status == "new")) {
+				var view = this;
+				$.ajax({
+					dataType: "json",
+					url: window.mywebrss + "/article/unread",
+					data: {token: $.localStorage("token"), article: view.article},
+					success: function(data) {
+						// Check error
+						if(!data.success) {
+							var status = new StatusView();
+							
+							// Wrong token
+							if(data.error == "token") {
+								$.localStorage("token", null);
+								window.location = "#login";
+							}
+							// Unknown error
+							else
+								status.setMessage(data.error);
+							
+							return;
 						}
-						// Unknown error
-						else
-							status.setMessage(data.error);
 						
-						return;
+						// Delete datas we don't need
+						delete data.success, delete data.error;
+					},
+					error: function() {
+						var status = new StatusView();
+						status.setMessage("Can't contact the server");
+						view.render();
 					}
-					
-					// Delete datas we don't need
-					delete data.success, delete data.error;
-					
-					// Create a new ArticleModel
-					if(data.result)
-						view.setModel(new ArticleModel(data.result));
-					else
-						alert("Can't get the article content. Try again later");
-				},
-				error: function() {
-					var status = new StatusView();
-					status.setMessage("Can't contact the server");
-					view.render();
-				}
-			});
+				});
+			}
 		}
 	});
 	
