@@ -153,10 +153,7 @@ define([
 				$("#page-title").html(this.feed_name);
 			else if(this.feed === 0)
 				$("#page-title").html($("a[href='#']").html());
-			else if(this.feed)
-				$("#page-title").html($("#feed-" + this.feed).html());
-			
-			if(!$("#page-title").html())
+			else
 				$("#page-title").html("Loading");
 			
 			// Show the buttons
@@ -203,6 +200,7 @@ define([
 				return;
 			
 			$("#page-title").html("Loading");
+			this.$el.html("<ul><li><dl><dt>Loading</dt></dl></li></ul>");
 			$("#button-refresh").hide();
 			
 			// Get the list of articles
