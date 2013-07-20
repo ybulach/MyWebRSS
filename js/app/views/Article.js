@@ -115,7 +115,7 @@ define([
 				$("#button-back").click();
 			
 			// Mark the article as unread
-			if(this.model && (this.model.status == "new")) {
+			if(this.model && (this.model.attributes.status == "new")) {
 				var view = this;
 				$.ajax({
 					dataType: "json",
