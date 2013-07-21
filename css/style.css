@@ -136,6 +136,6 @@ body[role="application"] .list li .aside {
 }
 
 /* Do not display the toolbar buttons on load */
-[role=region] button {
+[role=toolbar] button {
 	display: none;
 }
