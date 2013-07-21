@@ -97,6 +97,7 @@ body[role="application"] .list li dl {
   display: block;
   overflow: hidden;
   padding: 1rem 0.5rem 0 2rem;
+  margin: 0;
 }
 
 body[role="application"] .list li .aside ~ dl {
