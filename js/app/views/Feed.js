@@ -152,7 +152,7 @@ define([
 			if(this.feed_name)
 				$("#page-title").html(this.feed_name);
 			else if(this.feed === 0)
-				$("#page-title").html($("a[href='#']").html());
+				$("#page-title").html($("#home").html());
 			else
 				$("#page-title").html("Loading");
 			

@@ -8,6 +8,7 @@ define([
 			id: 0,
 			title: "Default",
 			description: "Default Feed",
+			error: 0,
 			unread: 0
 		}
 	});

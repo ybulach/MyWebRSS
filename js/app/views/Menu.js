@@ -54,6 +54,12 @@ define([
 			
 			$("#menu-refresh").show();
 			
+			// Display the total of unread articles
+			if(this.unread_total > 0) {
+				$("a[href='#'] > .indicator").html(this.unread_total);
+				$("a[href='#'] > .indicator").show();
+			}
+			
 			// Hide the menu
 			$("nav > div.inner > ul > li > a").click(function() {
 				$("[role=region]").attr("data-state", "none");
@@ -78,6 +84,7 @@ define([
 				return;
 			
 			this.$el.html("<li>Loading</li>");
+			$("a[href='#'] > .indicator").hide();
 			$("#menu-refresh").hide();
 			
 			// Get the list of feeds
@@ -109,7 +116,9 @@ define([
 					// Create a new FeedsCollection
 					var collection = new FeedsCollection();
 					
+					view.unread_total = 0;
 					$(data.result).each(function(id, feed) {
+						view.unread_total += parseInt(feed.unread);
 						collection.add(new FeedModel(feed));
 					});
 					

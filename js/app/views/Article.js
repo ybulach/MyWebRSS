@@ -54,7 +54,7 @@ define([
 			var content = "<h1>Loading</h1>";
 			if(this.model) {
 				if($.localStorage("feed") === 0)
-					$("#page-title").html($("a[href='#']").html());
+					$("#page-title").html($("#home").html());
 				else
 					$("#page-title").html(this.model.attributes.feed);
 				

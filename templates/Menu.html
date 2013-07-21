@@ -1,14 +1,16 @@
 <% _.each(feeds, function(feed) { %>
-	<% if(feed.unread > 0) { %>
+	<% if(feed.error == 1) { %>
+		<li data-state="tagged" data-tag="C">
+	<% } else if(feed.unread > 0) { %>
 		<li data-state="new">
 	<% } else { %>
 		<li>
 	<% } %>
 		<a href="#feed/<%= feed.id %>">
-			<span id="feed-<%= feed.id %>"><%= feed.title %></span>
 			<% if(feed.unread > 0) { %>
-				(<%= feed.unread %>)
+				<span class="indicator"><%= feed.unread %></span>
 			<% } %>
+			<span id="feed-<%= feed.id %>"><%= feed.title %></span>
 		</a>
 	</li>
 <% }); %>

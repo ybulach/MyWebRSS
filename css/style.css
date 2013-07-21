@@ -71,6 +71,17 @@ div[role="main"] h1 {
 	text-align: center;
 }
 
+.indicator {
+	padding: 0 1rem 0 1rem;
+	
+	background-color: #52b6cc;
+	color: white;
+	border: 1px solid #52b6cc;
+	
+	border-radius: 16px;
+	-moz-border-radius: 16px;
+}
+
 /* FIX toolbar button bug on click */
 [role="toolbar"] button:active {
 	background-repeat: no-repeat;
@@ -103,6 +114,13 @@ section[role="region"] > header:first-child .icon.icon-delete {
 /* ADD new list style */
 body[role="application"] li[data-state="new"] .aside, body[role="application"] li[data-state="new"] a {
 	color: #52b6cc !important;
+}
+
+body[role="application"] li[data-tag="C"]:after {
+	background-color: #ff0000;
+}
+body[role="application"] li[data-tag="C"] a {
+	color: #ff0000 !important;
 }
 
 /* FIX the lists */
