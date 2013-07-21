@@ -1,7 +1,7 @@
 /* ----------------------------------
  * LISTS: default
  * ---------------------------------- */
-body[role="application"] ul, body[role="application"] ol {
+body[role="application"] ul.list, body[role="application"] ol.list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -9,7 +9,7 @@ body[role="application"] ul, body[role="application"] ol {
   font-family: "Open Sans", Sans-serif;
 }
 
-body[role="application"] li {
+body[role="application"] .list li {
   display: inline-block;
   width: 100%;
   
@@ -34,7 +34,7 @@ body[role="application"] li > a:first-of-type  {
 }
 
 /* State press */
-body[role="application"] li > a:first-of-type:after {
+body[role="application"] .list li > a:first-of-type:after {
   content: "";
   transition: opacity 0.2s ease;
   background-color: #b1f1ff;
@@ -48,11 +48,11 @@ body[role="application"] li > a:first-of-type:after {
   opacity: 0;
 }
 
-body[role="application"] li > a:first-of-type:active:after {
+body[role="application"] .list li > a:first-of-type:active:after {
   opacity: 0.6;
 }
 
-body[role="application"] li .aside {
+body[role="application"] .list li .aside {
   float: left;
   display: inline;
   position: relative;
@@ -61,11 +61,11 @@ body[role="application"] li .aside {
   text-align: center;
 }
 
-body[role="application"] li .aside.end {
+body[role="application"] .list li .aside.end {
   float: right;
 }
 
-body[role="application"] li .aside:before {
+body[role="application"] .list li .aside:before {
   content: "";
   height: 100%;
   width: 1px;
@@ -74,7 +74,7 @@ body[role="application"] li .aside:before {
   vertical-align: middle;
 }
 
-body[role="application"] li .aside time {
+body[role="application"] .list li .aside time {
   display: inline-block;
   vertical-align: super;
   width: 4rem;
@@ -84,7 +84,7 @@ body[role="application"] li .aside time {
   text-align: right;
 }
 
-body[role="application"] li img {
+body[role="application"] .list li img {
   float: right;
   display: inline;
   /*width: 6rem;*/
@@ -93,17 +93,17 @@ body[role="application"] li img {
   background-size: 100% auto;
 }
 
-body[role="application"] li dl {
+body[role="application"] .list li dl {
   display: block;
   overflow: hidden;
   padding: 1rem 0.5rem 0 2rem;
 }
 
-body[role="application"] li .aside ~ dl {
+body[role="application"] .list li .aside ~ dl {
   padding-left: 0.5rem;
 }
 
-body[role="application"] li dl dt {
+body[role="application"] .list li dl dt {
   font: 1.8rem/1.2em "Open Sans", Sans-serif;
   white-space: nowrap;
   height: 2.2rem;
@@ -111,21 +111,21 @@ body[role="application"] li dl dt {
   text-overflow: ellipsis;
 }
 
-body[role="application"] li dl dt strong {
+body[role="application"] .list li dl dt strong {
   font-weight: 600;
   font-family: "Open Sans", Sans-serif;
 }
 
-body[role="application"] li dl dt em {
+body[role="application"] .list li dl dt em {
   font-size: 1.3rem;
   font-style: normal;
 }
 
-body[role="application"] li dl mark {
+body[role="application"] .list li dl mark {
   background-color: #cfd3d7;
 }
 
-body[role="application"] li dl dd {
+body[role="application"] .list li dl dd {
   font-size: 1.4rem;
   color: #5b5b5b;
   white-space: nowrap;
@@ -135,28 +135,28 @@ body[role="application"] li dl dd {
   text-overflow: ellipsis;
 }
 
-body[role="application"] li dl dd strong {
+body[role="application"] .list li dl dd strong {
   font-weight: 600;
   font-family: "Open Sans", Sans-serif;
   color: #000;
 }
 
-body[role="application"] li dl dd time {
+body[role="application"] .list li dl dd time {
   font-size: 1.4rem;
   color: #5b5b5b;
   margin-right: 0.3rem;
 }
 
-body[role="application"] li dl dd span {
+body[role="application"] .list li dl dd span {
   margin-right: 0.3rem;
 }
 
-body[role="application"] li dl dd span:last-child {
+body[role="application"] .list li dl dd span:last-child {
   margin: 0;
 }
 
 /* Icon definitions */
-body[role="application"] li .icon  {
+body[role="application"] .list li .icon  {
   display: inline-block;
   vertical-align: middle;
   width: 3rem;
@@ -168,7 +168,7 @@ body[role="application"] li .icon  {
   position: relative;
 }
 
-body[role="application"] li .icon.icon-arrowaction {
+body[role="application"] .list li .icon.icon-arrowaction {
   background-image: url(../images/icons/arrowaction.png);
   width:1rem;
   height: 1rem;
@@ -176,36 +176,36 @@ body[role="application"] li .icon.icon-arrowaction {
   margin: 0 -3rem 0.5rem 0;
 }
 
-body[role="application"] li .icon.icon-callout {
+body[role="application"] .list li .icon.icon-callout {
   background-image: url(../images/icons/callout.png);
   width: 2.4rem;
   height: 2rem;
 }
 
-body[role="application"] li .icon.icon-smsin {
+body[role="application"] .list li .icon.icon-smsin {
   background-image: url(../images/icons/smsin.png);
   width: 2.5rem;
   height: 2.2rem;
 }
 
-body[role="application"] li[data-state="new"] .icon.icon-smsin {
+body[role="application"] .list li[data-state="new"] .icon.icon-smsin {
   background-image: url(../images/icons/smsin-new.png);
   width: 2.5rem;
   height: 2.2rem;
 }
 
 /* State edit*/
-body[role="application"] ul[data-state="edit"] li,
-body[role="application"] ol[data-state="edit"] li {
+body[role="application"] ul[data-state="edit"].list li,
+body[role="application"] ol[data-state="edit"].list li {
   transform: translateX(5rem);
 }
 
-body[role="application"] ul[data-state="edit"] li > label.check,
-body[role="application"] ol[data-state="edit"] li > label.check {
+body[role="application"] ul[data-state="edit"].list li > label.check,
+body[role="application"] ol[data-state="edit"].list li > label.check {
    opacity: 1;
 }
 
-body[role="application"] li > label.check {
+body[role="application"] .list li > label.check {
   transition: opacity 0.6s ease;
   width: 5rem;
   height: 6rem;
@@ -220,7 +220,7 @@ body[role="application"] li > label.check {
 }
 
 /* State disabled */
-body[role="application"] li[aria-disabled="true"]:before {
+body[role="application"] .list li[aria-disabled="true"]:before {
   content: "";
   position: absolute;
   left: 0;
@@ -231,12 +231,12 @@ body[role="application"] li[aria-disabled="true"]:before {
   opacity: 0.7;
 }
 
-body[role="application"]  li[aria-disabled="true"] {
+body[role="application"] .list li[aria-disabled="true"] {
   pointer-events:none;
 }
 
 /* State new */
-body[role="application"] li[data-state="marked"]:before {
+body[role="application"] .list li[data-state="marked"]:before {
   content: "";
   position: absolute;
   left: 0;
@@ -248,12 +248,12 @@ body[role="application"] li[data-state="marked"]:before {
   background-size: 100% auto;
 }
 
-body[role="application"] li[data-state="new"] time {
+body[role="application"] .list li[data-state="new"] time {
   color: #52b6cc !important;
 }
 
 /* State tagged */
-body[role="application"] li[data-state="tagged"]:after  {
+body[role="application"] .list li[data-state="tagged"]:after  {
   content: "";
   position: absolute;
   left: 0;
@@ -262,8 +262,8 @@ body[role="application"] li[data-state="tagged"]:after  {
   width: 0.4rem;
 }
 
-body[role="application"] li[data-tag="A"]:after { background-color: #e7a300; }
-body[role="application"] li[data-tag="B"]:after { background-color: #954fa7; }
+body[role="application"] .list li[data-tag="A"]:after { background-color: #e7a300; }
+body[role="application"] .list li[data-tag="B"]:after { background-color: #954fa7; }
 
 
 /* ----------------------------------

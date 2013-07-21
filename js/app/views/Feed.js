@@ -161,15 +161,15 @@ define([
 			$("#button-mark").show();
 			
 			// Show the content
-			var content = "<ul><li><dl><dt>Loading</dt></dl></li></ul>";
+			var content = "<ul class='list'><li><dl><dt>Loading</dt></dl></li></ul>";
 			if(this.collection)
 				content = _.template(this.template, {articles: this.collection.toJSON()});
 			
 			if(this.collection && !this.collection.length) {
 				if(this.feed === 0)
-					content = "<ul><li><dl><dt>No unread articles</dt></dl></li></ul>";
+					content = "<ul class='list'><li><dl><dt>No unread articles</dt></dl></li></ul>";
 				else
-					content = "<ul><li><dl><dt>No article in this feed</dt></dl></li></ul>";
+					content = "<ul class='list'><li><dl><dt>No article in this feed</dt></dl></li></ul>";
 			}
 			
 			this.$el.html(content);
@@ -200,7 +200,7 @@ define([
 				return;
 			
 			$("#page-title").html("Loading");
-			this.$el.html("<ul><li><dl><dt>Loading</dt></dl></li></ul>");
+			this.$el.html("<ul class='list'><li><dl><dt>Loading</dt></dl></li></ul>");
 			$("#button-refresh").hide();
 			
 			// Get the list of articles
