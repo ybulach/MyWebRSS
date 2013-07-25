@@ -5,12 +5,9 @@ define([
 ], function(Backbone) {
 	var FeedView = Backbone.View.extend({
 		el: $("[role=status] > p"),
+		message: "",
 		
-		initialize: function() {
-			this.message = "";
-		},
-		
-		setMessage: function(msg) {
+		setMessage: function(msg, temporary) {
 			this.message = msg;
 			
 			// Wait the end of the previous message
@@ -20,7 +17,11 @@ define([
 					view.render();
 					clearInterval(timer);
 				}
-			}, 1000);
+				// If the message is temporary, don't try again (loading messages)
+				else if(temporary) {
+					clearInterval(timer);
+				}
+			}, 100);
 		},
 		
 		render: function() {
@@ -30,11 +31,14 @@ define([
 			this.$el.html(this.message);
 			$("[role=status]").show();
 			
-			// Hide the status
+			// Hide the status, the time depends on his size
+			var time = (this.message.length / 10);
 			setTimeout(function() {
 				$("[role=status]").hide();
-				$.localStorage("status", false);
-			}, 3*1000);
+				setTimeout(function() {
+					$.localStorage("status", false);
+				}, 500);
+			}, time*1000);
 		}
 	});
 	
