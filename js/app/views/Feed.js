@@ -157,7 +157,8 @@ define([
 				$("#page-title").html("Loading");
 			
 			// Show the buttons
-			$("#button-refresh").show();
+			$("#button-refresh").attr("data-state", "none");
+			$("#button-refresh").removeAttr("disabled", "");
 			$("#button-mark").show();
 			
 			// Show the content
@@ -200,11 +201,9 @@ define([
 				return;
 			
 			$("#page-title").html("Loading");
-			$("#button-refresh").hide();
+			$("#button-refresh").attr("data-state", "refreshing");
+			$("#button-refresh").attr("disabled", "disabled");
 			$("#button-more").hide();
-			
-			var status = new StatusView();
-			status.setMessage("Loading...", true);
 			
 			// Get the list of articles
 			var view = this;

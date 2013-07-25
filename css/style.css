@@ -139,3 +139,33 @@ body[role="application"] .list li .aside {
 [role=toolbar] button {
 	display: none;
 }
+
+/* The refreshing state of the update button */
+[role="toolbar"] .update[data-state="refreshing"] {
+  animation: 0.9s rotate infinite linear;
+  -webkit-animation: 0.9s rotate infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(1deg);
+    -moz-transform: rotate(1deg);
+    -webkit-transform: rotate(1deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(1deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

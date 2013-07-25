@@ -52,7 +52,8 @@ define([
 				content = _.template(this.template, {feeds: this.collection.toJSON()});
 			this.$el.html(content);
 			
-			$("#menu-refresh").show();
+			$("#menu-refresh").attr("data-state", "none");
+			$("#menu-refresh").removeAttr("disabled", "");
 			
 			// Display the total of unread articles
 			if(this.unread_total > 0) {
@@ -84,10 +85,8 @@ define([
 				return;
 			
 			$("a[href='#'] > .indicator").html("0");
-			$("#menu-refresh").hide();
-			
-			var status = new StatusView();
-			status.setMessage("Loading...", true);
+			$("#menu-refresh").attr("data-state", "refreshing");
+			$("#menu-refresh").attr("disabled", "disabled");
 			
 			// Get the list of feeds
 			var view = this;

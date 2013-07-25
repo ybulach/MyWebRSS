@@ -7,7 +7,7 @@ define([
 		el: $("[role=status] > p"),
 		message: "",
 		
-		setMessage: function(msg, temporary) {
+		setMessage: function(msg) {
 			this.message = msg;
 			
 			// Wait the end of the previous message
@@ -15,10 +15,6 @@ define([
 			var timer = setInterval(function() {
 				if(!$.localStorage("status")) {
 					view.render();
-					clearInterval(timer);
-				}
-				// If the message is temporary, don't try again (loading messages)
-				else if(temporary) {
 					clearInterval(timer);
 				}
 			}, 100);
