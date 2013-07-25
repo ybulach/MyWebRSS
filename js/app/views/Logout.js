@@ -22,6 +22,8 @@ define([
 			this.$el.html(LogoutTemplate);
 			
 			$("#logout-submit").click(function() {
+				$("#logout-submit").attr("disabled", "disabled");
+				
 				var view = this;
 				$.ajax({
 					dataType: "json",
@@ -41,6 +43,7 @@ define([
 							else
 								status.setMessage(data.error);
 							
+							$("#logout-submit").removeAttr("disabled");
 							return;
 						}
 						
@@ -54,6 +57,8 @@ define([
 					error: function() {
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
+						
+						$("#logout-submit").removeAttr("disabled");
 					}
 				});
 			});
