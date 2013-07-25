@@ -200,8 +200,11 @@ define([
 				return;
 			
 			$("#page-title").html("Loading");
-			this.$el.html("<ul class='list'><li><dl><dt>Loading</dt></dl></li></ul>");
 			$("#button-refresh").hide();
+			$("#button-more").hide();
+			
+			var status = new StatusView();
+			status.setMessage("Loading...", true);
 			
 			// Get the list of articles
 			var view = this;

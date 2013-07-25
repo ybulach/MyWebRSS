@@ -83,9 +83,11 @@ define([
 			if(!$.localStorage("token"))
 				return;
 			
-			this.$el.html("<li>Loading</li>");
-			$("a[href='#'] > .indicator").hide();
+			$("a[href='#'] > .indicator").html("0");
 			$("#menu-refresh").hide();
+			
+			var status = new StatusView();
+			status.setMessage("Loading...", true);
 			
 			// Get the list of feeds
 			var view = this;
