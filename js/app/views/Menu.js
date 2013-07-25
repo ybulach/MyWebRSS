@@ -19,6 +19,9 @@ define([
 			if($.localStorage("token")) {
 				this.template = MenuTemplate;
 				
+				// Show the button
+				$("#menu-refresh").show();
+				
 				// Show or hide the menu
 				$("#button-menu").click(function() {
 					flush_menu();
