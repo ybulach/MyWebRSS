@@ -21,6 +21,49 @@ define([
 			$("#page-title").html("Add Feed");
 			this.$el.html(AddFeedTemplate);
 			
+			// Search for a feed
+			$("#addfeed-search").change(function() {
+				if($("#addfeed-search").val()) {
+					$("#addfeed-result").html("Loading");
+					
+					// Search through Google Feed API
+					google.feeds.findFeeds($("#addfeed-search").val(), function(result) {
+						if($("#addfeed-search").val()) {
+							if(!result.error) {
+								var results = "";
+								for (var i = 0; i < result.entries.length; i++)
+									results += "<li><a href='" + result.entries[i].url + "'><dl><dt>" + result.entries[i].title + "</dt><dd>" + result.entries[i].url + "</dd></dl></a></li>";
+								$("#addfeed-result").html(results);
+								
+								$("#addfeed-result li a").click(function (event) {
+									event.preventDefault();
+									
+									// Clear the results
+									$("#addfeed-result").html("");
+									$("#addfeed-url").val(this);
+									$("#addfeed-submit").click();
+								});
+							} else {
+								$("#addfeed-result").html("An error occured. Try again later.");
+							}
+						}
+					});
+				}
+				else
+					$("#addfeed-result").html("");
+			});
+			
+			$("#addfeed-clear").click(function() {
+				// Clear the results
+				$("#addfeed-search").val("");
+				$("#addfeed-search").change();
+			});
+			
+			$("#addfeed-submit-search").click(function() {
+				// Force a new search
+				$("#addfeed-search").change();
+			});
+			
 			// Add a feed with an URL
 			$("#addfeed-submit").click(function() {
 				$("#addfeed-submit").attr("disabled", "disabled");

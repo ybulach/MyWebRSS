@@ -71,8 +71,6 @@ form p textarea + button[type="reset"] {
   padding: 0;
   border: none;
   font-size: 0;
-  opacity: 0;
-  pointer-events: none;
   background: url(../images/icons/clear.png) no-repeat 50% 50%;
 }
 
@@ -98,12 +96,6 @@ form p input:focus {
 
 form p textarea:focus {
   padding-right: 3rem;
-}
-
-form p input:focus + button[type="reset"],
-form p textarea:focus + button[type="reset"] {
-  opacity: 1;
-  pointer-events: all;
 }
 
 /* Fieldset */

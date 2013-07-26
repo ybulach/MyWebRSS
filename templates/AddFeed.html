@@ -1,3 +1,13 @@
+<form role="search">
+	<button type="submit" id="addfeed-submit-search">Search</button>
+	<p>
+		<input type="text" id="addfeed-search" placeholder="Search through Google..." required="">
+		<button type="reset" id="addfeed-clear">Clear</button>
+	</p>
+</form>
+<ul class="list" id="addfeed-result"></ul>
+<p>Type the name of the feed / website you want to add up there. It will search for it through Google</p>
+
 <h1>Add a feed from an URL</h1>
 <form>
 	<p>
@@ -14,6 +24,7 @@
 		OPML file:<br/>
 		<input type="file" id="import-file" value=""/>
 	</p>
+	<p>The import of your feeds won't work from a Firefox OS device, as there is no possibility yet to select an OPML file.</p>
 
 	<p><button id="import-submit">Import feeds</button></p>
 </form>
