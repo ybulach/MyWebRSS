@@ -111,6 +111,7 @@ define([
 						else
 							status.setMessage(data.error);
 						
+						view.render();
 						return;
 					}
 					

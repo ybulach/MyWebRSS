@@ -60,6 +60,7 @@ define([
 							else
 								status.setMessage(data.error);
 							
+							view.render();
 							return;
 						}
 						
@@ -102,6 +103,7 @@ define([
 								else
 									status.setMessage(data.error);
 								
+								view.render();
 								return;
 							}
 							
@@ -228,6 +230,7 @@ define([
 						else
 							status.setMessage(data.error);
 						
+						view.render();
 						return;
 					}
 					
