@@ -59,7 +59,10 @@ define([
 				$("#addfeed-search").change();
 			});
 			
-			$("#addfeed-submit-search").click(function() {
+			$("#addfeed-submit-search").click(function(event) {
+				event.preventDefault();
+				$("#addfeed-submit-search").focus();
+				
 				// Force a new search
 				$("#addfeed-search").change();
 			});
