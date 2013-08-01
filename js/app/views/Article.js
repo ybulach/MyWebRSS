@@ -111,43 +111,36 @@ define([
 			// Set the article
 			if((i >= 0) && (i < collection.length))
 				this.setModel(new ArticleModel(collection[i]));
-			else
+			else {
 				$("#button-back").click();
+				return;
+			}
 			
 			// Mark the article as unread
-			if(this.model && (this.model.attributes.status == "new")) {
-				var view = this;
-				$.ajax({
-					dataType: "json",
-					url: window.mywebrss + "/article/unread",
-					data: {token: $.localStorage("token"), article: view.article},
-					success: function(data) {
-						// Check error
-						if(!data.success) {
-							var status = new StatusView();
-							
-							// Wrong token
-							if(data.error == "token") {
-								$.localStorage("token", null);
-								window.location = "#login";
-							}
-							// Unknown error
-							else
-								status.setMessage(data.error);
-							
-							return;
-						}
-						
-						// Delete datas we don't need
-						delete data.success, delete data.error;
-					},
-					error: function() {
-						var status = new StatusView();
-						status.setMessage("Can't contact the server");
-						view.render();
+			var view = this;
+			view.model.unread(function(result) {
+				if(!result.success) {
+					var status = new StatusView();
+					
+					// Wrong token
+					if(result.error == "token") {
+						$.localStorage("token", null);
+						window.location = "#login";
 					}
-				});
-			}
+					// Server error
+					else if(result.error == "server")
+						status.setMessage("Can't contact the server. Try again later");
+					// Unknown error
+					else
+						status.setMessage(result.error);
+					
+					return;
+				}
+				
+				// Change the status of the article in the collection
+				collection[i].status = "";
+				$.localStorage("collection", collection);
+			});
 		}
 	});
 	

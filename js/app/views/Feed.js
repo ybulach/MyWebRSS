@@ -35,47 +35,33 @@ define([
 			
 			// Mark as read
 			$("#button-mark").click(function() {
-				// TODO: unread each article
-				alert("No yet implemented");
-				
-				/*$("#page-title").html("Loading");
+				$("#page-title").html("Loading");
 				$("#button-mark").hide();
 				
-				$.ajax({
-					dataType: "json",
-					url: window.mywebrss + "/feed/unread",
-					data: {token: $.localStorage("token"), feed: view.collection.feed},
-					success: function(data) {
-						// Check error
-						if(!data.success) {
+				// Get the articles of the current feed
+				view.collection.each(function(article, i) {
+					article.unread(function(result) {
+						if(!result.success) {
 							var status = new StatusView();
 							
 							// Wrong token
-							if(data.error == "token") {
+							if(result.error == "token") {
 								$.localStorage("token", null);
 								window.location = "#login";
 							}
-							// Wrong feed
-							else if(data.error == "feed")
-								window.location = "index.html";
+							// Server error
+							else if(result.error == "server")
+								status.setMessage("Can't contact the server. Try again later");
 							// Unknown error
-							else
-								status.setMessage(data.error);
-							
-							view.render();
-							return;
+							else if(result.error != "status")
+								status.setMessage(result.error);
 						}
 						
-						// Refresh
-						view.collection.page = 0;
-						view.refresh_articles();
-					},
-					error: function() {
-						var status = new StatusView();
-						status.setMessage("Can't contact the server");
-						view.render();
-					}
-				});*/
+						// For the last article, we refresh if we changed articles
+						if(i == view.collection.length-1)
+							view.refresh_articles();
+					});
+				});
 			});
 			
 			// Delete the feed
@@ -141,7 +127,7 @@ define([
 			$("#button-mark").show();
 			
 			// Show the More button if we have loaded new articles
-			if(this.collection.length == $.localStorage("articles_per_page"))
+			if((this.collection.length % $.localStorage("articles_per_page")) == 0)
 				$("#button-more").show();
 			else
 				$("#button-more").hide();
