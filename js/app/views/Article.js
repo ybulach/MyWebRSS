@@ -131,7 +131,7 @@ define([
 					else if(result.error == "server")
 						status.setMessage("Can't contact the server. Try again later");
 					// Unknown error
-					else
+					else if(result.error != "status")
 						status.setMessage(result.error);
 					
 					return;
