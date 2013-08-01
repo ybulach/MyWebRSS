@@ -53,7 +53,7 @@ define([
 			// Change the content
 			var content = "<h1>Loading</h1>";
 			if(this.model) {
-				if($.localStorage("feed") === 0)
+				if($.localStorage("collection") && ($.localStorage("collection").feed === 0))
 					$("#page-title").html($("#home").html());
 				else
 					$("#page-title").html(this.model.attributes.feed);
