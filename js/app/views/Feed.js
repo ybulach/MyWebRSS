@@ -127,7 +127,7 @@ define([
 			$("#button-mark").show();
 			
 			// Show the More button if we have loaded new articles
-			if((this.collection.length % $.localStorage("articles_per_page")) == 0)
+			if(this.collection.length && $.localStorage("articles_per_page") && (this.collection.length % $.localStorage("articles_per_page")) == 0)
 				$("#button-more").show();
 			else
 				$("#button-more").hide();
