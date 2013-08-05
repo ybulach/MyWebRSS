@@ -172,6 +172,10 @@ define([
 			
 			// Save datas
 			$.localStorage("feed", this.collection.feed);
+			
+			// Auto-refresh
+			if(!$.localStorage("autorefresh_cnt"))
+				this.autorefresh();
 		},
 		
 		refresh_articles: function() {
@@ -213,10 +217,6 @@ define([
 			
 			// Refresh menu
 			$("#menu-refresh").click();
-			
-			// Auto-refresh
-			if(!$.localStorage("autorefresh_cnt"))
-				this.autorefresh();
 		}
 	});
 	
