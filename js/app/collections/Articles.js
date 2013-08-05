@@ -6,7 +6,7 @@ define([
 	var ArticlesCollection = Backbone.Collection.extend({
 		model: ArticleModel,
 		feed_name: "",
-		feed: 0,
+		feed: null,
 		page: 0,
 		
 		// Refresh the articles list

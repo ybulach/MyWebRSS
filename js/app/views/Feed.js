@@ -149,10 +149,6 @@ define([
 			// Save feed infos for later
 			var view = this;
 			$("#page a").click(function(event) {
-				// Save datas
-				$.localStorage("feed", view.collection.feed);
-				$.localStorage("collection", view.collection);
-				
 				// Auto-refresh
 				if($.localStorage("autorefresh_cnt"))
 					clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
@@ -165,7 +161,17 @@ define([
 			
 			this.collection.feed = id;
 			this.collection.page = 0;
-			this.refresh_articles();
+			
+			// Only refresh if we are on an other feed (the back button on an article hasn't been clicked)
+			if($.localStorage("feed") != id)
+				this.refresh_articles();
+			else {
+				this.collection.reset($.localStorage("collection"));
+				this.render();
+			}
+			
+			// Save datas
+			$.localStorage("feed", this.collection.feed);
 		},
 		
 		refresh_articles: function() {
@@ -173,6 +179,10 @@ define([
 			$("#button-refresh").attr("data-state", "refreshing");
 			$("#button-refresh").attr("disabled", "disabled");
 			$("#button-more").hide();
+			
+			// Indicate the loading state if we want the first page
+			if(this.collection.page === 0)
+				this.$el.html("<ul class='list'><li><dl><dt>Loading</dt></dl></li></ul>");
 			
 			var view = this;
 			this.collection.refresh(function(result) {
@@ -194,6 +204,9 @@ define([
 					else
 						status.setMessage(result.error);
 				}
+				
+				// Save datas
+				$.localStorage("collection", this.collection);
 				
 				view.render();
 			});
