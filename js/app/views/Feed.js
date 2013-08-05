@@ -163,7 +163,8 @@ define([
 			this.collection.page = 0;
 			
 			// Only refresh if we are on an other feed (the back button on an article hasn't been clicked)
-			if($.localStorage("feed") != id)
+			// or if autorefresh is activated
+			if(($.localStorage("feed") != id) || $.localStorage("autorefresh"))
 				this.refresh_articles();
 			else {
 				this.collection.reset($.localStorage("collection"));
