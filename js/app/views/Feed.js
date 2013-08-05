@@ -206,7 +206,7 @@ define([
 				}
 				
 				// Save datas
-				$.localStorage("collection", this.collection);
+				$.localStorage("collection", view.collection);
 				
 				view.render();
 			});
