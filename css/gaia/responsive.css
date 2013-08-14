@@ -42,6 +42,10 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 		width: 80%;
 		margin-left: 20%;
 	}
+	
+	#button-menu {
+	    display: none;
+	}
 }
 
 /*
@@ -65,5 +69,9 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 	body[role="application"] > section[role="region"] [role="toolbar"] {
 		width: 100%;
 		margin-left: 0;
+	}
+	
+	#button-menu {
+	    display: inline;
 	}
 }
