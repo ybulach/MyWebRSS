@@ -44,7 +44,7 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 	}
 	
 	#button-menu {
-	    display: none;
+	    width: 0px;
 	}
 }
 
@@ -69,9 +69,5 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 	body[role="application"] > section[role="region"] [role="toolbar"] {
 		width: 100%;
 		margin-left: 0;
-	}
-	
-	#button-menu {
-	    display: inline;
 	}
 }
