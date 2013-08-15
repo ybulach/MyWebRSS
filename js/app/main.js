@@ -6,7 +6,7 @@ define([
 ], function(Backbone, Router) {
 	var initialize = function() {
 		// Configuration
-		window.mywebrss = "https://api.mywebrss.net";
+		window.mywebrss = "https://localhost/mywebrss/";
 		window.refresh_interval = 60;
 		$.localStorage("articles_per_page", 20);
 		
