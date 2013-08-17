@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1.0 - 05-07-2013 14:39
+# v1.0 - 17-08-2013 16:55
 
 # HTML Cache
 index.html
@@ -11,7 +11,6 @@ templates/Login.html
 templates/Logout.html
 templates/Menu.html
 templates/Settings.html
-templates/Signin.html
 
 # Fonts Cache
 css/fonts/MozLight.otf
@@ -126,7 +125,6 @@ js/app/views/Login.js
 js/app/views/Logout.js
 js/app/views/Menu.js
 js/app/views/Settings.js
-js/app/views/Signin.js
 js/app/views/Status.js
 js/lib/backbone.js
 js/lib/jquery.storage.js

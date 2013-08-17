@@ -169,3 +169,8 @@ body[role="application"] .list li .aside {
     -webkit-transform: rotate(360deg);
   }
 }
+
+/* Hide the menu while loading */
+nav > * {
+	display: none;
+}

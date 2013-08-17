@@ -3,13 +3,18 @@
 
 define([
 	'backbone',
-	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Signin', 'views/Article', 'views/Menu', 'views/About'
-], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, SigninView, ArticleView, MenuView, AboutView) {
+	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Article', 'views/Menu', 'views/About'
+], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, ArticleView, MenuView, AboutView) {
 	// Create a new view
 	function createView(View) {
 		// Hide buttons and delete all events
 		$("[role=region] button").hide();
 		$("[role=region] button:not(#button-menu)").unbind('click');
+		
+		if(!$.localStorage("token"))
+			$("nav > *").hide();
+		else
+			$("nav > *").show();
 		
 		$("#page-title").html("Loading");
 		$("#page").empty();
@@ -29,7 +34,6 @@ define([
 			'login': 'showLogin',
 			'logout': 'showLogout',
 			'about': 'showAbout',
-			'signin': 'showSignin',
 			'settings': 'showSettings',
 			'addfeed': 'showAddFeed',
 			'feed/:id': 'showFeed',
@@ -54,10 +58,6 @@ define([
 		
 		showAbout: function() {
 			createView(AboutView);
-		},
-		
-		showSignin: function() {
-			createView(SigninView);
 		},
 		
 		showSettings: function() {

@@ -81,7 +81,7 @@ define([
 							}
 							// Wrong feed
 							else if(result.error == "feed")
-								window.location = "index.html";
+								window.location = "#";
 							// Server error
 							else if(result.error == "server")
 								status.setMessage("Can't contact the server. Try again later");
@@ -93,7 +93,7 @@ define([
 						}
 						// Go to home
 						else
-							window.location = "index.html";
+							window.location = "#";
 					});
 				}
 			});
@@ -201,7 +201,7 @@ define([
 					}
 					// Wrong feed
 					else if(result.error == "feed")
-						window.location = "index.html";
+						window.location = "#";
 					// Server error
 					else if(result.error == "server")
 						status.setMessage("Can't contact the server. Try again later");

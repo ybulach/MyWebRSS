@@ -17,35 +17,30 @@ define([
 		collection: new FeedsCollection(),
 		
 		initialize: function() {
-			if($.localStorage("token")) {
-				this.template = MenuTemplate;
-				
-				// Show the button
-				$("#menu-refresh").show();
-				
-				// Show or hide the menu
-				$("#button-menu").click(function() {
-					flush_menu();
-				});
-				
-				$("[role='main']").click(function(event) {
-					if($("[role=region]").attr("data-state") == "drawer") {
-						event.preventDefault();
-						$("[role=region]").attr("data-state", "none");
-					}
-				});
-				
-				// Refresh the list of feeds
-				var view = this;
-				$("#menu-refresh").click(function() {
-					view.refresh_feeds();
-				});
-				
-				// Get the content of the menu (list of the feeds) and display it
-				this.refresh_feeds();
-			}
-			else
-				$("nav").html("");
+			this.template = MenuTemplate;
+			
+			// Show the button
+			$("#menu-refresh").show();
+			
+			// Show or hide the menu
+			$("#button-menu").click(function() {
+				flush_menu();
+			});
+			
+			$("[role='main']").click(function(event) {
+				if($("[role=region]").attr("data-state") == "drawer") {
+					event.preventDefault();
+					$("[role=region]").attr("data-state", "none");
+				}
+			});
+			
+			// Refresh the list of feeds
+			var view = this;
+			$("#menu-refresh").click(function() {
+				view.refresh_feeds();
+			});
+			
+			this.refresh_feeds();
 		},
 		
 		render: function() {
@@ -76,6 +71,9 @@ define([
 		},
 		
 		refresh_feeds: function() {
+			if(!$.localStorage("token"))
+				return;
+			
 			$("a[href='#'] > .indicator").html("0");
 			$("#menu-refresh").attr("data-state", "refreshing");
 			$("#menu-refresh").attr("disabled", "disabled");

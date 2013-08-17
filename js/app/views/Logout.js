@@ -21,46 +21,11 @@ define([
 			$("#page-title").html("Logout");
 			this.$el.html(LogoutTemplate);
 			
-			$("#logout-submit").click(function() {
-				$("#logout-submit").attr("disabled", "disabled");
+			$("#logout-submit").click(function(event) {
+				event.preventDefault();
 				
-				var view = this;
-				$.ajax({
-					dataType: "json",
-					url: window.mywebrss + "/user/logout",
-					data: {token: $.localStorage("token")},
-					success: function(data) {
-						// Check error
-						if(!data.success) {
-							var status = new StatusView();
-							
-							// Wrong token
-							if(data.error == "token") {
-								$.localStorage("token", null);
-								window.location = "#login";
-							}
-							// Unknown error
-							else
-								status.setMessage(data.error);
-							
-							$("#logout-submit").removeAttr("disabled");
-							return;
-						}
-						
-						// Delete datas we don't need
-						delete data.success, delete data.error;
-						
-						// Delete the token and redirect to Home
-						$.localStorage('token', null);
-						window.location = "index.html";
-					},
-					error: function() {
-						var status = new StatusView();
-						status.setMessage("Can't contact the server");
-						
-						$("#logout-submit").removeAttr("disabled");
-					}
-				});
+				$("#logout-submit").attr("disabled", "disabled");
+				navigator.id.logout();
 			});
 		},
 	});
