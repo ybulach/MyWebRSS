@@ -18,9 +18,6 @@ define([
 		if(!$.localStorage("email"))
 			$.localStorage("email", null);
 		
-		$.localStorage("token", null);
-		$.localStorage("email", null);
-		
 		$("nav > *").hide();
 		
 		// Persona account stuff
