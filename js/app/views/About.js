@@ -10,7 +10,8 @@ define([
 			this.template = AboutTemplate;
 			
 			// Show buttons
-			$("#button-menu").show();
+			if($.localStorage("token"))
+				$("#button-menu").show();
 		},
 		
 		render: function(){
