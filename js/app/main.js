@@ -52,6 +52,9 @@ define([
 						$.localStorage('email', data.email);
 						$.localStorage('token', data.token);
 						
+						$("nav > header > h1").html(data.email);
+						$("#menu-refresh").click();
+						
 						window.location = "#";
 					},
 					error: function() {
@@ -84,6 +87,8 @@ define([
 						// Delete the token and redirect to Home
 						$.localStorage("token", null);
 						$.localStorage('email', null);
+						
+						$("nav > header > h1").html("Menu");
 						
 						window.location = "#";
 					},

@@ -40,6 +40,9 @@ define([
 				view.refresh_feeds();
 			});
 			
+			if($.localStorage("email"))
+				$("nav > header > h1").html($.localStorage("email"));
+			
 			this.refresh_feeds();
 		},
 		
