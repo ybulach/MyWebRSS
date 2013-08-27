@@ -6,7 +6,6 @@
     "32": "/css/images/icon-32.png",
     "128": "/css/images/icon-128.png"
   },
-  "appcache_path": "/manifest.appcache",
   "developer": {
     "name": "Yamine B.",
     "url": "http://www.yamine-bulach.eu"
