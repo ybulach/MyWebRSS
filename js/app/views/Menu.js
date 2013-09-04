@@ -61,7 +61,10 @@ define([
 			if(this.collection.unread_total > 0) {
 				$("a[href='#'] > .indicator").html(this.collection.unread_total);
 				$("a[href='#'] > .indicator").show();
+				document.title = "(" + this.collection.unread_total + ") MyWebRSS";
 			}
+			else
+				document.title = "MyWebRSS";
 			
 			// Hide the menu
 			$("nav > div.inner > ul > li > a").click(function() {
