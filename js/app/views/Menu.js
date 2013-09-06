@@ -104,6 +104,10 @@ define([
 				
 				view.render();
 			});
+            
+            // Refresh the current page
+            if($("#button-refresh").css('display') !== 'none')
+                $("#button-refresh").click();
 		}
 	});
 	
