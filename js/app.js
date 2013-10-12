@@ -6,7 +6,8 @@ requirejs.config({
 		'views': '../app/views',
 		'models': '../app/models',
 		'collections': '../app/collections',
-		'templates': '../../templates'
+		'templates': '../../templates',
+		'localStorage': 'backbone.localStorage'
 	},
 	shim: {
 		'zepto': {

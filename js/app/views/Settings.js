@@ -9,10 +9,6 @@ define([
 		initialize: function() {
 			this.template = SettingsTemplate;
 			
-			// Redirect to the login page if necessary
-			if(!$.localStorage("token"))
-				window.location = "#login";
-			
 			// Show the buttons
 			$("#button-menu").show();
 		},

@@ -36,8 +36,8 @@ define([
 			'about': 'showAbout',
 			'settings': 'showSettings',
 			'addfeed': 'showAddFeed',
-			'feed/:id': 'showFeed',
-			'article/:id': 'showArticle',
+			'feed/:api/:id': 'showFeed',
+			'article/:api/:id': 'showArticle',
 			'': 'showHome',
 			
 			// Default page
@@ -68,19 +68,19 @@ define([
 			createView(AddFeedView);
 		},
 		
-		showFeed: function(id) {
+		showFeed: function(api, id) {
 			var view = createView(FeedView);
-			view.loadFeed(id);
+			view.loadFeed(api, id);
 		},
 		
-		showArticle: function(id) {
+		showArticle: function(api, id) {
 			var view = createView(ArticleView);
-			view.loadArticle(id);
+			view.loadArticle(api, id);
 		},
 		
 		showHome: function() {
 			var view = createView(FeedView);
-			view.loadFeed(0);
+			view.loadFeed(null, 0);
 		}
 	});
 	

@@ -2,8 +2,8 @@
 // The main app stuff
 
 define([
-	'backbone', 'app/router', 'views/Status'
-], function(Backbone, Router, StatusView) {
+	'backbone', 'app/router', 'views/Status', 'collections/APIs'
+], function(Backbone, Router, StatusView, APIsCollection) {
 	var initialize = function() {
 		// Configuration
 		window.mywebrss = "https://api.mywebrss.net";
@@ -20,6 +20,9 @@ define([
 			$.localStorage("email", null);
 		
 		$("nav > *").hide();
+		
+		window.apis = new APIsCollection();
+		apis.fetch();
 		
 		// Persona account stuff
 		navigator.id.watch({

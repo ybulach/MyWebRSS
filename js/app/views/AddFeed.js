@@ -7,12 +7,6 @@ define([
 		el: $("#page"),
 		
 		initialize: function() {
-			// Redirect to login page if we are not connected
-			if(!$.localStorage("token")) {
-				alert("You are not connected. Redirecting to Login page.");
-				window.location = "#login";
-			}
-			
 			// Show the buttons
 			$("#button-menu").show();
 		},

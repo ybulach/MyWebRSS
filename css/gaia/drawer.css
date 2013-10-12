@@ -142,7 +142,7 @@ body[role="application"] > nav > .inner {
   max-height: -webkit-calc(100% - 9rem);
 }
 
-body[role="application"] > nav .inner > h2 {
+body[role="application"] > nav .inner h2 {
   font-weight: bold;
   font-size: 1.4rem;
   line-height: 3.3rem;
@@ -158,23 +158,23 @@ body[role="application"] > nav [role="toolbar"] {
   position: absolute;
 }
 
-body[role="application"] > nav .inner > ul { 
+body[role="application"] > nav .inner ul { 
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-body[role="application"] > nav .inner > ul > li { 
+body[role="application"] > nav .inner  ul > li { 
   color: #fff;
   list-style: none;
   transition: background 0.2s ease;
 }
 
-body[role="application"] > nav .inner > ul > li:active {
+body[role="application"] > nav .inner ul > li:active {
   background: #00ABCC;  
 }
 
-body[role="application"] > nav .inner > ul > li > a { 
+body[role="application"] > nav .inner ul > li > a { 
   text-decoration: none;
   color: #fff;
   font-size: 1.6rem;
