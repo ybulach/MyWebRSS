@@ -108,7 +108,7 @@ define([
 					view.autorefresh();
 				}, window.refresh_interval*1000);
 				
-				$.localStorage("autorefresh_cnt", refresh);
+				window.autorefresh_cnt = refresh;
 			}
 		},
 		
@@ -127,7 +127,7 @@ define([
 			$("#button-mark").show();
 			
 			// Show the More button if we have loaded new articles
-			if(this.collection.length && $.localStorage("articles_per_page") && (this.collection.length % $.localStorage("articles_per_page")) == 0)
+			if(this.collection.length && window.articles_per_page && (this.collection.length % window.articles_per_page) == 0)
 				$("#button-more").show();
 			else
 				$("#button-more").hide();
@@ -150,8 +150,8 @@ define([
 			var view = this;
 			$("#page a").click(function(event) {
 				// Auto-refresh
-				if($.localStorage("autorefresh_cnt"))
-					clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
+				if(window.autorefresh_cnt)
+					clearTimeout(window.autorefresh_cnt), window.autorefresh_cnt = 0;
 			});
 		},
 		
@@ -175,7 +175,7 @@ define([
 			$.localStorage("feed", this.collection.feed);
 			
 			// Auto-refresh
-			if(!$.localStorage("autorefresh_cnt"))
+			if(!window.autorefresh_cnt)
 				this.autorefresh();
 		},
 		

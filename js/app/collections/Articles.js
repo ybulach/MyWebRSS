@@ -28,7 +28,7 @@ define([
 			$.ajax({
 				dataType: "json",
 				url: window.mywebrss + "/feed/show",
-				data: {token: $.localStorage("token"), feed: collection.feed, articles_count: $.localStorage("articles_per_page"), page: collection.page},
+				data: {token: $.localStorage("token"), feed: collection.feed, articles_count: window.articles_per_page, page: collection.page},
 				success: function(data) {
 					// Check error
 					if(!data.success) {

@@ -6,15 +6,16 @@ define([
 ], function(Backbone, Router, StatusView) {
 	var initialize = function() {
 		// Configuration
-		window.mywebrss = "https://localhost/mywebrss/api";
+		window.mywebrss = "https://api.mywebrss.net";
 		window.refresh_interval = 60;
-		$.localStorage("articles_per_page", 20);
+		window.articles_per_page = 20;
 		
 		// Default values
-		$.localStorage("autorefresh_cnt", 0);
-		$.localStorage("status", false);
-		$.localStorage("feed", null);
+		window.autorefresh_cnt = 0;
+		window.statusShown = false;
 		
+		if(!$.localStorage("feed"))
+			$.localStorage("feed", null);
 		if(!$.localStorage("email"))
 			$.localStorage("email", null);
 		

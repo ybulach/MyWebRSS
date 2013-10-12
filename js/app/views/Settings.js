@@ -29,8 +29,8 @@ define([
 				
 				// Disable auto-refresh
 				if(!$.localStorage("autorefresh")) {
-					if($.localStorage("autorefresh_cnt"))
-						clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
+					if(window.autorefresh_cnt)
+						clearTimeout(window.autorefresh_cnt), window.autorefresh_cnt = 0;
 				}
 			});
 		}

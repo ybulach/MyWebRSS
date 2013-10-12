@@ -20,8 +20,8 @@ define([
 		$("#page").empty();
 		$("#page").html("<h1>Loading</h1>");
 		
-		if($.localStorage("autorefresh_cnt"))
-			clearTimeout($.localStorage("autorefresh_cnt")), $.localStorage("autorefresh_cnt", 0);
+		if(window.autorefresh_cnt)
+			clearTimeout(window.autorefresh_cnt), window.autorefresh_cnt = 0;
 		
 		var view = new View();
 		view.render();

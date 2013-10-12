@@ -1,9 +1,9 @@
-// Filename: FeedView.js
+// Filename: StatusView.js
 
 define([
 	'backbone'
 ], function(Backbone) {
-	var FeedView = Backbone.View.extend({
+	var StatusView = Backbone.View.extend({
 		el: $("[role=status] > p"),
 		message: "",
 		
@@ -13,7 +13,7 @@ define([
 			// Wait the end of the previous message
 			var view = this;
 			var timer = setInterval(function() {
-				if(!$.localStorage("status")) {
+				if(!window.statusShown) {
 					view.render();
 					clearInterval(timer);
 				}
@@ -21,22 +21,25 @@ define([
 		},
 		
 		render: function() {
-			$.localStorage("status", true);
+			window.statusShown = true;
 			
 			// Change the content
 			this.$el.html(this.message);
 			$("[role=status]").show();
+			
+			// Show the message in the console
+			console.log(this.message);
 			
 			// Hide the status, the time depends on his size
 			var time = (this.message.length / 10);
 			setTimeout(function() {
 				$("[role=status]").hide();
 				setTimeout(function() {
-					$.localStorage("status", false);
+					window.statusShown = false;
 				}, 500);
 			}, time*1000);
 		}
 	});
 	
-	return FeedView;
+	return StatusView;
 });
