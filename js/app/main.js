@@ -29,6 +29,9 @@ define([
 					url: window.mywebrss + "/user/login",
 					data: {assertion: assertion},
 					success: function(data) {
+						if($("#login-submit"))
+							$("#login-submit").removeAttr("disabled");
+						
 						// Check error
 						if(!data.success) {
 							var status = new StatusView();
@@ -61,6 +64,9 @@ define([
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
 						navigator.id.logout();
+						
+						if($("#login-submit"))
+							$("#login-submit").removeAttr("disabled");
 					}
 				});
 			},
@@ -70,6 +76,9 @@ define([
 					url: window.mywebrss + "/user/logout",
 					data: {token: $.localStorage('token')},
 					success: function(data) {
+						if($("#logout-submit"))
+							$("#logout-submit").removeAttr("disabled");
+						
 						// Check error
 						if(!data.success) {
 							var status = new StatusView();
@@ -90,11 +99,14 @@ define([
 						
 						$("nav > header > h1").html("Menu");
 						
-						window.location = "#";
+						window.location = "#login";
 					},
 					error: function() {
 						var status = new StatusView();
 						status.setMessage("Can't contact the server");
+						
+						if($("#logout-submit"))
+							$("#logout-submit").removeAttr("disabled");
 					}
 				});
 			},

@@ -20,6 +20,8 @@ define([
 			
 			$("#login-submit").click(function(event) {
 				event.preventDefault();
+				
+				$("#login-submit").attr("disabled", "disabled");
 				navigator.id.request();
 			});
 		},
