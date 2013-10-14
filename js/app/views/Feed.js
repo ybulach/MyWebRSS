@@ -187,7 +187,7 @@ define([
 							$("#button-more").removeAttr("disabled");
 						}
 						
-						$.localStorage("collection", this.collection);
+						$.localStorage("collection", view.collection);
 						view.render();
 					}
 				});
