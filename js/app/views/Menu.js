@@ -65,7 +65,7 @@ define([
 				document.title = "MyWebRSS";
 			
 			// Hide the menu
-			$("nav > div.inner > ul > li > a").click(function() {
+			$("nav > div.inner ul > li > a").click(function() {
 				$("[role=region]").attr("data-state", "none");
 			});
 			
