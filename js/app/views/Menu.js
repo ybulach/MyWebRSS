@@ -14,7 +14,6 @@ define([
 	
 	var MenuView = Backbone.View.extend({
 		el: $("#menu-feeds"),
-		collection: new FeedsCollection(),
 		
 		initialize: function() {
 			this.template = MenuTemplate;
@@ -37,31 +36,30 @@ define([
 			// Refresh the list of feeds
 			var view = this;
 			$("#menu-refresh").click(function() {
-				view.refresh_feeds();
+				$("a[href='#'] > .indicator").html("0");
+				$("#menu-refresh").attr("data-state", "refreshing");
+				$("#menu-refresh").attr("disabled", "disabled");
+				
+				// Refresh the current page
+				$("#button-refresh").click();
+				
+				view.refresh();
 			});
 			
-			if($.localStorage("email"))
-				$("nav > header > h1").html($.localStorage("email"));
-			
-			this.refresh_feeds();
+			$("#menu-refresh").click();
 		},
 		
-		render: function() {
-			var content = "<li>Loading</li>";
-			
-			// Display the feeds list
-			if(this.collection)
-				content = _.template(this.template, {feeds: this.collection.toJSON()});
-			this.$el.html(content);
-			
+		render: function(content, unread_total) {
 			$("#menu-refresh").attr("data-state", "none");
 			$("#menu-refresh").removeAttr("disabled", "");
 			
+			this.$el.html(content);
+			
 			// Display the total of unread articles
-			if(this.collection.unread_total > 0) {
-				$("a[href='#'] > .indicator").html(this.collection.unread_total);
+			if(unread_total && (unread_total > 0)) {
+				$("a[href='#'] > .indicator").html(unread_total);
 				$("a[href='#'] > .indicator").show();
-				document.title = "(" + this.collection.unread_total + ") MyWebRSS";
+				document.title = "(" + unread_total + ") MyWebRSS";
 			}
 			else
 				document.title = "MyWebRSS";
@@ -76,38 +74,35 @@ define([
 			});
 		},
 		
-		refresh_feeds: function() {
-			if(!$.localStorage("token"))
+		// Refresh each API
+		refresh: function(api_id, content, unread_total) {
+			if(!api_id)
+				var api_id = 0;
+			
+			if(!content)
+				var content = "";
+			
+			if(!unread_total)
+				var unread_total = 0;
+			
+			// Render
+			if(!window.apis.length || (api_id >= window.apis.length)) {
+				this.render(content, unread_total);
 				return;
+			}
 			
-			$("a[href='#'] > .indicator").html("0");
-			$("#menu-refresh").attr("data-state", "refreshing");
-			$("#menu-refresh").attr("disabled", "disabled");
-			
+			// Get the list of feeds
 			var view = this;
-			this.collection.refresh(function(result) {
-				if(!result.success) {
-					var status = new StatusView();
-					
-					// Wrong token
-					if(result.error == "token") {
-						$.localStorage("token", null);
-						window.location = "#login";
-					}
-					// Server error
-					else if(result.error == "server")
-						status.setMessage("Can't contact the server. Try again later");
-					// Unknown error
-					else
-						status.setMessage(result.error);
+			var api = window.apis.at(api_id);
+			api.feed_list(function(success, feeds) {
+				if(success && feeds) {
+					content += _.template(view.template, {api: api.toJSON(), api_id: api_id, feeds: feeds.toJSON()});
+					unread_total += feeds.unread_total;
 				}
 				
-				view.render();
+				// Refresh the next feed
+				view.refresh(++api_id, content, unread_total);
 			});
-            
-            // Refresh the current page
-            if($("#button-refresh").css('display') !== 'none')
-                $("#button-refresh").click();
 		}
 	});
 	

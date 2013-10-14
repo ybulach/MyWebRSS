@@ -7,13 +7,19 @@ define([
 		el: $("#page"),
 		
 		initialize: function() {
+			// At least one API is needed
+			if(!window.apis.length) {
+				(new StatusView()).setMessage("There is no API to add a feed in. Please add a new API first");
+				window.location = "#settings";
+			}
+			
 			// Show the buttons
 			$("#button-menu").show();
 		},
 		
 		render: function(){
 			$("#page-title").html("Add Feed");
-			this.$el.html(AddFeedTemplate);
+			this.$el.html(_.template(AddFeedTemplate, {apis: window.apis.toJSON()}));
 			
 			// Search for a feed
 			$("#addfeed-search").change(function() {
@@ -35,7 +41,7 @@ define([
 									// Clear the results
 									$("#addfeed-result").html("");
 									$("#addfeed-url").val(this);
-									$("#addfeed-submit").click();
+									//$("#addfeed-submit").click();
 								});
 							} else {
 								$("#addfeed-result").html("An error occured. Try again later.");
@@ -47,7 +53,9 @@ define([
 					$("#addfeed-result").html("");
 			});
 			
-			$("#addfeed-clear").click(function() {
+			$("#addfeed-clear").click(function(event) {
+				event.preventDefault();
+				
 				// Clear the results
 				$("#addfeed-search").val("");
 				$("#addfeed-search").change();
@@ -62,50 +70,24 @@ define([
 			});
 			
 			// Add a feed with an URL
-			$("#addfeed-submit").click(function() {
-				$("#addfeed-submit").attr("disabled", "disabled");
+			$("#addfeed-submit").click(function(event) {
+				event.preventDefault();
 				
-				$.ajax({
-					dataType: "json",
-					url: window.mywebrss + "/feed/add",
-					data: {token: $.localStorage("token"), feed: $("#addfeed-url").val()},
-					success: function(data) {
-						// Check error
-						if(!data.success) {
-							var status = new StatusView();
-							
-							// Wrong token
-							if(data.error == "token") {
-								$.localStorage("token", null);
-								window.location = "#login";
-							}
-							else if(data.error == "feed")
-								status.setMessage("Wrong feed URL");
-							// Unknown error
-							else
-								status.setMessage(data.error);
-							
-							$("#addfeed-submit").removeAttr("disabled");
-							return;
-						}
-						
-						// Delete datas we don't need
-						delete data.success, delete data.error;
-						
-						// Redirect to Home
-						window.location = "#feed/" + data.id;
-					},
-					error: function() {
-						var status = new StatusView();
-						status.setMessage("Can't contact the server");
-						
+				var api = parseInt($("#addfeed-api").val());
+				if(api < window.apis.length) {
+					$("#addfeed-submit").attr("disabled", "disabled");
+					
+					window.apis.at(api).feed_add($("#addfeed-url").val(), function(success, id) {
 						$("#addfeed-submit").removeAttr("disabled");
-					}
-				});
+						
+						if(success)
+							window.location = "#feed/" + api + "/" + id;
+					});
+				}
 			});
 			
 			// Import an OPML file
-			$("#import-submit").click(function() {
+			/*$("#import-submit").click(function() {
 				var file = document.getElementById("import-file").files[0];
 				if(!file) {
 					var status = new StatusView();
@@ -171,7 +153,7 @@ define([
 					var status = new StatusView();
 					status.setMessage("Can't read the file");
 				};
-			});
+			});*/
 		}
 	});
 	

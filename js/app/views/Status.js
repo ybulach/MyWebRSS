@@ -10,6 +10,9 @@ define([
 		setMessage: function(msg) {
 			this.message = msg;
 			
+			// Show the message in the console
+			console.log(this.message);
+			
 			// Wait the end of the previous message
 			var view = this;
 			var timer = setInterval(function() {
@@ -26,9 +29,6 @@ define([
 			// Change the content
 			this.$el.html(this.message);
 			$("[role=status]").show();
-			
-			// Show the message in the console
-			console.log(this.message);
 			
 			// Hide the status, the time depends on his size
 			var time = (this.message.length / 10);

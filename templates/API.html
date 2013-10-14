@@ -1,0 +1,52 @@
+<ul class="list">
+	<li>
+		<a href="#" style="pointer-events: none;">
+			<dl>
+				<dt>API URL</dt>
+				<dd>
+					<%= api.url %>
+				</dd>
+			</dl>
+		</a>
+	</li>
+	<% if(api.authentication != "none") { %>
+		<li>
+			<a href="#" style="pointer-events: none;">
+				<dl>
+					<dt>Logged in as</dt>
+					<dd>
+						<% if(api.loggedIn) { %>
+							<%= api.loggedIn %>
+						<% } else { %>
+							Your are not logged in. Use the form below to connect to this API.
+						<% } %>
+					</dd>
+				</dl>
+			</a>
+		</li>
+	<% } %>
+</ul>
+
+<% if(api.authentication != "none") { %>
+	<% if(!api.loggedIn) { %>
+		<form>
+			<% if(api.authentication != "persona") { %>
+				<p>
+					Username:
+					<input type="text" id="api-username" value=""/>
+				</p>
+				<p>
+					Password:
+					<input type="password" id="api-password" value=""/>
+				</p>
+				<p><button id="api-login" class="recommend">Login</button></p>
+			<% } else {%>
+				<p><button id="api-login" class="recommend">Login with Persona</button></p>
+			<% } %>
+		</form>
+	<% } else { %>
+		<p><button id="api-logout">Logout</button></p>
+	<% } %>
+<% } %>
+
+<p><button id="api-delete" class="danger">Delete this API</button></p>

@@ -11,6 +11,14 @@
 <h1>Add a feed from an URL</h1>
 <form>
 	<p>
+		Add to this API:
+		<select id="addfeed-api">
+			<% _.each(apis, function(api, id) { %>
+				<option value="<%= id %>"><%= api.name %> (<%= api.url %>)</option>
+			<% }); %>
+		</select>
+	</p>
+	<p>
 		RSS URL:
 		<input type="text" id="addfeed-url" value="http://"/>
 	</p>
@@ -19,12 +27,13 @@
 </form>
 
 <h1>Import feeds from an OPML file</h1>
-<form>
+<p>This feature has been disabled and will be available soon</p>
+<!--<form>
 	<p>
 		OPML file:<br/>
 		<input type="file" id="import-file" value=""/>
 	</p>
 	<p>The import of your feeds won't work from a Firefox OS device, as there is no possibility yet to select an OPML file.</p>
-
+	
 	<p><button id="import-submit">Import feeds</button></p>
-</form>
+</form>-->

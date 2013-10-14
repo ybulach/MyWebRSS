@@ -1,22 +1,16 @@
-<% if(!$.localStorage("token")) { %>
-	<p>
-		<a role="button" href="#login" class="recommend">Login</a>
-	</p>
-<% } %>
-
 <h1>Presentation</h1>
 <p>MyWebRSS is a web RSS reader. It is OpenSource and can be installed on every server with PHP and MySQL.</p>
-<p>The client side is HTML5 + JavaScript, for the best compatibility on mobiles platforms (iOS, Android, FirefoxOS) and desktop computers.</p>
-<p>The client side gets all informations from an API, developped in PHP and that uses a MySQL database. The datas are send in JSON.</p>
+<p>The client side is HTML5 + JavaScript, for the best compatibility on mobiles platforms (iOS, Android, FirefoxOS) and desktop computers, and allow the use of multiple RSS API.</p>
+<p>The official API (MyWebRSS API) is developped in PHP and uses a MySQL database. The datas are send in JSON.</p>
 
 <h1>Versions</h1>
 <p>A stable version of the client is available at <a href="http://html5.mywebrss.net" target="_blank">http://html5.mywebrss.net</a> from a web-browser on Desktop (except Internet Explorer) or on a Smartphone (Android / iOS / etc.). The web-browser needs HTML5 + JavaScript support.</p>
-<p>A stable version of the API is available at <a href="https://api.mywebrss.net" target="_blank">https://api.mywebrss.net</a> and uses the same database as the official client. All connections are made through HTTPS, with a signed certificate.</a>
+<p>A stable version of the MyWebRSS API is available at <a href="https://api.mywebrss.net" target="_blank">https://api.mywebrss.net</a>. All connections are made through HTTPS, with a signed certificate.</a>
 <p>If you want to install it on your server, you can get the source code from Github: <a href="https://github.com/ybulach/MyWebRSS" target="_blank">https://github.com/ybulach/MyWebRSS</a>.</p>
 
 <h1>Privacy</h1>
-<p>To use this application, an account is needed, identified by an email address. The authentication is made through Persona (<a href="https://login.persona.org" target="_blank">https://login.persona.org</a>), thus this application doesn't have any access to your password.</p>
-<p>All data exchanges between the application and the official stable server (from <a href="http://html5.mywebrss.net" target="_blank">http://html5.mywebrss.net</a>, located in France) use HTTPS with a signed certificate from StartSSL.</p>
+<p>To use this application, an account is needed for some API. The authentication to the official API is made through Persona (<a href="https://login.persona.org" target="_blank">https://login.persona.org</a>), thus the server doesn't have any access to your password.</p>
+<p>All data exchanges between the application and the official stable server of MyWebRSS API (from <a href="http://html5.mywebrss.net" target="_blank">http://html5.mywebrss.net</a>, located in France) use HTTPS with a signed certificate from StartSSL.</p>
 
 <h1>Report Bugs</h1>
 <p>As the source code is available on Github, if you find bugs in the application, you can open issues at <a href="https://github.com/ybulach/MyWebRSS" target="_blank">https://github.com/ybulach/MyWebRSS</a>.</p>

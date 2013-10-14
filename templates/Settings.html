@@ -16,11 +16,45 @@
 	</li>
 </ul>
 
-<h1>Password change</h1>
+<h1>Your APIs</h1>
+<p>Those APIs allow you to use your feeds from differents RSS services into one interface. Here are the currently added APIs:</p>
+<ul class="list">
+	<% _.each(apis, function(api, id) { %>
+		<% if(!api.loggedIn) { %>
+			<li data-state="tagged" data-tag="C">
+		<% } else { %>
+			<li>
+		<% } %>
+			<a href="#api/<%= id %>">
+				<dl>
+					<dt><%= api.name %></dt>
+					<dd>
+						<% if(api.loggedIn) { %>
+							<%= api.loggedIn %> -
+						<% } %>
+						
+						<% if(api.url) { %>
+							<%= api.url %>
+						<% } %>
+					</dd>
+				</dl>
+			</a>
+		</li>
+	<% }); %>
+</ul>
+
+<h1>Add an API</h1>
 <form>
 	<p>
-		Password changes are made through Persona website. You will be redirected to <b>https://login.persona.org</b>.
+		To add a new API, select the service type:
+		<select id="addapi-api">
+			<option>---</option>
+			<option value="mywebrss">MyWebRSS API</option>
+		</select>
 	</p>
-	
-	<p><a role="button" href="https://login.persona.org" target="_blank">Change password</a></p>
+	<p id="addapi-url" style="display: none;">
+		For some services types, you can select an other URL (to use it from your own server for example). If you don't know what to put in here, leave it by default:
+		<input type="text" value="http://"/>
+	</p>
+	<p><button id="addapi-submit">Add an API</button>
 </form>

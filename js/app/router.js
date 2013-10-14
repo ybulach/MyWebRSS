@@ -3,18 +3,13 @@
 
 define([
 	'backbone',
-	'views/Settings', 'views/AddFeed', 'views/Feed', 'views/Login', 'views/Logout', 'views/Article', 'views/Menu', 'views/About'
-], function(Backbone, SettingsView, AddFeedView, FeedView, LoginView, LogoutView, ArticleView, MenuView, AboutView) {
+	'views/Settings', 'views/API', 'views/AddFeed', 'views/Feed', 'views/Article', 'views/Menu', 'views/About'
+], function(Backbone, SettingsView, APIView, AddFeedView, FeedView, ArticleView, MenuView, AboutView) {
 	// Create a new view
 	function createView(View) {
 		// Hide buttons and delete all events
 		$("[role=region] button").hide();
 		$("[role=region] button:not(#button-menu)").unbind('click');
-		
-		if(!$.localStorage("token"))
-			$("nav > *").hide();
-		else
-			$("nav > *").show();
 		
 		$("#page-title").html("Loading");
 		$("#page").empty();
@@ -31,10 +26,9 @@ define([
 	var AppRouter = Backbone.Router.extend({
 		routes: {
 			// Define some URL routes
-			'login': 'showLogin',
-			'logout': 'showLogout',
 			'about': 'showAbout',
 			'settings': 'showSettings',
+			'api/:id': 'showAPI',
 			'addfeed': 'showAddFeed',
 			'feed/:api/:id': 'showFeed',
 			'article/:api/:id': 'showArticle',
@@ -48,20 +42,17 @@ define([
 			window.location = "#";
 		},
 		
-		showLogin: function() {
-			createView(LoginView);
-		},
-		
-		showLogout: function() {
-			createView(LogoutView);
-		},
-		
 		showAbout: function() {
 			createView(AboutView);
 		},
 		
 		showSettings: function() {
 			createView(SettingsView);
+		},
+		
+		showAPI: function(id) {
+			var view = createView(APIView);
+			view.loadAPI(id);
 		},
 		
 		showAddFeed: function() {

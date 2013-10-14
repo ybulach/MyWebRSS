@@ -8,6 +8,7 @@ input[type="tel"],
 input[type="search"],
 input[type="url"],
 input[type="number"],
+select,
 textarea {
   box-sizing: border-box;
   -moz-box-sizing: border-box;	/* Firefox */
