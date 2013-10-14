@@ -45,11 +45,7 @@ define([
 			// Change the content
 			var content = "<h1>Loading</h1>";
 			if(this.model) {
-				if($.localStorage("feed") && ($.localStorage("feed") === 0))
-					$("#page-title").html($("#home").html());
-				else if($.localStorage("feed_name"))
-					$("#page-title").html($.localStorage("feed_name"));
-				
+				$("#page-title").html($.localStorage("feed_name"));
 				content = _.template(this.template, this.model.toJSON());
 			}
 			

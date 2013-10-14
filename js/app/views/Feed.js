@@ -12,7 +12,11 @@ define([
 		
 		initialize: function() {
 			this.template = FeedTemplate;
-			this.collection.comparator = "date";
+			
+			// Order by date (desc)
+			this.collection.comparator = function(article) {
+				return -article.attributes.date;
+			};
 			
 			// Show the buttons
 			$("#button-menu").show();
@@ -189,8 +193,10 @@ define([
 				});
 			}
 			// Refresh all the feeds
-			else if(this.feed === 0)
+			else if(this.feed === 0) {
+				$.localStorage("feed_name", $("#home").html());
 				this.refresh_all();
+			}
 			else
 				return;
 			
