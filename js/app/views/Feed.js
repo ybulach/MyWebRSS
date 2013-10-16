@@ -76,7 +76,7 @@ define([
 		},
 		
 		autorefresh: function() {
-			if((this.collection.feed || (this.collection.feed === 0)) && $.localStorage("autorefresh")) {
+			if((this.feed || (this.feed === 0)) && $.localStorage("autorefresh")) {
 				var view = this;
 				var refresh = setTimeout(function() {
 					view.page = 0;
