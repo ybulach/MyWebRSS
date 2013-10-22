@@ -33,7 +33,7 @@ define([
 				message = "You are no longer connected to MyWebRSS. Please login again";
 			}
 			// Wrong assertion (Persona)
-			else if(data.error == "assertion") {
+			else if(error == "assertion") {
 				message = "Bad assertion";
 				navigator.id.logout();
 			}
