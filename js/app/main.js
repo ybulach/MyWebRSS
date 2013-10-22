@@ -12,6 +12,7 @@ define([
 		// Default values
 		window.autorefresh_cnt = 0;
 		window.statusShown = false;
+		$.ajaxSettings.timeout = 5000;
 		
 		if(!$.localStorage("feed"))
 			$.localStorage("feed", null);
