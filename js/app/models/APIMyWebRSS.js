@@ -18,71 +18,31 @@ define([
 		initialize: function() {
 			var api = this;
 			
+			if(this.attributes.loggedIn == "")
+				this.attributes.loggedIn = null;
+			
 			// Persona account stuff
 			navigator.id.watch({
 				loggedInUser: this.attributes.loggedIn,
 				onlogin: function(assertion) {
-					$.ajax({
-						dataType: "json",
-						url: api.attributes.url + "/user/login",
-						data: {assertion: assertion},
-						success: function(data) {
-							if($("#api-login"))
-								$("#api-login").removeAttr("disabled");
-							
-							// Check error
-							if(!data.success) {
-								api.throw_error(data.error);
-								return;
-							}
-							
-							// Add the email and the token, and redirect to Home
-							api.attributes.loggedIn = data.email;
-							api.attributes.token = data.token;
-							window.apis.save();
-							
+					api.login(assertion, function(success) {
+						$("#api-login").removeAttr("disabled");
+						
+						if(success) {
 							$("#menu-refresh").click();
 							window.location = "#";
-						},
-						error: function() {
-							api.throw_error("server");
-							navigator.id.logout();
-							
-							if($("#api-login"))
-								$("#api-login").removeAttr("disabled");
 						}
+						else
+							navigator.id.logout();
 					});
 				},
 				onlogout: function() {
-					$.ajax({
-						dataType: "json",
-						url: api.attributes.url + "/user/logout",
-						data: {token: api.attributes.token},
-						success: function(data) {
-							if($("#api-logout"))
-								$("#api-logout").removeAttr("disabled");
-							
-							// Check error
-							if(!data.success) {
-								// Unknown error only
-								if(data.error != "token") {
-									api.throw_error(data.error);
-									return;
-								}
-							}
-							
-							// Delete the mail and the token, and redirect to Home
-							api.attributes.loggedIn = null;
-							api.attributes.token = null;
-							
+					api.logout(function(success) {
+						$("#api-logout").removeAttr("disabled");
+						
+						if(success) {
 							$("#menu-refresh").click();
 							window.location = "#";
-						},
-						error: function() {
-							api.throw_error("server");
-							
-							if($("#api-logout"))
-								$("#api-logout").removeAttr("disabled");
 						}
 					});
 				}
@@ -92,13 +52,14 @@ define([
 		// Refresh the list of articles
 		// Return: callback(bool, ArticlesCollection, string)
 		article_list: function(feed, page, callback) {
+			var articles = new ArticlesCollection();
+			var api = this;
+			
 			if(!this.attributes.loggedIn) {
 				this.throw_error("loggedIn");
-				callback(false, null, "");
+				callback(false, articles, "");
 				return;
 			}
-			
-			var api = this;
 			
 			$.ajax({
 				dataType: "json",
@@ -108,13 +69,11 @@ define([
 					// Check error
 					if(!data.success) {
 						api.throw_error(data.error);
-						callback(false, null, "");
+						callback(false, articles, "");
 						return;
 					}
 					
 					// Create a new ArticlesCollection
-					var articles = new ArticlesCollection();
-					
 					$(data.result).each(function(id, article) {
 						article.api = api.get_id();
 						articles.add(new ArticleModel(article));
@@ -124,7 +83,7 @@ define([
 				},
 				error: function() {
 					api.throw_error("server");
-					callback(false, null, "");
+					callback(false, articles, "");
 				}
 			});
 		},
@@ -228,14 +187,14 @@ define([
 		// Get the list of feeds
 		// Return: callback(bool, FeedsCollection)
 		feed_list: function(callback) {
-			if(!this.attributes.loggedIn) {
-				this.throw_error("loggedIn");
-				callback(false, null);
-				return;
-			}
-			
 			var feeds = new FeedsCollection();
 			var api = this;
+			
+			if(!this.attributes.loggedIn) {
+				this.throw_error("loggedIn");
+				callback(false, feeds);
+				return;
+			}
 			
 			$.ajax({
 				dataType: "json",
@@ -245,7 +204,7 @@ define([
 					// Check error
 					if(!data.success) {
 						api.throw_error(data.error);
-						callback(false, null);
+						callback(false, feeds);
 						return;
 					}
 					
@@ -259,7 +218,7 @@ define([
 				},
 				error: function() {
 					api.throw_error("server");
-					callback(false, null);
+					callback(false, feeds);
 				}
 			});
 		},
@@ -267,13 +226,63 @@ define([
 		// Login to the API
 		// Return: callback(bool)
 		login: function(assertion, callback) {
-			callback(false);
+			var api = this;
+			
+			$.ajax({
+				dataType: "json",
+				url: api.attributes.url + "/user/login",
+				data: {assertion: assertion},
+				success: function(data) {
+					// Check error
+					if(!data.success) {
+						api.throw_error(data.error);
+						callback(false);
+						return;
+					}
+					
+					// Add the email and the token
+					api.attributes.loggedIn = data.email;
+					api.attributes.token = data.token;
+					api.save();
+					
+					callback(true);
+				},
+				error: function() {
+					api.throw_error("server");
+					callback(false);
+				}
+			});
 		},
 		
 		// Logout of the API
 		// Return: callback(bool)
 		logout: function(callback) {
-			callback(false);
+			var api = this;
+			
+			$.ajax({
+				dataType: "json",
+				url: api.attributes.url + "/user/logout",
+				data: {token: api.attributes.token},
+				success: function(data) {
+					// Check error
+					if(!data.success) {
+						api.throw_error(data.error);
+						callback(false);
+						return;
+					}
+					
+					// Delete the email and the token
+					api.attributes.loggedIn = null;
+					api.attributes.token = null;
+					api.save();
+					
+					callback(true);
+				},
+				error: function() {
+					api.throw_error("server");
+					callback(false);
+				}
+			});
 		}
 	});
 	
