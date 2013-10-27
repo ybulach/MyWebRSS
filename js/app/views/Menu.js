@@ -95,10 +95,8 @@ define([
 			var view = this;
 			var api = window.apis.at(api_id);
 			api.feed_list(function(success, feeds) {
-				if(success && feeds) {
-					content += _.template(view.template, {api: api.toJSON(), api_id: api_id, feeds: feeds.toJSON()});
-					unread_total += feeds.unread_total;
-				}
+				content += _.template(view.template, {success: success, api: api.toJSON(), api_id: api_id, feeds: feeds.toJSON()});
+				unread_total += feeds.unread_total;
 				
 				// Refresh the next feed
 				view.refresh(++api_id, content, unread_total);

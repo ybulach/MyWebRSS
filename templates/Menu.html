@@ -2,6 +2,8 @@
 <ul class="list">
 	<% if(!api.loggedIn) { %>
 		<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">Not logged in this API</a></li>
+	<% } else if(!success) { %>
+		<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">An error occured</a></li>
 	<% } else if(!feeds.length) { %>
 		<li><a href="#" style="pointer-events: none;">No feed in this API</a></li>
 	<% } else { %>
