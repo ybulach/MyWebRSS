@@ -113,7 +113,9 @@ define([
 			if(this.collection)
 				content = _.template(this.template, {articles: this.collection.toJSON()});
 			
-			if(this.collection && !this.collection.length) {
+			if(window.apis.length === 0)
+				content = "<ul class='list'><li data-state='new'><a href='#' style='pointer-events: none;'><dl><dt>No API has been added yet.</dt><dd>Go to Settings to add one !</dd></dl></a></li></ul>";
+			else if(this.collection && !this.collection.length) {
 				if(this.feed === 0)
 					content = "<ul class='list'><li><dl><dt>No unread articles</dt></dl></li></ul>";
 				else
@@ -170,8 +172,10 @@ define([
 			
 			// Refresh one feed
 			if(this.api) {
-				if(this.api >= window.apis.length)
+				if(this.api >= window.apis.length) {
+					window.location = "#";
 					return;
+				}
 				
 				window.apis.at(this.api).article_list(this.feed, this.page, function(success, articles, feed_name) {
 					if(success) {
@@ -190,6 +194,8 @@ define([
 						$.localStorage("collection", view.collection);
 						view.render();
 					}
+					else if(!window.apis.at(view.api).attributes.loggedIn)
+						window.location = "#";
 				});
 			}
 			// Refresh all the feeds
@@ -197,8 +203,10 @@ define([
 				$.localStorage("feed_name", $("#home").html());
 				this.refresh_all();
 			}
-			else
+			else {
+				window.location = "#";
 				return;
+			}
 			
 			// Refresh menu
 			$("#menu-refresh").click();
@@ -221,19 +229,26 @@ define([
 			
 			// Get the list of feeds
 			var view = this;
-			window.apis.at(api_id).article_list(this.feed, this.page, function(success, articles, feed_name) {
-				if(success) {
-					view.collection.add(articles.toJSON());
-					
-					if(articles.length && window.articles_per_page && (articles.length % window.articles_per_page) == 0) {
-						$("#button-more").show();
-						$("#button-more").removeAttr("disabled");
-					}
-				}
-				
+			
+			if(!window.apis.at(api_id).attributes.loggedIn) {
 				// Refresh the next feed
 				view.refresh_all(++api_id);
-			});
+			}
+			else {
+				window.apis.at(api_id).article_list(this.feed, this.page, function(success, articles, feed_name) {
+					if(success) {
+						view.collection.add(articles.toJSON());
+						
+						if(articles.length && window.articles_per_page && (articles.length % window.articles_per_page) == 0) {
+							$("#button-more").show();
+							$("#button-more").removeAttr("disabled");
+						}
+					}
+					
+					// Refresh the next feed
+					view.refresh_all(++api_id);
+				});
+			}
 		}
 	});
 	
