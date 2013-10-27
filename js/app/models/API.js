@@ -8,7 +8,7 @@ define([
 			name: "Default API",
 			short_name: "default",
 			url: "none",
-			loggedIn: "",
+			loggedIn: null,
 			authentication: "none",
 			
 			// Persona API stuff
@@ -25,7 +25,8 @@ define([
 			
 			// Not connected to this API
 			if(error == "loggedIn")
-				message = "You are not connected to this API. Please login again";
+			//	message = "You are not connected to this API. Please login again";
+				return;
 			// Wrong token (MyWebRSS)
 			else if(error == "token") {
 				this.attributes.token = null;
