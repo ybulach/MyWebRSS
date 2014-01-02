@@ -75,19 +75,6 @@ define([
 			});
 		},
 		
-		autorefresh: function() {
-			if((this.feed || (this.feed === 0)) && $.localStorage("autorefresh")) {
-				var view = this;
-				var refresh = setTimeout(function() {
-					view.page = 0;
-					view.refresh_articles();
-					view.autorefresh();
-				}, window.refresh_interval*1000);
-				
-				window.autorefresh_cnt = refresh;
-			}
-		},
-		
 		render: function() {
 			// Change the content
 			if(this.feed === 0)
@@ -114,7 +101,7 @@ define([
 				content = _.template(this.template, {articles: this.collection.toJSON()});
 			
 			if(window.apis.length === 0)
-				content = "<ul class='list'><li data-state='new'><a href='#' style='pointer-events: none;'><dl><dt>No API has been added yet.</dt><dd>Go to Settings to add one !</dd></dl></a></li></ul>";
+				content = "<ul class='list'><li data-state='new'><a href='#settings'><dl><dt>No API added yet.</dt><dd>Go to Settings to add one !</dd></dl></a></li></ul>";
 			else if(this.collection && !this.collection.length) {
 				if(this.feed === 0)
 					content = "<ul class='list'><li><dl><dt>No unread articles</dt></dl></li></ul>";
@@ -123,14 +110,6 @@ define([
 			}
 			
 			this.$el.html(content);
-			
-			// Stop the autorefresh
-			var view = this;
-			$("#page a").click(function(event) {
-				// Auto-refresh
-				if(window.autorefresh_cnt)
-					clearTimeout(window.autorefresh_cnt), window.autorefresh_cnt = 0;
-			});
 		},
 		
 		loadFeed: function(api, id) {
@@ -142,8 +121,7 @@ define([
 			this.page = 0;
 			
 			// Only refresh if we are on an other feed (the back button on an article hasn't been clicked)
-			// or if autorefresh is activated
-			if(($.localStorage("feed") != id) || $.localStorage("autorefresh"))
+			if($.localStorage("feed") != id)
 				this.refresh_articles();
 			else {
 				this.collection.reset($.localStorage("collection"));
@@ -152,10 +130,6 @@ define([
 			
 			// Save datas
 			$.localStorage("feed", this.feed);
-			
-			// Auto-refresh
-			if(!window.autorefresh_cnt)
-				this.autorefresh();
 		},
 		
 		refresh_articles: function() {

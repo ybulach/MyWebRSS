@@ -29,6 +29,8 @@ define([
 					if(window.autorefresh_cnt)
 						clearTimeout(window.autorefresh_cnt), window.autorefresh_cnt = 0;
 				}
+				else
+					$("#menu-refresh").click();
 			});
 			
 			// Add an API

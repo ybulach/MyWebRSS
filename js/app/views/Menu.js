@@ -14,6 +14,7 @@ define([
 	
 	var MenuView = Backbone.View.extend({
 		el: $("#menu-feeds"),
+		autorefresh_enabled: false,
 		
 		initialize: function() {
 			this.template = MenuTemplate;
@@ -42,6 +43,10 @@ define([
 				
 				// Refresh the current page
 				$("#button-refresh").click();
+				
+				// Enable auto-refresh if needed
+				if(!this.autorefresh_enabled)
+					view.autorefresh();
 				
 				view.refresh();
 			});
@@ -74,6 +79,22 @@ define([
 			});
 		},
 		
+		autorefresh: function() {
+			if($.localStorage("autorefresh")) {
+				this.autorefresh_enabled = true;
+				
+				var view = this;
+				var refresh = setTimeout(function() {
+					view.refresh();
+					view.autorefresh();
+				}, window.refresh_interval*1000);
+				
+				window.autorefresh_cnt = refresh;
+			}
+			else
+				this.autorefresh_enabled = false;
+		},
+		
 		// Refresh each API
 		refresh: function(api_id, content, unread_total) {
 			if(!api_id)
@@ -85,11 +106,13 @@ define([
 			if(!unread_total)
 				var unread_total = 0;
 			
+			// No API added
+			if(!window.apis.length)
+				return this.render(_.template(this.template, {}), 0);
+			
 			// Render
-			if(!window.apis.length || (api_id >= window.apis.length)) {
-				this.render(content, unread_total);
-				return;
-			}
+			if(!window.apis.length || (api_id >= window.apis.length))
+				return this.render(content, unread_total);
 			
 			// Get the list of feeds
 			var view = this;

@@ -1,27 +1,31 @@
-<h2><%= api.name %></h2>
-<ul class="list">
-	<% if(!api.loggedIn) { %>
-		<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">Not logged in this API</a></li>
-	<% } else if(!success) { %>
-		<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">An error occured</a></li>
-	<% } else if(!feeds.length) { %>
-		<li><a href="#" style="pointer-events: none;">No feed in this API</a></li>
-	<% } else { %>
-		<% _.each(feeds, function(feed) { %>
-			<% if(feed.error == 1) { %>
-				<li data-state="tagged" data-tag="C">
-			<% } else if(feed.unread > 0) { %>
-				<li data-state="new">
-			<% } else { %>
-				<li>
-			<% } %>
-				<a href="#feed/<%= api_id %>/<%= feed.id %>">
-					<% if(feed.unread > 0) { %>
-						<span class="indicator"><%= feed.unread %></span>
-					<% } %>
-					<span id="feed-<%= api_id %>-<%= feed.id %>"><%= feed.title %></span>
-				</a>
-			</li>
-		<% }); %>
-	<% } %>
-</ul>
+<% if(typeof(api) != "undefined") { %>
+	<h2><%= api.name %></h2>
+	<ul class="list">
+		<% if(!api.loggedIn) { %>
+			<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">Not logged in this API</a></li>
+		<% } else if(!success) { %>
+			<li data-state="tagged" data-tag="C"><a href="#" style="pointer-events: none;">An error occured</a></li>
+		<% } else if(!feeds.length) { %>
+			<li><a href="#" style="pointer-events: none;">No feed in this API</a></li>
+		<% } else { %>
+			<% _.each(feeds, function(feed) { %>
+				<% if(feed.error == 1) { %>
+					<li data-state="tagged" data-tag="C">
+				<% } else if(feed.unread > 0) { %>
+					<li data-state="new">
+				<% } else { %>
+					<li>
+				<% } %>
+					<a href="#feed/<%= api_id %>/<%= feed.id %>">
+						<% if(feed.unread > 0) { %>
+							<span class="indicator"><%= feed.unread %></span>
+						<% } %>
+						<span id="feed-<%= api_id %>-<%= feed.id %>"><%= feed.title %></span>
+					</a>
+				</li>
+			<% }); %>
+		<% } %>
+	</ul>
+<% } else { %>
+	<h2>No API added yet</h2>
+<% } %>

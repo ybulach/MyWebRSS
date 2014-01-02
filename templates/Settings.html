@@ -16,32 +16,34 @@
 	</li>
 </ul>
 
-<h1>Your APIs</h1>
-<p>Those APIs allow you to use your feeds from differents RSS services into one interface. Here are the currently added APIs:</p>
-<ul class="list">
-	<% _.each(apis, function(api, id) { %>
-		<% if(!api.loggedIn) { %>
-			<li data-state="tagged" data-tag="C">
-		<% } else { %>
-			<li>
-		<% } %>
-			<a href="#api/<%= id %>">
-				<dl>
-					<dt><%= api.name %></dt>
-					<dd>
-						<% if(api.loggedIn) { %>
-							<%= api.loggedIn %> -
-						<% } %>
-						
-						<% if(api.url) { %>
-							<%= api.url %>
-						<% } %>
-					</dd>
-				</dl>
-			</a>
-		</li>
-	<% }); %>
-</ul>
+<% if(apis.length) { %>
+	<h1>Your APIs</h1>
+	<p>Those APIs allow you to use your feeds from differents RSS services into one interface. Here are the currently added APIs:</p>
+	<ul class="list">
+		<% _.each(apis, function(api, id) { %>
+			<% if(!api.loggedIn) { %>
+				<li data-state="tagged" data-tag="C">
+			<% } else { %>
+				<li>
+			<% } %>
+				<a href="#api/<%= id %>">
+					<dl>
+						<dt><%= api.name %></dt>
+						<dd>
+							<% if(api.loggedIn) { %>
+								<%= api.loggedIn %> -
+							<% } %>
+							
+							<% if(api.url) { %>
+								<%= api.url %>
+							<% } %>
+						</dd>
+					</dl>
+				</a>
+			</li>
+		<% }); %>
+	</ul>
+<% } %>
 
 <h1>Add an API</h1>
 <form>
