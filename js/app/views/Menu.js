@@ -124,6 +124,9 @@ define([
 				// Refresh the next feed
 				view.refresh(++api_id, content, unread_total);
 			});
+			
+			// Refresh feed
+			$("#button-refresh").click();
 		}
 	});
 	
