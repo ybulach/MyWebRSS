@@ -26,8 +26,16 @@ define([
 			// Refresh the list of articles
 			var view = this;
 			$("#button-refresh").click(function() {
+				$("#page-title").html("Loading");
+				$("#button-refresh").attr("data-state", "refreshing");
+				$("#button-refresh").attr("disabled", "disabled");
+				$("#button-more").hide();
+				
 				view.page = 0;
 				view.refresh_articles();
+				
+				// Refresh menu
+				$("#menu-refresh").click();
 			});
 			
 			$("#button-more").click(function() {
@@ -133,11 +141,6 @@ define([
 		},
 		
 		refresh_articles: function() {
-			$("#page-title").html("Loading");
-			$("#button-refresh").attr("data-state", "refreshing");
-			$("#button-refresh").attr("disabled", "disabled");
-			$("#button-more").hide();
-			
 			// Indicate the loading state if we want the first page
 			if(this.page === 0)
 				this.$el.html("<ul class='list'><li><dl><dt>Loading</dt></dl></li></ul>");
@@ -181,9 +184,6 @@ define([
 				window.location = "#";
 				return;
 			}
-			
-			// Refresh menu
-			$("#menu-refresh").click();
 		},
 		
 		refresh_all: function(api_id) {

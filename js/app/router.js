@@ -73,12 +73,11 @@ define([
 	});
 	
 	var initialize = function() {
+		// The menu is static (in all views)
+		window.menuView = new MenuView();
+		
 		// Create the Router
 		var app_router = new AppRouter();
-		
-		// The menu is static (in all views)
-		new MenuView();
-		
 		Backbone.history.start();
 		
 		return app_router;

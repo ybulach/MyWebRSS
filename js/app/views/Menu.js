@@ -14,10 +14,10 @@ define([
 	
 	var MenuView = Backbone.View.extend({
 		el: $("#menu-feeds"),
-		autorefresh_enabled: false,
 		
 		initialize: function() {
 			this.template = MenuTemplate;
+			this.lastrefresh = 0;
 			
 			// Show the button
 			$("#menu-refresh").show();
@@ -37,21 +37,23 @@ define([
 			// Refresh the list of feeds
 			var view = this;
 			$("#menu-refresh").click(function() {
-				$("a[href='#'] > .indicator").html("0");
-				$("#menu-refresh").attr("data-state", "refreshing");
-				$("#menu-refresh").attr("disabled", "disabled");
+				var refresh = parseInt(new Date().getTime() / 1000);
 				
-				// Refresh the current page
-				$("#button-refresh").click();
-				
-				// Enable auto-refresh if needed
-				if(!this.autorefresh_enabled)
-					view.autorefresh();
-				
-				view.refresh();
+				// Only allow one refresh per second
+				if(refresh > view.lastrefresh) {
+					$("a[href='#'] > .indicator").html("0");
+					$("#menu-refresh").attr("data-state", "refreshing");
+					$("#menu-refresh").attr("disabled", "disabled");
+					
+					// Refresh the current page
+					$("#button-refresh").click();
+					
+					view.refresh();
+				}
 			});
 			
 			$("#menu-refresh").click();
+			this.autorefresh();
 		},
 		
 		render: function(content, unread_total) {
@@ -81,22 +83,20 @@ define([
 		
 		autorefresh: function() {
 			if($.localStorage("autorefresh")) {
-				this.autorefresh_enabled = true;
-				
 				var view = this;
 				var refresh = setTimeout(function() {
-					view.refresh();
+					$("#menu-refresh").click();
 					view.autorefresh();
 				}, window.refresh_interval*1000);
 				
 				window.autorefresh_cnt = refresh;
 			}
-			else
-				this.autorefresh_enabled = false;
 		},
 		
 		// Refresh each API
 		refresh: function(api_id, content, unread_total) {
+			this.lastrefresh = parseInt(new Date().getTime() / 1000);
+			
 			if(!api_id)
 				var api_id = 0;
 			
@@ -124,9 +124,6 @@ define([
 				// Refresh the next feed
 				view.refresh(++api_id, content, unread_total);
 			});
-			
-			// Refresh feed
-			$("#button-refresh").click();
 		}
 	});
 	
