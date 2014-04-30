@@ -2,8 +2,8 @@
 
 define([
 	'backbone', 'localStorage',
-	'models/API', 'models/APIMyWebRSS'
-], function(Backbone, localStorage, APIModel, APIMyWebRSSModel) {
+	'models/API', 'models/APIMyWebRSS', 'models/APIOwnCloud'
+], function(Backbone, localStorage, APIModel, APIMyWebRSSModel, APIOwnCloudModel) {
 	var APIsCollection = Backbone.Collection.extend({
 		localStorage: new Backbone.LocalStorage("APIs"),
 		
@@ -11,6 +11,8 @@ define([
 		model: function(attrs, options) {
 			if(attrs.short_name == "mywebrss")
 				return new APIMyWebRSSModel(attrs, options);
+			else if(attrs.short_name == "owncloud")
+				return new APIOwnCloudModel(attrs, options);
 			else
 				return new APIModel(attrs, options);
 		},

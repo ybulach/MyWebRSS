@@ -35,6 +35,12 @@ define([
 				// Handle the type of authentication
 				if(view.api.attributes.authentication == "persona")
 					navigator.id.request();
+				else if(view.api.attributes.authentication == "credentials")
+				{
+					view.api.login($("#api-username"), $("#api-password"), function(success) {
+						$("#api-login").removeAttr("disabled");
+					});
+				}
 				else
 					$("#api-login").removeAttr("disabled");
 			});
