@@ -1,8 +1,6 @@
 MyWebRSS
 ========
-http://www.mywebrss.net
-
-http://html5.mywebrss.net
+If you don't want to install it, you can use: http://html5.mywebrss.net.
 
 PRESENTATION
 ------------
