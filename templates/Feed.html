@@ -10,7 +10,7 @@
 				<dl>
 					<dt><%= article.title %></dt>
 					<dd>
-						<time><%= article.date %></time>
+						<time><%= (new Date(article.date*1000)).toLocaleString() %></time>
 						
 						<% if(article.feed) { %>
 							- <%= article.feed %>
