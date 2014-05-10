@@ -60,6 +60,17 @@ define([
 				// Handle the type of authentication
 				if(view.api.attributes.authentication == "persona")
 					navigator.id.logout();
+				else if(view.api.attributes.authentication == "credentials")
+				{
+					view.api.logout(function(success) {
+						if(success) {
+							$("#menu-refresh").click();
+							window.location = "#";
+						}
+						else
+							$("#api-logout").removeAttr("disabled");
+					});
+				}
 				else
 					$("#api-logout").removeAttr("disabled");
 			});
