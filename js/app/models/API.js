@@ -38,6 +38,11 @@ define([
 				message = "Bad assertion";
 				navigator.id.logout();
 			}
+			// Wrong credentials
+			else if(error == "credentials") {
+				message = "Authentication failed. Please check your login / password";
+				this.logout(function(success) { });
+			}
 			// Wrong article ID
 			else if(error == "article")
 				message = "This article was not found. Can't end the action";
@@ -49,7 +54,7 @@ define([
 				message = "Can't contact the server. Try again later";
 			// Unknown error
 			else
-				message = "Unknown error: " + error;
+				message = error;
 			
 			(new StatusView()).setMessage("[ERROR] " + this.attributes.name + "<br/>" + message);
 		},
