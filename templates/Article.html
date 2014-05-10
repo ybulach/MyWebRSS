@@ -11,7 +11,7 @@
 	<b>Article date</b>: <time><%= (new Date(date*1000)).toLocaleString() %></time>
 </p>
 
-<% if(image) { %>
+<% if(image && (image !== "http://")) { %>
 	<p><img src="<%= image %>" alt=""/></p>
 <% } %>
 

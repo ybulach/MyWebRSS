@@ -157,7 +157,7 @@ define([
 		feed_delete: function(feed, callback) {
 			if(!this.attributes.loggedIn) {
 				this.throw_error("loggedIn");
-				callback(false, 0);
+				callback(false);
 				return;
 			}
 			
