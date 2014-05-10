@@ -37,8 +37,13 @@ define([
 					navigator.id.request();
 				else if(view.api.attributes.authentication == "credentials")
 				{
-					view.api.login($("#api-username"), $("#api-password"), function(success) {
-						$("#api-login").removeAttr("disabled");
+					view.api.login($("#api-username").val(), $("#api-password").val(), function(success) {
+						if(success) {
+							$("#menu-refresh").click();
+							window.location = "#";
+						}
+						else
+							$("#api-login").removeAttr("disabled");
 					});
 				}
 				else
