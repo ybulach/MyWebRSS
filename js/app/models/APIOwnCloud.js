@@ -67,7 +67,7 @@ define([
 						// Enclosure / image
 						var image = "http://";
 						if(article.enclosureMime.match("^image"))
-							image = article.encloseLink;
+							image = article.enclosureLink;
 						
 						// Create the ArticleModel
 						articles.add(new ArticleModel({
