@@ -64,6 +64,11 @@ define([
 						if(article.unread)
 							status = "new";
 						
+						// Enclosure / image
+						var image = "http://";
+						if(article.enclosureMime.match("^image"))
+							image = article.encloseLink;
+						
 						// Create the ArticleModel
 						articles.add(new ArticleModel({
 							id: article.id,
@@ -72,7 +77,7 @@ define([
 							description: article.body,
 							url: article.url,
 							date: article.pubDate,
-							image: article.enclosureLink,
+							image: image,
 							status: status
 						}));
 					});
