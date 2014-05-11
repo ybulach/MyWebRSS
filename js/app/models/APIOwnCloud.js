@@ -72,6 +72,7 @@ define([
 							description: article.body,
 							url: article.url,
 							date: article.pubDate,
+							image: article.enclosureLink,
 							status: status
 						}));
 					});
