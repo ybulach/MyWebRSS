@@ -9,7 +9,7 @@
 			<li><a href="#" style="pointer-events: none;">No feed in this API</a></li>
 		<% } else { %>
 			<% _.each(feeds, function(feed) { %>
-				<% if(feed.error == 1) { %>
+				<% if(feed.error > 0) { %>
 					<li data-state="tagged" data-tag="C">
 				<% } else if(feed.unread > 0) { %>
 					<li data-state="new">
