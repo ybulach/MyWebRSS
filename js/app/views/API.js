@@ -40,7 +40,7 @@ define([
 					view.api.login($("#api-username").val(), $("#api-password").val(), function(success) {
 						if(success) {
 							$("#menu-refresh").click();
-							window.location = "#";
+							window.location = "#settings";
 						}
 						else
 							$("#api-login").removeAttr("disabled");
@@ -65,7 +65,7 @@ define([
 					view.api.logout(function(success) {
 						if(success) {
 							$("#menu-refresh").click();
-							window.location = "#";
+							window.location = "#settings";
 						}
 						else
 							$("#api-logout").removeAttr("disabled");
