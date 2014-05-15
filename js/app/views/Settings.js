@@ -2,8 +2,8 @@
 
 define([
 	'backbone', 'views/Status', 'text!templates/Settings.html',
-	'models/APIMyWebRSS', 'models/APIOwnCloud'
-], function(Backbone, StatusView, SettingsTemplate, APIMyWebRSSModel, APIOwnCloudModel) {
+	'models/APIMyWebRSS', 'models/APIOwnCloud', 'models/APISelfoss'
+], function(Backbone, StatusView, SettingsTemplate, APIMyWebRSSModel, APIOwnCloudModel, APISelfossModel) {
 	var SettingsView = Backbone.View.extend({
 		el: $("#page"),
 		
@@ -44,6 +44,8 @@ define([
 					url = "https://api.mywebrss.net";
 				else if(api == "owncloud")
 					url = "https://myowncloud.com";
+				else if(api == "selfoss")
+					url = "https://myselfoss.com";
 				
 				// Show the URL only it is needed
 				if(url != "none") {
@@ -71,6 +73,8 @@ define([
 					var api = new APIMyWebRSSModel();
 				else if(short_name == "owncloud")
 					var api = new APIOwnCloudModel();
+				else if(short_name == "selfoss")
+					var api = new APISelfossModel();
 				else
 					return status.setMessage("Can't find a valid handler for this API");
 				api.attributes.url = url;
