@@ -36,10 +36,6 @@ div, p {
 	font-size: 1.5rem;
 }
 
-section #page img {
-	max-width: 100%;
-}
-
 .list-item-large {
 	font-size: 1.5rem;
 	padding: 1rem;
@@ -72,8 +68,8 @@ div[role="main"] img {
 	max-width: 100%;
 }
 div[role="main"] .list li .aside img {
-  max-width: 9.6rem;
-  max-height: 6rem;
+	max-width: 9.6rem;
+	max-height: 6rem;
 }
 
 h1, h2, h3 {
