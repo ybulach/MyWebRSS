@@ -7,7 +7,7 @@ define([
 		defaults: {
 			name: "OwnCloud News API",
 			short_name: "owncloud",
-			url: "https://myowncloud.com",
+			url: "https://mydomain.com/owncloud",
 			loggedIn: "",
 			authentication: "credentials",
 			

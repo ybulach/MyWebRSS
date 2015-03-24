@@ -7,7 +7,7 @@ define([
 		defaults: {
 			name: "Selfoss API",
 			short_name: "selfoss",
-			url: "https://myselfoss.com",
+			url: "https://mydomain.com/selfoss",
 			loggedIn: "",
 			authentication: "credentials",
 			
