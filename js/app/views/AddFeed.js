@@ -80,8 +80,12 @@ define([
 					window.apis.at(api).feed_add($("#addfeed-url").val(), function(success, id) {
 						$("#addfeed-submit").removeAttr("disabled");
 						
-						if(success)
-							window.location = "#feed/" + api + "/" + id;
+						if(success) {
+							if(id > 0)
+								window.location = "#feed/" + api + "/" + id;
+							else
+								window.location = "#";
+						}
 					});
 				}
 			});
