@@ -81,11 +81,15 @@ define([
 					var api = new APITinyTinyRSSModel();
 				else
 					return status.setMessage("Can't find a valid handler for this API");
-				api.attributes.url = url;
 				
 				// Check the URL
 				if(!url)
 					return status.setMessage("Please enter an URL");
+				// Remove trailing slash
+				if(url.substr(-1) == '/') {
+					url = url.substr(0, url.length-1);
+				}
+				api.attributes.url = url;
 				
 				if(window.apis.where({ url: url }).length)
 					return status.setMessage("This URL is already used by an other API");
