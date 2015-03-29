@@ -27,8 +27,10 @@ define([
 		handle_error: function(error) {
 			if(error.status == 401)
 				return "credentials";
-			else
+			else if(error.message)
 				return JSON.parse(error.response).message;
+			else
+				return error;
 		},
 		
 		// Refresh the list of articles
