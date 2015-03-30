@@ -10,7 +10,9 @@ The client side is HTML5 + Javascript, for the best compatibility on mobiles pla
 
 - MyWebRSS (https://github.com/ybulach/MyWebRSS-api)
 - ownCloud News (https://github.com/owncloud/news)
+- selfoss (https://github.com/SSilence/selfoss)
+- Tiny Tiny RSS (https://github.com/gothfox/Tiny-Tiny-RSS)
 
 INSTALLATION
 ------------
-The **html5/** folder needs to be placed in a web server (no need of PHP), and it will work !
+Download a release or clone this repo, place it in a web server (no need of PHP), and it will work !
