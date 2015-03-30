@@ -2,8 +2,8 @@
 // The main app stuff
 
 define([
-	'backbone', 'app/router', 'views/Status', 'collections/APIs'
-], function(Backbone, Router, StatusView, APIsCollection) {
+	'backbone', 'app/router', 'views/Status', 'collections/APIs', 'collections/Articles'
+], function(Backbone, Router, StatusView, APIsCollection, ArticlesCollection) {
 	var initialize = function() {
 		// Configuration
 		window.refresh_interval = 60;
@@ -16,9 +16,12 @@ define([
 		
 		if(!$.localStorage("feed"))
 			$.localStorage("feed", null);
-		
+
 		window.apis = new APIsCollection();
 		apis.fetch();
+		
+		window.articles = new ArticlesCollection();
+		articles.fetch();
 		
 		// Create the Router
 		Router.initialize();
