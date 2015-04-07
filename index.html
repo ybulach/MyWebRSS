@@ -44,11 +44,10 @@
 			</div>
 		</nav>
 		
-		<section role="region" data-state="none">
+		<section role="region" id="main" data-state="none">
 			<!-- Header -->
 			<header>
 				<button id="button-menu"><span class="icon icon-menu">menu</span></button>
-				<button id="button-back"><span class="icon icon-back">back</span></button>
 				<menu type="toolbar">
 					<button id="button-delete"><span class="icon icon-delete">delete</span></button>
 				</menu>
@@ -69,12 +68,30 @@
 			
 			<!-- Footer -->
 			<div role="toolbar">
-				<button class="previous" id="button-previous">previous</button>
-				<button class="next" id="button-next">next</button>
 				<button class="mark" id="button-mark">mark</button>
 				<ul class="end">
 					<li><button class="update" id="button-refresh" data-state="none">update</button></li>
 				</ul>
+			</div>
+		</section>
+
+		<section role="region" id="side" data-state="none">
+			<!-- Header -->
+			<header>
+				<button id="button-back"><span class="icon icon-back">back</span></button>
+				<h1 id="sidepage-title">Loading</h1>
+			</header>
+			
+			<!-- Content -->
+			<div role="main">
+				<section id="sidepage"><h1>Loading</h1></section>
+				<p>&nbsp;</p>
+			</div>
+			
+			<!-- Footer -->
+			<div role="toolbar">
+				<button class="previous" id="button-previous">previous</button>
+				<button class="next" id="button-next">next</button>
 			</div>
 		</section>
 		

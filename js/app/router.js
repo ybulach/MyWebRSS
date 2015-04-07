@@ -5,30 +5,26 @@ define([
 	'backbone',
 	'views/Settings', 'views/API', 'views/AddFeed', 'views/Feed', 'views/Article', 'views/Menu', 'views/About'
 ], function(Backbone, SettingsView, APIView, AddFeedView, FeedView, ArticleView, MenuView, AboutView) {
-	// Create a new view
-	function createView(View) {
-		// Hide buttons and delete all events
-		$("[role=region] button").hide();
-		$("[role=region] button:not(#button-menu)").unbind('click');
-		
-		$("#page-title").html("Loading");
-		$("#page").empty();
-		$("#page").html("<h1>Loading</h1>");
-		
-		var view = new View();
-		view.render();
-		return view;
-	}
-	
-	var AppRouter = Backbone.Router.extend({
+	var Router = Backbone.Router.extend({
+		menuView: null,
+		mainView: null,
+		sideView: null,
+
+		initialize: function() {
+			// The menu is static (in all views)
+			this.menuView = new MenuView();
+
+			Backbone.history.start();
+		},
+
 		routes: {
 			// Define some URL routes
 			'about': 'showAbout',
 			'settings': 'showSettings',
-			'api/:id': 'showAPI',
+			'api/:api': 'showAPI',
 			'addfeed': 'showAddFeed',
-			'feed/:api/:id': 'showFeed',
-			'article/:api/:id': 'showArticle',
+			'feed/:api/:article': 'showFeed',
+			'feed/:api/:feed/:article': 'showArticle',
 			'': 'showHome',
 			
 			// Default page
@@ -40,50 +36,86 @@ define([
 		},
 		
 		showAbout: function() {
-			createView(AboutView);
+			this.cleanViews();
+			this.mainView = new AboutView();
+			this.render();
 		},
 		
 		showSettings: function() {
-			createView(SettingsView);
+			this.cleanViews();
+			this.mainView = new SettingsView();
+			this.render();
 		},
 		
-		showAPI: function(id) {
-			var view = createView(APIView);
-			view.loadAPI(id);
+		showAPI: function(api) {
+			this.cleanViews();
+			if(!this.mainView)
+				this.mainView = new SettingsView();
+			this.sideView = new APIView();
+			this.sideView.loadAPI(api);
+			this.render();
 		},
 		
 		showAddFeed: function() {
-			createView(AddFeedView);
+			this.cleanViews();
+			this.mainView = new AddFeedView();
+			this.render();
 		},
 		
-		showFeed: function(api, id) {
-			var view = createView(FeedView);
-			view.loadFeed(api, id);
+		showFeed: function(api, feed) {
+			this.cleanViews();
+			this.mainView = new FeedView();
+			this.mainView.loadFeed(api, feed);
+			this.render();
 		},
 		
-		showArticle: function(api, id) {
-			var view = createView(ArticleView);
-			view.loadArticle(api, id);
+		showArticle: function(api, feed, article) {
+			this.cleanViews();
+			if(!this.mainView) {
+				this.mainView = new FeedView();
+				this.mainView.loadFeed(api, feed);
+			}
+			this.sideView = new ArticleView();
+			this.sideView.loadArticle(api, feed, article);
+			this.render();
 		},
 		
 		showHome: function() {
-			var view = createView(FeedView);
-			view.loadFeed(null, 0);
+			this.cleanViews();
+			this.mainView = new FeedView();
+			this.mainView.loadFeed(null, 0);
+			this.render();
+		},
+
+		// Clean the views
+		cleanViews: function() {
+			// Hide buttons and delete all events
+			$("[role=region] button").hide();
+			$("[role=region] button:not(#button-menu)").unbind('click');
+
+			if(this.mainView)
+				delete this.mainView;
+			if(this.sideView)
+				delete this.sideView;
+		},
+
+		// Show the result
+		render: function() {
+			if(!this.mainView)
+				return;
+
+			// Main view only
+			if(!this.sideView)
+				$("[role=region]").attr("data-state", "none");
+			// Splitted view
+			else {
+				this.sideView.render();
+				$("[role=region]").attr("data-state", "sidepage");
+			}
+
+			this.mainView.render();
 		}
 	});
 	
-	var initialize = function() {
-		// The menu is static (in all views)
-		window.menuView = new MenuView();
-		
-		// Create the Router
-		var app_router = new AppRouter();
-		Backbone.history.start();
-		
-		return app_router;
-	};
-	
-	return {
-		initialize: initialize
-	};
+	return Router;
 });

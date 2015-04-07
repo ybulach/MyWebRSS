@@ -33,14 +33,38 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 		width: 20%;
 	}
 	
-	body[role="application"] > section[role="region"] {
+	/* Main region */
+	body[role="application"] > section[role="region"]#main,
+	body[role="application"] > section[role="region"]#main [role="toolbar"] {
 		width: 80%;
 		margin-left: 20%;
 	}
+	body[role="application"] > section[role="region"]#main [role="toolbar"] {
+		width: 100%;
+		margin-left: 0;
+	}
+	body[role="application"] section[role="region"][data-state="sidepage"]#main,
+	body[role="application"] section[role="region"][data-state="sidepage"]#main [role="toolbar"] {
+		width: 40%;
+	}
+	body[role="application"] > section[role="region"][data-state="sidepage"]#main [role="toolbar"] {
+		width: 100%;
+	}
 	
-	body[role="application"] > section[role="region"] [role="toolbar"] {
-		width: 80%;
-		margin-left: 20%;
+	/* Side region */
+	body[role="application"] > section[role="region"]#side,
+	body[role="application"] > section[role="region"]#side [role="toolbar"] {
+		border-left: 1px solid black;
+		width: 40%;
+		left: 100%;
+	}
+	body[role="application"] > section[role="region"]#side [role="toolbar"] {
+		width: 100%;
+	}
+	body[role="application"] section[role="region"][data-state="sidepage"]#side,
+	body[role="application"] section[role="region"][data-state="sidepage"]#side [role="toolbar"] {
+		transform: translateX(-100%);
+		-webkit-transform: translateX(-100%);	/* Chrome and Safari */
 	}
 	
 	#button-menu {
@@ -56,18 +80,27 @@ all and (min-device-width: 961px) and (max-device-width: 1280px) and (orientatio
 		transform: translateX(80%);
 		-webkit-transform: translateX(80%);	/* Chrome and Safari */
 	}
-	
+
 	body[role="application"] > nav {
 		width: 80%;
 	}
 	
-	body[role="application"] > section[role="region"] {
+	/* Main region */
+	body[role="application"] > section[role="region"]#main,
+	body[role="application"] > section[role="region"]#main [role="toolbar"] {
 		width: 100%;
 		margin-left: 0;
 	}
-	
-	body[role="application"] > section[role="region"] [role="toolbar"] {
+
+	/* Side region */
+	body[role="application"] > section[role="region"]#side,
+	body[role="application"] > section[role="region"]#side [role="toolbar"] {
 		width: 100%;
-		margin-left: 0;
+		margin-left: 100%;
+	}
+	body[role="application"] section[role="region"][data-state="sidepage"],
+	body[role="application"] section[role="region"][data-state="sidepage"] [role="toolbar"] {
+		transform: translateX(-100%);
+		-webkit-transform: translateX(-100%);	/* Chrome and Safari */
 	}
 }

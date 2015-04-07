@@ -4,7 +4,7 @@ define([
 	'backbone', 'views/Status', 'text!templates/API.html'
 ], function(Backbone, StatusView, APITemplate) {
 	var APIView = Backbone.View.extend({
-		el: $("#page"),
+		el: $("#sidepage"),
 		api: null,
 		
 		initialize: function() {
@@ -23,7 +23,7 @@ define([
 			
 			var view = this;
 			
-			$("#page-title").html(this.api.attributes.name);
+			$("#sidepage-title").html(this.api.attributes.name);
 			this.$el.html(_.template(APITemplate, {api: this.api.toJSON()}));
 			
 			// Login to the API

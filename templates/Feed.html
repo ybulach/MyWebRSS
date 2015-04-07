@@ -1,7 +1,7 @@
 <ul class="list">
 	<% _.each(articles, function(article) { %>
 		<li data-state="<%= article.status %>">
-			<a href="#article/<%= article.api %>/<%= article.id %>">
+			<a href="#feed/<%= article.api %>/<%= feed %>/<%= article.id %>">
 				<em class="aside">
 					<% if(article.image && (article.image !== "http://")) { %>
 						<img src="<%= article.image %>" alt=""/>

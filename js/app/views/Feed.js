@@ -92,7 +92,7 @@ define([
 			$("#button-mark").show();
 			
 			// Show the content
-			var content = _.template(this.template, {articles: window.articles.toJSON()});
+			var content = _.template(this.template, {feed: this.feed, articles: window.articles.toJSON()});
 			
 			if(window.apis.length === 0)
 				content = "<ul class='list'><li data-state='new'><a href='#settings'><dl><dt>No API added yet.</dt><dd>Go to Settings to add one !</dd></dl></a></li></ul>";

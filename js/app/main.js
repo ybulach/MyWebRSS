@@ -24,7 +24,7 @@ define([
 		articles.fetch();
 		
 		// Create the Router
-		Router.initialize();
+		window.router = new Router();
 	}
 	
 	return {

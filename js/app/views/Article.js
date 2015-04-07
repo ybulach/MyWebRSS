@@ -4,9 +4,10 @@ define([
 	'backbone', 'views/Status', 'text!templates/Article.html', 'models/Article'
 ], function(Backbone, StatusView, ArticleTemplate, ArticleModel) {
 	var ArticleView = Backbone.View.extend({
-		el: $("#page"),
+		el: $("#sidepage"),
 		article: null,
 		api: null,
+		feed: null,
 		model: new ArticleModel(),
 		
 		initialize: function() {
@@ -20,8 +21,8 @@ define([
 			// Back to the feed
 			var view = this;
 			$("#button-back").click(function() {
-				if($.localStorage("feed"))
-					window.location = "#feed/" + view.api + "/" + $.localStorage("feed");
+				if(view.feed != 0)
+					window.location = "#feed/" + view.api + "/" + view.feed;
 				else
 					window.location = "#";
 			});
@@ -32,7 +33,7 @@ define([
 			$("#button-next").attr("disabled", "disabled");
 			
 			// Change the content
-			$("#page-title").html($.localStorage("feed_name"));
+			$("#sidepage-title").html(this.model.attributes.feed);
 			this.$el.html(_.template(this.template, this.model.toJSON()));
 			
 			// Handle the previous and next buttons
@@ -48,25 +49,27 @@ define([
 				// Previous button
 				if(i > 0) {
 					$("#button-previous").click(function() {
-						window.location = "#article/" + view.api + "/" + window.articles.at(i-1).attributes.id;
+						window.location = "#feed/" + view.api + "/" + view.feed + "/" + window.articles.at(i-1).attributes.id;
 					});
 					$("#button-previous").removeAttr("disabled", "");
 				}
 				if(i < window.articles.length-1) {
 					$("#button-next").click(function() {
-						window.location = "#article/" + view.api + "/" + window.articles.at(i+1).attributes.id;
+						window.location = "#feed/" + view.api + "/" + view.feed + "/" + window.articles.at(i+1).attributes.id;
+						console.log(window.articles.at(i+1).attributes.id);
 					});
 					$("#button-next").removeAttr("disabled", "");
 				}
 			}
 			
 			// Open the links in the browser
-			$("#page a").attr("target", "_blank");
+			$("#sidepage a").attr("target", "_blank");
 		},
 		
-		loadArticle: function(api, id) {
+		loadArticle: function(api, feed, id) {
 			this.article = id;
 			this.api = api;
+			this.feed = feed;
 			
 			if(api >= window.apis.length)
 				return;
@@ -100,6 +103,9 @@ define([
 						// Change the status of the article in the collection
 						window.articles.models[i].attributes.status = "";
 						window.articles.save();
+
+						// Refresh the views
+						window.router.render();
 					}
 				});
 			}

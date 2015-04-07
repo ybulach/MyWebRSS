@@ -176,3 +176,11 @@ body[role="application"] .list li .aside {
     -webkit-transform: rotate(360deg);
   }
 }
+
+body[role="application"] > section[role="region"] {
+	top: 0px;
+	position: absolute;
+}
+body[role="application"] > section[role="region"] [role="toolbar"] {
+	position: absolute;
+}
