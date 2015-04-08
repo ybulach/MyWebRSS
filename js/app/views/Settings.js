@@ -31,7 +31,7 @@ define([
 				}
 				else {
 					$("#menu-refresh").click();
-					window.menuView.autorefresh();
+					window.router.menuView.autorefresh();
 				}
 			});
 			
