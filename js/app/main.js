@@ -18,10 +18,10 @@ define([
 			$.localStorage("feed", null);
 
 		window.apis = new APIsCollection();
-		apis.fetch();
+		window.apis.fetch();
 		
 		window.articles = new ArticlesCollection();
-		articles.fetch();
+		window.articles.fetch();
 		
 		// Create the Router
 		window.router = new Router();

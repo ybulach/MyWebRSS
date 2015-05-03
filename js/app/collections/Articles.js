@@ -18,6 +18,14 @@ define([
 				article.save();
 			});
 			return this;
+		},
+
+		reset: function(articles) {
+			while(this.length)
+				this.at(0).destroy();
+
+			if(articles)
+				this.add(articles);
 		}
 	});
 	
