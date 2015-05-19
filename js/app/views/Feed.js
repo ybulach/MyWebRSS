@@ -90,7 +90,7 @@ define([
 			$("#button-refresh").attr("data-state", "none");
 			$("#button-refresh").removeAttr("disabled", "");
 			$("#button-mark").show();
-			
+
 			// Show the content
 			var content = _.template(this.template, {feed: this.feed, articles: window.articles.toJSON()});
 			
@@ -152,12 +152,12 @@ define([
 						}
 						else
 							$("#button-more").hide();
-						
-						window.articles.save();
-						view.render();
 					}
 					else if(!window.apis.at(view.api).attributes.loggedIn)
 						window.location = "#";
+					
+					window.articles.save();
+					view.render();
 				});
 			}
 			// Refresh all the feeds
